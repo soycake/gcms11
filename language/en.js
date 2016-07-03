@@ -1,0 +1,12 @@
+var PLEASE_SELECT_AT_LEAST_ONE_ITEM = 'Please select at least one item';
+var UNCHECK = 'uncheck';
+var CHECK = 'check';
+var SELECT_ALL = 'select all';
+var SELECT_NONE = 'select none';
+var PLEASE_FILL_IN = 'Please fill in';
+var CHANGE_COLOR = 'change color';
+var YOU_WANT_TO_DELETE = 'You want to delete ?';
+var YOU_WANT_TO_XXX_THE_SELECTED_ITEMS = 'You want to XXX the selected items ?';
+var PLEASE_SAVE_BEFORE_CONTINUING = 'Please save before continuing';
+var SUCCESSFULLY_UPLOADED_XXX_FILES = 'Successfully uploaded XXX files';
+var THE_TYPE_OF_FILE_IS_INVALID = 'The type of file is invalid';
