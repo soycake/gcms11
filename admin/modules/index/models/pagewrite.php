@@ -89,7 +89,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {
@@ -204,6 +204,10 @@ class Model extends \Kotchasan\Model
               // ใหม่
               if (empty($module_id)) {
                 // โมดูลใหม่
+                $class = ucfirst($module_save['owner']).'\Admin\Settings\Model';
+                if (method_exists($class, 'defaultSettings')) {
+                  $module_save['config'] = serialize($class::defaultSettings());
+                }
                 $module_id = $model->db()->insert($table_modules, $module_save);
               }
               $index_save['member_id'] = $login['id'];
@@ -247,7 +251,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, admin
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {

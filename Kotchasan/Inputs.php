@@ -36,7 +36,9 @@ class Inputs implements \Iterator
   {
     foreach ($items as $key => $value) {
       if (is_array($value)) {
-        $this->datas[$key] = new static($value, $type);
+        foreach ($value as $k => $v) {
+          $this->datas[$k][$key] = InputItem::create($v, $type);
+        }
       } else {
         $this->datas[$key] = InputItem::create($value, $type);
       }
@@ -56,12 +58,32 @@ class Inputs implements \Iterator
     if (method_exists('\Kotchasan\InputItem', $name)) {
       $result = array();
       foreach ($this->datas as $key => $item) {
-        $result[$key] = $item->$name($arguments);
+        $result[$key] = $this->collectInputs($item, $name, $arguments);
       }
       return $result;
     } else {
       throw new \InvalidArgumentException('Method '.$name.' not found');
     }
+  }
+
+  /**
+   * เตรียมผลลัพท์สำหรับ input แบบ array
+   *
+   * @param string $item
+   * @param string $name
+   * @param array $arguments
+   * @return array|object
+   */
+  private function collectInputs($item, $name, $arguments)
+  {
+    if (is_array($item)) {
+      $array = array();
+      foreach ($item as $k => $v) {
+        $array[$k] = $this->collectInputs($v, $name, $arguments);
+      }
+      return $array;
+    }
+    return $item->$name($arguments);
   }
 
   /**

@@ -54,7 +54,7 @@ class View extends \Kotchasan\View
     if (empty($id)) {
       // copy
       $fieldset->add('select', array(
-        'id' => 'copy',
+        'id' => 'lang_copy',
         'labelClass' => 'g-input icon-copy',
         'itemClass' => 'item',
         'label' => Language::get('Copy'),

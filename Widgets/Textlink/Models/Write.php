@@ -29,7 +29,7 @@ class Write extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {

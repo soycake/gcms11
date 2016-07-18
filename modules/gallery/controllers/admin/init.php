@@ -34,7 +34,7 @@ class Controller extends \Kotchasan\Controller
   public static function init($items)
   {
     if (!empty($items)) {
-      // เมนูเขียนเรื่อง
+      // เมนู
       foreach ($items AS $item) {
         Menu::$menus['modules'][$item->module]['write'] = '<a href="index.php?module=gallery-write&amp;mid='.$item->id.'"><span>{LNG_Add New} {LNG_Album}</span></a>';
         Menu::$menus['modules'][$item->module]['setup'] = '<a href="index.php?module=gallery-setup&amp;mid='.$item->id.'"><span>{LNG_Album}</span></a>';

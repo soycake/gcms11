@@ -92,8 +92,8 @@ class View extends \Kotchasan\View
    * @param array $item
    * @return array
    */
-  public function onCreateButton($btn, $item)
+  public function onCreateButton($btn, $attributes, $items)
   {
-    return $btn != 'delete' || $item['email_id'] == 0;
+    return $btn != 'delete' || $items['email_id'] == 0 ? $attributes : false;
   }
 }

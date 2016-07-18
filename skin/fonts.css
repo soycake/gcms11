@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:    url('fonts/icomoon.eot?tpp3l7');
-  src:    url('fonts/icomoon.eot?tpp3l7#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?tpp3l7') format('truetype'),
-    url('fonts/icomoon.woff?tpp3l7') format('woff'),
-    url('fonts/icomoon.svg?tpp3l7#icomoon') format('svg');
+  src:    url('fonts/icomoon.eot?7qicyv');
+  src:    url('fonts/icomoon.eot?7qicyv#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?7qicyv') format('truetype'),
+    url('fonts/icomoon.woff?7qicyv') format('woff'),
+    url('fonts/icomoon.svg?7qicyv#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -34,8 +34,20 @@ li[class^="icon-"], li[class*=" icon-"] {
 a.icon-delete:before, a.icon-edit:before, a.icon-check:before, a.icon-uncheck:before {
   margin: 0;
 }
+.icon-office:before {
+  content: "\e900";
+}
+.icon-excel:before {
+  content: "\e903";
+}
+.icon-pdf:before {
+  content: "\e904";
+}
+.icon-word:before {
+  content: "\e907";
+}
 .icon-sex-m:before {
-  content: "\6d";
+  content: "\e908";
 }
 .icon-sex-f:before {
   content: "\66";
@@ -263,11 +275,8 @@ a.icon-delete:before, a.icon-edit:before, a.icon-check:before, a.icon-uncheck:be
 .icon-event:before {
   content: "\e695";
 }
-.icon-excel:before {
-  content: "\f1c3";
-}
 .icon-exchange:before {
-  content: "\e61e";
+  content: "\f1c3";
 }
 .icon-expand:before {
   content: "\e6a2";
@@ -488,11 +497,8 @@ a.icon-delete:before, a.icon-edit:before, a.icon-check:before, a.icon-uncheck:be
 .icon-paypal:before {
   content: "\e66c";
 }
-.icon-pdf:before {
-  content: "\f1c1";
-}
 .icon-phone:before {
-  content: "\e67b";
+  content: "\f1c1";
 }
 .icon-pie:before {
   content: "\e64d";

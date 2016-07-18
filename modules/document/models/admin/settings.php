@@ -14,7 +14,7 @@ use \Gcms\Gcms;
 use \Kotchasan\File;
 
 /**
- *  บันทึกการตั้งค่า
+ *  การตั้งค่า
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -24,13 +24,41 @@ class Model extends \Kotchasan\Model
 {
 
   /**
+   * ค่าติดตั้งเรื่มต้น
+   *
+   * @return array
+   */
+  public static function defaultSettings()
+  {
+    return array(
+      'icon_width' => 600,
+      'icon_height' => 400,
+      'img_typies' => array('jpg', 'jpeg'),
+      'default_icon' => 'modules/document/img/default_icon.png',
+      'published' => 1,
+      'list_per_page' => 20,
+      'sort' => 1,
+      'new_date' => 604800,
+      'viewing' => 0,
+      'category_display' => 1,
+      'news_count' => 10,
+      'news_sort' => 1,
+      'can_reply' => array(1),
+      'can_view' => array(1),
+      'can_write' => array(1),
+      'moderator' => array(1),
+      'can_config' => array(1)
+    );
+  }
+
+  /**
    * บันทึกข้อมูล config ของโมดูล
    */
   public function save()
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isMember()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isMember()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {

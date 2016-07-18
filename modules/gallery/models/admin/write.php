@@ -26,10 +26,10 @@ class Model extends \Kotchasan\Model
 {
 
   /**
-   * อ่านอัลบัม.
+   * อ่านข้อมูลรายการที่เลือก
    *
    * @param int $module_id ของโมดูล
-   * @param int $id ID ของอัลบัม
+   * @param int $id ID
    * @param boolean $new false (default) คืนค่า ID 0 สำหรับรายการใหม่, true คืนค่า ID ถัดไปสำหรับรายการใหม่
    * @return object|null คืนค่าข้อมูล object ไม่พบคืนค่า null
    */
@@ -104,7 +104,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isMember()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isMember()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {

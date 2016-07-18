@@ -30,7 +30,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, member
-    if ($request->isReferer() && $request->initSession() && $login = Login::isMember()) {
+    if ($request->initSession() && $request->isReferer() && $login = Login::isMember()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {

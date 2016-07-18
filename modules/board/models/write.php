@@ -35,7 +35,7 @@ class Model extends \Kotchasan\Model
    */
   public function save(Request $request)
   {
-    if ($request->isReferer() && $request->initSession()) {
+    if ($request->initSession() && $request->isReferer()) {
       $ret = array();
       // login
       $login = Login::isMember();

@@ -342,16 +342,15 @@ class Request extends AbstractRequest implements RequestInterface
    */
   public function getClientIp()
   {
-    $server = $this->getServerParams();
-    if (isset($server['HTTP_CLIENT_IP'])) {
-      return $server['HTTP_CLIENT_IP'];
-    } elseif (isset($server['HTTP_FORWARDED_FOR'])) {
-      return $server['HTTP_FORWARDED_FOR'];
-    } elseif (isset($server['HTTP_X_FORWARDED_FOR'])) {
-      $IParray = array_filter(explode(',', $server['HTTP_X_FORWARDED_FOR']));
+    if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+      return $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+      return $_SERVER['HTTP_FORWARDED_FOR'];
+    } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      $IParray = array_filter(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
       return $IParray[0];
-    } elseif (isset($server['REMOTE_ADDR'])) {
-      return $server['REMOTE_ADDR'];
+    } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+      return $_SERVER['REMOTE_ADDR'];
     }
     return null;
   }
@@ -378,15 +377,54 @@ class Request extends AbstractRequest implements RequestInterface
   }
 
   /**
+   * ฟังก์ชั่นสร้าง token
+   *
+   * @return string
+   */
+  public function createToken()
+  {
+    $token = md5(uniqid(rand(), true));
+    $_SESSION[$token] = time();
+    return $token;
+  }
+
+  /**
+   * ลบ token
+   */
+  public function removeToken()
+  {
+    $token = $this->globals(array('POST', 'GET'), 'token', null)->toString();
+    if ($token !== null) {
+      unset($_SESSION[$token]);
+    }
+  }
+
+  /**
+   * ฟังก์ชั่น ตรวจสอบ token ที่มาจากฟอร์ม
+   * ถ้าไม่มีจะตรวจสอบจาก Referer
+   * ฟังก์ชั่นนี้ต้องเรียกต่อจาก initSession() เสมอ
+   *
+   * @return boolean คืนค่า true ถ้ามีการ submit มาจากไซต์นี้
+   */
+  public function isSafe()
+  {
+    $token = $this->globals(array('POST', 'GET'), 'token', null)->toString();
+    if ($token !== null) {
+      return isset($_SESSION[$token]) && $this->isReferer();
+    } else {
+      return $this->isReferer();
+    }
+  }
+
+  /**
    * ฟังก์ชั่น ตรวจสอบ referer
    *
    * @return boolean คืนค่า true ถ้า referer มาจากเว็บไซต์นี้
    */
   public function isReferer()
   {
-    $server = $this->getServerParams();
-    $host = empty($server["HTTP_HOST"]) ? $server["SERVER_NAME"] : $server["HTTP_HOST"];
-    $referer = isset($server['HTTP_REFERER']) ? $server['HTTP_REFERER'] : '';
+    $host = empty($_SERVER["HTTP_HOST"]) ? $_SERVER["SERVER_NAME"] : $_SERVER["HTTP_HOST"];
+    $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
     if (preg_match("/$host/ui", $referer)) {
       return true;
     } elseif (preg_match('/^(http(s)?:\/\/)(.*)(\/.*){0,}$/U', WEB_URL, $match)) {
@@ -394,6 +432,16 @@ class Request extends AbstractRequest implements RequestInterface
     } else {
       return false;
     }
+  }
+
+  /**
+   * ตรวจสอบว่าเรียกมาโดย Ajax หรือไม่
+   *
+   * @return boolean true ถ้าเรียกมาจาก Ajax (XMLHttpRequest)
+   */
+  public function isAjax()
+  {
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
   }
 
   /**

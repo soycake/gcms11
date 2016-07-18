@@ -34,7 +34,7 @@ class Index extends \Kotchasan\Model
       ->toArray();
     $result = array('' => '{LNG_all items}');
     foreach ($query->execute() as $item) {
-      $result[$item['name']] = $item['type'];
+      $result[$item['name']] = $item['name'].' ('.$item['type'].')';
     }
     return $result;
   }

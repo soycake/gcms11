@@ -40,6 +40,7 @@ class View extends \Kotchasan\View
     );
     $template = Template::create('member', 'member', 'loginfrm');
     $template->add(array(
+      '/{TOKEN}/' => $request->createToken(),
       '/{EMAIL}/' => Login::$text_username,
       '/{PASSWORD}/' => Login::$text_password,
       '/{REMEMBER}/' => self::$request->cookie('login_remember')->toInt() == 1 ? 'checked' : '',

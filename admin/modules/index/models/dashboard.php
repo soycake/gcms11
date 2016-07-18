@@ -8,7 +8,6 @@
 
 namespace Index\Dashboard;
 
-use \Kotchasan\Login;
 use \Kotchasan\Language;
 
 /**
@@ -45,10 +44,10 @@ class Model extends \Kotchasan\Model
     $db = $this->db();
     $select = array(
       'id',
-      'MONTH(`date`) month',
-      'YEAR(`date`) year',
-      'SUM(`pages_view`) pages_view',
-      'SUM(`visited`) visited',
+      'MONTH(`date`) AS `month`',
+      'YEAR(`date`) AS `year`',
+      'SUM(`pages_view`) AS `pages_view`',
+      'SUM(`visited`) AS `visited`',
       'date'
     );
     $sql1 = $db->createQuery()
@@ -67,8 +66,7 @@ class Model extends \Kotchasan\Model
 
   public function popularpage()
   {
-    $db = $this->db();
-    return $db->createQuery()
+    return $this->db()->createQuery()
         ->select('D.topic', 'I.visited_today')
         ->from('index I')
         ->join('modules M', 'INNER', array(array('M.id', 'I.module_id'), array('M.owner', 'document')))

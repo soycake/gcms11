@@ -37,9 +37,9 @@ class Controller extends \Kotchasan\Controller
         'class' => 'breadcrumbs'
       ));
       $ul = $breadcrumbs->add('ul');
-      $ul->appendChild('<li><span class="icon-modules">'.Language::get('Menus').' &amp; '.Language::get('Web pages').'</span></li>');
-      $ul->appendChild('<li><a href="{BACKURL?module=mods&id=0}">'.Language::get('installed module').'</a></li>');
-      $ul->appendChild('<li><span>'.Language::get('Create').'</span></li>');
+      $ul->appendChild('<li><span class="icon-modules">{LNG_Menus} &amp; {LNG_Web pages}</span></li>');
+      $ul->appendChild('<li><a href="{BACKURL?module=mods&id=0}">{LNG_installed module}</a></li>');
+      $ul->appendChild('<li><span>{LNG_Create}</span></li>');
       $section->add('header', array(
         'innerHTML' => '<h1 class="icon-new">'.$this->title().'</h1>'
       ));

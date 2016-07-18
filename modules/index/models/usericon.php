@@ -23,7 +23,7 @@ class Model extends \Kotchasan\Model
 
   public function index(Request $request)
   {
-    if ($request->isReferer()) {
+    if ($request->initSession() && $request->isReferer()) {
       $user = $this->db()->createQuery()
         ->from('user')
         ->where($request->get('id')->toInt())

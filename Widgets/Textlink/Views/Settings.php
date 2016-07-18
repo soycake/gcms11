@@ -64,7 +64,7 @@ class Settings extends \Kotchasan\View
       /* คอลัมน์ที่ไม่ต้องแสดงผล */
       'hideColumns' => array('id', 'type', 'height', 'link_order'),
       /* เรียงลำดับ */
-      'sort' => 'link_order DESC',
+      'sort' => 'name, link_order ASC',
       /* enable drag row */
       'dragColumn' => 1,
       /* ตั้งค่าการกระทำของของตัวเลือกต่างๆ ด้านล่างตาราง ซึ่งจะใช้ร่วมกับการขีดถูกเลือกแถว */

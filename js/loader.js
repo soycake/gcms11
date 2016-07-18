@@ -86,7 +86,7 @@
       if (this.myhistory.length >= 2) {
         window.location = WEB_URL + 'index.php?' + this.myhistory[this.myhistory.length - 2];
       } else {
-        window.location = WEB_URL + 'index.php';
+        window.history.go(-1);
       }
     }
   };

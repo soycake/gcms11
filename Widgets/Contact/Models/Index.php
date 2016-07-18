@@ -31,7 +31,7 @@ class Index extends \Kotchasan\Model
    */
   public function send(Request $request)
   {
-    if ($request->isReferer() && $request->initSession()) {
+    if ($request->initSession() && $request->isReferer()) {
       // ค่าที่ส่งมา
       $reciever = $request->post('mail_reciever')->topic();
       $sender = $request->post('mail_sender')->topic();

@@ -28,7 +28,7 @@ class Model extends \Kotchasan\Model
    */
   public function email()
   {
-    // referer, session
+    // referer
     if (self::$request->isReferer()) {
       $id = self::$request->post('id')->toInt();
       $value = self::$request->post('value')->toString();
@@ -49,7 +49,7 @@ class Model extends \Kotchasan\Model
    */
   public function phone()
   {
-    // referer, session
+    // referer
     if (self::$request->isReferer()) {
       $id = self::$request->post('id')->toInt();
       $value = self::$request->post('value')->toString();
@@ -71,7 +71,7 @@ class Model extends \Kotchasan\Model
    */
   public function idcard()
   {
-    // referer, session
+    // referer
     if (self::$request->isReferer()) {
       $id = self::$request->post('id')->toInt();
       $value = self::$request->post('value')->toString();
@@ -93,7 +93,7 @@ class Model extends \Kotchasan\Model
    */
   public function displayname()
   {
-    // referer, session
+    // referer
     if (self::$request->isReferer()) {
       $id = self::$request->post('id')->toInt();
       $value = self::$request->post('value')->text();
@@ -114,7 +114,7 @@ class Model extends \Kotchasan\Model
   public function antispam()
   {
     // referer, session
-    if (self::$request->isReferer() && self::$request->initSession()) {
+    if (self::$request->initSession() && self::$request->isReferer()) {
       $antispam = new Antispam(self::$request->post('id')->toString());
       if (!$antispam->valid(self::$request->post('value')->toString())) {
         echo Language::replace('Incorrect :name', array(':name' => Language::get('Antispam')));
@@ -127,7 +127,7 @@ class Model extends \Kotchasan\Model
    */
   public function module()
   {
-    // referer, session
+    // referer
     if (self::$request->isReferer()) {
       $id = self::$request->post('id', 0)->toInt();
       $value = self::$request->post('value')->text();
@@ -173,7 +173,7 @@ class Model extends \Kotchasan\Model
    */
   public static function alias()
   {
-    // referer, session
+    // referer
     if (self::$request->isReferer()) {
       $id = self::$request->post('id')->toInt();
       $value = Gcms::aliasName(self::$request->post('val')->toString());
@@ -192,7 +192,7 @@ class Model extends \Kotchasan\Model
    */
   public static function topic()
   {
-    // referer, session
+    // referer
     if (self::$request->isReferer()) {
       $id = self::$request->post('id')->toInt();
       $lng = self::$request->post('lng')->toString();

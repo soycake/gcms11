@@ -23,13 +23,33 @@ class Model extends \Kotchasan\Model
 {
 
   /**
+   * ค่าติดตั้งเรื่มต้น
+   *
+   * @return array
+   */
+  public static function defaultSettings()
+  {
+    return array(
+      'icon_width' => 400,
+      'icon_height' => 300,
+      'image_width' => 800,
+      'img_typies' => array('jpg', 'jpeg'),
+      'rows' => 3,
+      'cols' => 4,
+      'sort' => 1,
+      'can_write' => array(1),
+      'can_config' => array(1)
+    );
+  }
+
+  /**
    * บันทึกข้อมูล config ของโมดูล
    */
   public function save()
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isMember()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isMember()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {

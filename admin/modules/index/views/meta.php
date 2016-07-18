@@ -10,7 +10,6 @@ namespace Index\Meta;
 
 use \Kotchasan\Html;
 use \Kotchasan\Language;
-use \Kotchasan\Login;
 
 /**
  * ตั้งค่า SEO & Social

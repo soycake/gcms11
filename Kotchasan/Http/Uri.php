@@ -593,10 +593,10 @@ class Uri extends \Kotchasan\KBase implements UriInterface
    * แปลง GET เป็น query string สำหรับการส่งกลับไปหน้าเดิม ที่มาจากการโพสต์ด้วยฟอร์ม
    *
    * @param string $url URL ที่ต้องการส่งกลับ เช่น index.php
-   * @param array $query_string query string ที่ต้องการส่งกลับไปด้วย array('key' => 'value', ...)
+   * @param array $query_string (option) query string ที่ต้องการส่งกลับไปด้วย array('key' => 'value', ...)
    * @return string URL+query string
    */
-  public function getBack($url, $query_string)
+  public function getBack($url, $query_string = array())
   {
     return $this->createBack($url, self::$request->getQueryParams(), $query_string);
   }

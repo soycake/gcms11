@@ -31,7 +31,7 @@ class Model extends \Kotchasan\Model
    */
   public function save(Request $request)
   {
-    if ($request->isReferer() && $request->initSession() && $login = Login::isMember()) {
+    if ($request->initSession() && $request->isReferer() && $login = Login::isMember()) {
       // ค่าที่ส่งมา
       $subject = $request->post('mail_subject')->topic();
       $detail = nl2br($request->post('mail_detail')->textarea());

@@ -9,7 +9,6 @@
 namespace Gallery\View;
 
 use \Kotchasan\Http\Request;
-use \Kotchasan\Login;
 
 /**
  * โมเดลสำหรับแสดงรายการอัลบัม
@@ -45,6 +44,9 @@ class Model extends \Kotchasan\Model
       foreach ($album as $key => $value) {
         $index->$key = $value;
       }
+      // visited
+      $index->visited++;
+      $model->db()->update($model->getTableName('gallery_album'), $index->id, array('visited' => $index->visited));
       // query pictures
       $query = $model->db()->createQuery()
         ->from('gallery G')

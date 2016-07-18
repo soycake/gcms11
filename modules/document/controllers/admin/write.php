@@ -30,9 +30,9 @@ class Controller extends \Kotchasan\Controller
   public function render(Request $request)
   {
     // ค่าที่ส่งมา
-    $id = self::$request->get('id')->toInt();
-    $module_id = self::$request->get('mid')->toInt();
-    $category_id = self::$request->get('cat')->toInt();
+    $id = $request->get('id')->toInt();
+    $module_id = $request->get('mid')->toInt();
+    $category_id = $request->get('cat')->toInt();
     // ตรวจสอบรายการที่เลือก
     $index = \Document\Admin\Write\Model::get($module_id, $id, $category_id);
     // login
@@ -69,14 +69,14 @@ class Controller extends \Kotchasan\Controller
       ));
       foreach ($languages as $item) {
         $ul->add('li', array(
-          'innerHTML' => '<a id=tab_detail_'.$item.' href="{BACKURL?module=document-write&qid='.$index->id.'&tab=detail_'.$item.'}">'.Language::get('Detail').'&nbsp;<img src='.WEB_URL.'language/'.$item.'.gif alt='.$item.'></a>'
+          'innerHTML' => '<a id=tab_detail_'.$item.' href="{BACKURL?module=document-write&qid='.$index->id.'&tab=detail_'.$item.'}">{LNG_Detail}&nbsp;<img src='.WEB_URL.'language/'.$item.'.gif alt='.$item.'></a>'
         ));
       }
       $ul->add('li', array(
-        'innerHTML' => '<a id=tab_options href="{BACKURL?module=document-write&qid='.$index->id.'&tab=options}">'.Language::get('Other details').'</a>'
+        'innerHTML' => '<a id=tab_options href="{BACKURL?module=document-write&qid='.$index->id.'&tab=options}">{LNG_Other details}</a>'
       ));
       if (!$index) {
-        $section->appendChild('<aside class=error>'.Language::get('Can not be performed this request. Because they do not find the information you need or you are not allowed').'</aside>');
+        $section->appendChild('<aside class=error>{LNG_Can not be performed this request. Because they do not find the information you need or you are not allowed}</aside>');
       } else {
         $section->appendChild(createClass('Document\Admin\Write\View')->render($index));
       }

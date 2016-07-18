@@ -26,12 +26,7 @@ class View extends \Kotchasan\View
    *
    * @var object
    */
-  private $index;
-  private $publisheds;
-  private $replies;
   private $thumbnails;
-  private $default_icon;
-  private $categories;
 
   /**
    * ตารางรายการบทความ

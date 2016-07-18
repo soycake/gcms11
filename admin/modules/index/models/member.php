@@ -35,7 +35,7 @@ class Model extends \Kotchasan\Orm\Field
    */
   public function action(Request $request)
   {
-    if ($request->isReferer() && $request->initSession() && $login = Login::isAdmin()) {
+    if ($request->initSession() && $request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         echo Language::get('Unable to complete the transaction');
       } else {

@@ -145,6 +145,12 @@ function defaultSubmit(ds) {
       reload();
     } else if (_location == _url) {
       window.location = decodeURIComponent(_location);
+    } else if (_location == 'back') {
+      if (loader) {
+        loader.back();
+      } else {
+        window.history.go(-1);
+      }
     } else {
       window.location = _location.replace(/&amp;/g, '&');
     }

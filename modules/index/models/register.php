@@ -32,7 +32,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session
-    if ($request->isReferer() && $request->initSession()) {
+    if ($request->initSession() && $request->isReferer()) {
       $antispam = new Antispam($request->post('register_antispamid')->toString());
       if (!$antispam->valid($request->post('register_antispam')->toString())) {
         // Antispam ไม่ถูกต้อง

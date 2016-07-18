@@ -44,20 +44,9 @@ class Model extends \Kotchasan\Model
       return null;
     } else {
       // ค่าติดตั้งเริ่มต้น
-      $default = array(
-        'icon_width' => 400,
-        'icon_height' => 300,
-        'image_width' => 800,
-        'img_typies' => array('jpg', 'jpeg'),
-        'rows' => 3,
-        'cols' => 4,
-        'sort' => 1,
-        'can_write' => array(1),
-        'can_config' => array(1)
-      );
-      $default = ArrayTool::unserialize($index[0]['config'], $default);
+      $config = ArrayTool::unserialize($index[0]['config'], \Gallery\Admin\Settings\Model::defaultSettings());
       unset($index[0]['config']);
-      $index = ArrayTool::merge($default, $index[0]);
+      $index = ArrayTool::merge($config, $index[0]);
       return (object)$index;
     }
   }

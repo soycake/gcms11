@@ -44,7 +44,7 @@ class Model extends \Kotchasan\Model
     // UTF-8
     header("content-type: text/html; charset=UTF-8");
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         // ไม่สามารถดาวน์โหลดได้
         header("HTTP/1.0 404 Not Found");
@@ -153,7 +153,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       // ไฟล์ที่ส่งมา
       $file = $_FILES['import_file'];
       if ($login['email'] == 'demo') {

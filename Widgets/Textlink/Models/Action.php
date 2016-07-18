@@ -24,7 +24,7 @@ class Action extends \Kotchasan\Model
 
   public function get(Request $request)
   {
-    if ($request->isReferer() && $request->initSession() && Login::isAdmin()) {
+    if ($request->initSession() && $request->isReferer() && Login::isAdmin()) {
       // ค่าที่ส่งมา
       $action = $request->post('action')->toString();
       $id = $request->post('id')->filter('0-9,');

@@ -89,7 +89,8 @@ class Model extends \Kotchasan\Model
       $result = $query->toArray()->execute();
       if (sizeof($result) == 1) {
         $result[0]['visited'] ++;
-        $model->db()->update($model->getFullTableName('index'), $result[0]['id'], array('visited' => $result[0]['visited']));
+        $result[0]['visited_today'] ++;
+        $model->db()->update($model->getFullTableName('index'), $result[0]['id'], array('visited' => $result[0]['visited'], 'visited_today' => $result[0]['visited_today']));
         $model->db()->cache()->save($result);
         return (object)$result[0];
       }

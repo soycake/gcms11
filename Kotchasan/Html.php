@@ -245,8 +245,10 @@ class Html extends \Kotchasan\KBase
     $ajax = false;
     $prop = array('method' => 'post');
     $gform = true;
+    $token = false;
     foreach ($attributes as $key => $value) {
-      if ($key === 'ajax' || $key === 'action' || $key === 'onsubmit' || $key === 'confirmsubmit' || $key === 'elements' || $key === 'script' || $key === 'gform') {
+      if ($key === 'ajax' || $key === 'action' || $key === 'onsubmit' || $key === 'confirmsubmit' ||
+        $key === 'elements' || $key === 'script' || $key === 'gform' || $key === 'token') {
         $$key = $value;
       } else {
         $prop[$key] = $value;
@@ -276,6 +278,9 @@ class Html extends \Kotchasan\KBase
     self::$form = new static('form', $prop);
     if (!empty($form_inputs)) {
       self::$form->rows = $form_inputs;
+    }
+    if ($token) {
+      self::$form->rows[] = '<input type="hidden" name="token" value="'.self::$request->createToken().'">';
     }
     if (isset($script)) {
       self::$form->javascript[] = $script;

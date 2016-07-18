@@ -29,7 +29,7 @@ class Model extends \Kotchasan\Model
   public function index(Request $request)
   {
     // ตรวจสอบ Referer
-    if ($request->isReferer() && $request->initSession()) {
+    if ($request->initSession() && $request->isReferer()) {
       // ตัวแปรป้องกันการเรียกหน้าเพจโดยตรง
       define('MAIN_INIT', __FILE__);
       // เวลาปัจจุบัน

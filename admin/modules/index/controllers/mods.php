@@ -8,6 +8,7 @@
 
 namespace Index\Mods;
 
+use \Kotchasan\Http\Request;
 use \Kotchasan\Login;
 use \Kotchasan\Language;
 use \Kotchasan\Html;
@@ -25,7 +26,7 @@ class Controller extends \Kotchasan\Controller
   /**
    * แสดงผล
    */
-  public function render()
+  public function render(Request $request)
   {
     // แอดมิน
     if (Login::isAdmin()) {
@@ -36,8 +37,8 @@ class Controller extends \Kotchasan\Controller
         'class' => 'breadcrumbs'
       ));
       $ul = $breadcrumbs->add('ul');
-      $ul->appendChild('<li><span class="icon-modules">'.Language::get('Menus').' &amp; '.Language::get('Web pages').'</span></li>');
-      $ul->appendChild('<li><span>'.Language::get('installed module').'</span></li>');
+      $ul->appendChild('<li><span class="icon-modules">{LNG_Menus} &amp; {LNG_Web pages}</span></li>');
+      $ul->appendChild('<li><span>{LNG_installed module}</span></li>');
       $section->add('header', array(
         'innerHTML' => '<h1 class="icon-modules">'.$this->title().'</h1>'
       ));

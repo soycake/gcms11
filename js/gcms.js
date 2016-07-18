@@ -214,7 +214,7 @@ function selectMenu(module) {
 }
 function initIndex(id) {
   $G(window).Ready(function () {
-    if (Object.isNull(G_Lightbox)) {
+    if (G_Lightbox === null) {
       G_Lightbox = new GLightbox();
     } else {
       G_Lightbox.clear();
@@ -308,18 +308,18 @@ function setQueryURL(key, value) {
     }
   }
 }
-var fbLogin = function () {
+function fbLogin(token) {
   FB.login(function (response) {
     if (response.authResponse) {
-      var token = response.authResponse.accessToken;
+      var accessToken = response.authResponse.accessToken;
       var uid = response.authResponse.userID;
-      FB.api('/' + uid, {access_token: token, fields: 'id,first_name,last_name,birthday,email,gender,link'}, function (response) {
+      FB.api('/' + uid, {access_token: accessToken, fields: 'id,first_name,last_name,birthday,email,gender,link'}, function (response) {
         if (!response.error) {
           var q = new Array();
           for (var prop in response) {
             q.push(prop + '=' + response[prop]);
           }
-          send(WEB_URL + 'xhr.php/index/model/fblogin/chklogin', 'u=' + encodeURIComponent(getCurrentURL()) + '&data=' + encodeURIComponent(q.join('&')), function (xhr) {
+          send(WEB_URL + 'xhr.php/index/model/fblogin/chklogin', 'u=' + encodeURIComponent(getCurrentURL()) + '&data=' + encodeURIComponent(q.join('&')) + '&token=' + token, function (xhr) {
             var ds = xhr.responseText.toJSON();
             if (ds) {
               if (ds.alert) {
@@ -357,7 +357,7 @@ var fbLogin = function () {
       });
     }
   }, {scope: 'email,user_birthday,public_profile'});
-};
+}
 function initFacebook(appId, lng) {
   window.fbAsyncInit = function () {
     FB.init({

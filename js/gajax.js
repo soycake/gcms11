@@ -1529,10 +1529,11 @@ window.$K = (function () {
       doc.addEvent('keydown', checkESCkey);
       if (!$E(container_div)) {
         var div = doc.createElement('div');
-        doc.body.appendChild(div);
         div.id = container_div;
         div.style.left = '-1000px';
+        div.style.top = '-1000px';
         div.style.position = 'absolute';
+        doc.body.appendChild(div);
         var c = doc.createElement('div');
         div.appendChild(c);
         c.className = this.id;

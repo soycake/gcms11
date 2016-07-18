@@ -86,8 +86,6 @@ class Login extends \Kotchasan\KBase implements LoginInterface
         $datas = self::$request->getCookieParams();
         self::$text_username = isset($datas['login_username']) ? $pw->decode($datas['login_username']) : null;
       }
-    } else {
-      $login->from_submit = true;
     }
     self::$text_username = Text::username(self::$text_username);
     // ค่าที่ส่งมา
@@ -116,7 +114,9 @@ class Login extends \Kotchasan\KBase implements LoginInterface
           self::$login_message = Language::get('Please fill out this form');
           self::$login_input = 'login_password';
         }
-      } else {
+      } elseif (!$login->from_submit || ($login->from_submit && self::$request->isSafe())) {
+        // clear
+        self::$request->removeToken();
         // ตรวจสอบการ login กับฐานข้อมูล
         $login_result = $login->checkLogin(self::$text_username, self::$text_password);
         if (is_string($login_result)) {
@@ -178,10 +178,10 @@ class Login extends \Kotchasan\KBase implements LoginInterface
   {
     $field_name = reset(self::$cfg->login_fields);
     if ($username !== self::$cfg->get($field_name)) {
-      self::$login_input == $field_name;
+      self::$login_input = $field_name;
       return 'not a registered user';
     } elseif ($password !== self::$cfg->get('password')) {
-      self::$login_input == 'password';
+      self::$login_input = 'password';
       return 'password incorrect';
     } else {
       return array(

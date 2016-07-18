@@ -162,6 +162,7 @@ class QueryBuilder extends \Kotchasan\Database\Query
    * @param string $fields รายชื่อฟิล์ด เช่น field1, field2,  ...
    * @return \static
    *
+   * @assert select()->from('user')->groupBy('MONTH(`date`)', 'YEAR(`date`)')->text() [==] 'SELECT * FROM `user` GROUP BY MONTH(`date`), YEAR(`date`)'
    * @assert select()->from('user')->groupBy('U.id')->text() [==] 'SELECT * FROM `user` GROUP BY U.`id`'
    * @assert select()->from('user')->groupBy(array('id', 'username'))->text() [==] 'SELECT * FROM `user` GROUP BY `id`, `username`'
    */
@@ -170,7 +171,9 @@ class QueryBuilder extends \Kotchasan\Database\Query
     $args = is_array($fields) ? $fields : func_get_args();
     $sqls = array();
     foreach ($args as $item) {
-      if (preg_match('/^(([a-z0-9]+)\.)?([a-z0-9_]+)?$/i', $item, $match)) {
+      if (strpos($item, '(') !== false) {
+        $sqls[] = $item;
+      } elseif (preg_match('/^(([a-z0-9]+)\.)?([a-z0-9_]+)?$/i', $item, $match)) {
         $sqls[] = "$match[1]`$match[3]`";
       }
     }

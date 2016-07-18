@@ -44,7 +44,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::adminAccess()) {
+    if (self::$request->initSession() && self::$request->isSafe() && $login = Login::adminAccess()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {
@@ -113,6 +113,8 @@ class Model extends \Kotchasan\Model
             // ข้อผิดพลาดการส่งอีเมล์
             $ret['alert'] = $err;
           }
+          // clear
+          self::$request->removeToken();
         } else {
           // คืนค่า input ตัวแรกที่ error
           $ret['input'] = $input;

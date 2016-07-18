@@ -638,6 +638,8 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
   cursor: pointer;
 }
 input[type="checkbox"],
@@ -711,13 +713,6 @@ fieldset fieldset > legend {
 .g-input[class*="icon"] > select {
   padding-left: 2.5em;
   min-width: 6em;
-}
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  /* webkit only */
-  .g-input[class*="icon"] > select {
-    text-indent: 2.5em;
-    padding-left: 0;
-  }
 }
 .g-input.antispam > input {
   padding-left: 86px;

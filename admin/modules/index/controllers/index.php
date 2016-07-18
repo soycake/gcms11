@@ -34,11 +34,11 @@ class Controller extends \Kotchasan\Controller
     // ตัวแปรป้องกันการเรียกหน้าเพจโดยตรง
     define('MAIN_INIT', __FILE__);
     // session cookie
-    self::$request->initSession();
+    $request->initSession();
     // ตรวจสอบการ login
     Login::create();
     // กำหนด skin ให้กับ template
-    Template::init(self::$request->get('skin', self::$cfg->skin)->toString());
+    Template::init($request->get('skin', self::$cfg->skin)->toString());
     // backend
     Gcms::$view = new \Kotchasan\View;
     if ($login = Login::adminAccess()) {
@@ -48,14 +48,14 @@ class Controller extends \Kotchasan\Controller
       $main = new \Index\Main\Controller;
     } else {
       // forgot or login
-      if (self::$request->request('action')->toString() === 'forgot') {
+      if ($request->request('action')->toString() === 'forgot') {
         $main = new \Index\Forgot\Controller;
       } else {
         $main = new \Index\Login\Controller;
       }
     }
     $languages = array();
-    $uri = self::$request->getUri();
+    $uri = $request->getUri();
     foreach (array_merge(self::$cfg->languages, Language::installedLanguage()) AS $i => $item) {
       $languages[$item] = '<a id=lang_'.$item.' href="'.$uri->withParams(array('lang' => $item), true).'" title="'.Language::get('Language').' '.strtoupper($item).'" style="background-image:url('.WEB_URL.'language/'.$item.'.gif)" tabindex=1>&nbsp;</a>';
     }

@@ -28,7 +28,7 @@ class Model extends \Kotchasan\KBase
    */
   public function clearCache()
   {
-    if (self::$request->isReferer() && Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && Login::isAdmin()) {
       $cahce = new Cache();
       if ($cahce->clear()) {
         $ret = array('alert' => Language::get('Cache cleared successfully'));
@@ -47,7 +47,7 @@ class Model extends \Kotchasan\KBase
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {

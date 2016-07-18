@@ -30,7 +30,7 @@ class Controller extends \Kotchasan\Controller
   public function render(Request $request)
   {
     // ตรวจสอบรายการที่เลือก
-    $index = \Gallery\Admin\Write\Model::get(self::$request->get('mid')->toInt(), self::$request->get('id')->toInt());
+    $index = \Gallery\Admin\Write\Model::get($request->get('mid')->toInt(), $request->get('id')->toInt());
     // login
     $login = Login::isMember();
     // สมาชิกและสามารถตั้งค่าได้

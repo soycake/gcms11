@@ -264,8 +264,6 @@ var indexActionCallback = function (xhr) {
     }
   } else if (xhr.responseText != '') {
     alert(xhr.responseText);
-  } else {
-    window.location.reload();
   }
 };
 function doChangeLanguage(btn, url) {

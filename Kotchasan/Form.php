@@ -150,7 +150,7 @@ class Form extends \Kotchasan\KBase
     if (isset($dataPreview)) {
       $prop['data-preview'] = 'data-preview="'.$dataPreview.'"';
     }
-    if (isset($accept)) {
+    if (isset($accept) && is_array($accept)) {
       $prop['accept'] = 'accept="'.Mime::getEccept($accept).'"';
     }
     $prop = implode(' ', $prop);
@@ -200,7 +200,7 @@ class Form extends \Kotchasan\KBase
   /**
    * สร้าง input, select, textarea สำหรับใส่ลงในฟอร์ม
    *
-   * @param array $param property ของ Input
+   * @param array $attributes property ของ Input
    * id, name, type property ต่างๆของinput
    * options สำหรับ select เท่านั้น เช่น array('value1'=> 'name1', 'value2'=>'name2', ...)
    * label ข้อความแสดงใน label ของ input

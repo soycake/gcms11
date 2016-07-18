@@ -29,7 +29,7 @@ class Model extends \Kotchasan\KBase
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {
@@ -38,7 +38,7 @@ class Model extends \Kotchasan\KBase
         // รับค่าจากการ POST
         $post = array(
           'language_name' => self::$request->post('language_name')->text(),
-          'copy' => self::$request->post('copy')->text(),
+          'copy' => self::$request->post('lang_copy')->text(),
           'language' => self::$request->post('language')->text()
         );
         // ตรวจสอบค่าที่ส่งมา

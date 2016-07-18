@@ -34,6 +34,7 @@ class View extends \Kotchasan\View
         'class' => 'setup_frm',
         'action' => 'index.php/index/model/sendmail/save',
         'onsubmit' => 'doFormSubmit',
+        'token' => true,
         'ajax' => true
     ));
     $fieldset = $form->add('fieldset', array(

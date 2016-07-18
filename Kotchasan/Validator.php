@@ -34,7 +34,7 @@ class Validator extends \Kotchasan\KBase
       // โดเมนภาษาไทย
       $email = $match[1].'@'.idn_to_ascii($match[2]);
     }
-    if (preg_match('/^[a-zA-Z0-9_\-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/sD', $email)) {
+    if (preg_match('/^[a-zA-Z0-9\._\-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/sD', $email)) {
       return true;
     } else {
       return false;

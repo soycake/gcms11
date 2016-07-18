@@ -63,6 +63,7 @@ class View extends \Kotchasan\View
       '/{SUBTITLE}/' => empty(Login::$login_message) ? self::$cfg->web_description : '<span class=error>'.Login::$login_message.'</span>',
       '/{EMAIL}/' => Login::$text_username,
       '/{PASSWORD}/' => Login::$text_password,
+      '/{TOKEN}/' => self::$request->createToken(),
       '/{REMEMBER}/' => self::$request->cookie('login_remember')->toInt() == 1 ? 'checked' : '',
       '/{FACEBOOK}/' => empty(self::$cfg->facebook_appId) ? 'hidden' : 'facebook'
     ));

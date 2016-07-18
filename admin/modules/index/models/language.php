@@ -29,7 +29,7 @@ class Model extends \Kotchasan\KBase
   {
     $ret = array();
     // referer, session, admin
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       // ค่าที่ส่งมา
       $type = self::$request->post('type')->toString();
       $type = $type == 'js' ? 'js' : 'php';

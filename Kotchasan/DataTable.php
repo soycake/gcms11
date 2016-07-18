@@ -542,9 +542,9 @@ class DataTable extends \Kotchasan\KBase
         }
         if (preg_match('/^((.*)\s+)?(icon-[a-z0-9\-_]+)(\s+(.*))?$/', $this->addNew['class'], $match)) {
           $prop['class'] = 'class="'.trim($match[2].' '.(isset($match[5]) ? $match[5] : '')).'"';
-          $table_nav[] = '<a '.implode(' ', $prop).'><span class="'.$match[3].'">'.$this->addNew['text'].'</span></a>';
+          $table_nav[] = '<a '.implode(' ', $prop).'><span class="'.$match[3].'">'.(isset($this->addNew['text']) ? $this->addNew['text'] : '').'</span></a>';
         } else {
-          $table_nav[] = '<a '.implode(' ', $prop).'>'.$this->addNew['text'].'</a>';
+          $table_nav[] = '<a '.implode(' ', $prop).'>'.(isset($this->addNew['text']) ? $this->addNew['text'] : '').'</a>';
         }
       }
       if (!empty($table_nav)) {
@@ -616,11 +616,9 @@ class DataTable extends \Kotchasan\KBase
           $buttons = array();
           foreach ($this->buttons as $btn => $attributes) {
             if (isset($this->onCreateButton)) {
-              $ret = call_user_func($this->onCreateButton, $btn, $items);
-            } else {
-              $ret = true;
+              $attributes = call_user_func($this->onCreateButton, $btn, $attributes, $items);
             }
-            if ($ret !== false) {
+            if ($attributes !== false) {
               $buttons[] = $this->button($btn, $attributes);
             }
           }
@@ -714,7 +712,7 @@ class DataTable extends \Kotchasan\KBase
         $prop[$key] = $key.'="'.$value.'"';
       }
     }
-    if (!empty($properties['text']) && !empty($properties['class']) && preg_match('/(.*)\s?(icon\-[a-z0-9\-_]+)($|\s(.*))/', $properties['class'], $match)) {
+    if (!empty($properties['class']) && preg_match('/(.*)\s?(icon\-[a-z0-9\-_]+)($|\s(.*))/', $properties['class'], $match)) {
       $class = array();
       foreach (array(1, 4)as $i) {
         if (!empty($match[$i])) {
@@ -722,7 +720,7 @@ class DataTable extends \Kotchasan\KBase
         }
       }
       $prop['class'] = 'class="'.implode(' ', $class).'"';
-      return '<a '.implode(' ', $prop).'><span class="'.$match[2].'">'.$properties['text'].'</span></a>';
+      return '<a '.implode(' ', $prop).'><span class="'.$match[2].'">'.(isset($properties['text']) ? $properties['text'] : '').'</span></a>';
     } else {
       return '<a'.(empty($prop) ? '' : ' '.implode(' ', $prop)).'></a>';
     }

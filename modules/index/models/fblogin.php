@@ -25,7 +25,7 @@ class Model extends \Kotchasan\Model
   public function chklogin(Request $request)
   {
     $data = $request->post('data')->toString();
-    if (!empty($data) && $request->initSession() && $request->isReferer()) {
+    if (!empty($data) && $request->initSession() && $request->isSafe()) {
       // สุ่มรหัสผ่านใหม่
       $login_password = Text::rndname(6);
       // ข้อมูลที่ส่งมา
@@ -111,6 +111,8 @@ class Model extends \Kotchasan\Model
           $ret['location'] = 'reload';
         }
       }
+      // clear
+      $request->removeToken();
       // คืนค่าเป็น json
       echo json_encode($ret);
     }

@@ -104,7 +104,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {
@@ -112,10 +112,14 @@ class Model extends \Kotchasan\Model
         $parent = self::$request->post('parent')->toString();
         $id = self::$request->post('id')->toInt();
         $model = new static;
-        $table_menus = $model->getFullTableName('menus');
         if ($action === 'get' && !empty($parent)) {
           // query menu
-          foreach ($model->db()->find($table_menus, array('parent', $parent), array('menu_order')) AS $item) {
+          $query = $model->db()->createQuery()
+            ->select('id', 'level', 'menu_text', 'menu_tooltip')
+            ->from('menus')
+            ->where(array('parent', $parent))
+            ->order('menu_order');
+          foreach ($query->execute() as $item) {
             $text = '';
             for ($i = 0; $i < $item->level; $i++) {
               $text .= '&nbsp;&nbsp;';
@@ -124,6 +128,7 @@ class Model extends \Kotchasan\Model
           }
         } elseif ($action === 'copy' && !empty($id)) {
           // สำเนาเมนู
+          $table_menus = $model->getFullTableName('menus');
           $menu = $model->db()->first($table_menus, $id);
           if ($menu->language == '') {
             $ret['alert'] = Language::get('This entry is displayed in all languages');
@@ -141,11 +146,11 @@ class Model extends \Kotchasan\Model
               $old_lng = $menu->language;
               // แก้ไขรายการเดิมเป็นภาษาใหม่
               $menu->language = $lng;
-              $model->db()->update($model->getFullTableName('menus'), $menu->id, $menu);
+              $model->db()->update($table_menus, $menu->id, $menu);
               unset($menu->id);
               // เพิ่มรายการใหม่จากรายการเดิม
               $menu->language = $old_lng;
-              $model->db()->insert($model->getFullTableName('menus'), $menu);
+              $model->db()->insert($table_menus, $menu);
               $ret['alert'] = Language::get('Copy successfully, you can edit this entry');
             } else {
               $ret['alert'] = Language::get('This entry is in selected language');
@@ -167,7 +172,7 @@ class Model extends \Kotchasan\Model
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {

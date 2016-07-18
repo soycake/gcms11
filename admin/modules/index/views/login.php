@@ -31,6 +31,7 @@ class View extends \Kotchasan\View
         'class' => 'login',
         'autocomplete' => 'off',
         'ajax' => false,
+        'token' => true,
         'action' => '?action=login'
     ));
     // h1

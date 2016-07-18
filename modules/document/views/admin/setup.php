@@ -59,7 +59,7 @@ class View extends \Kotchasan\View
       /* Model */
       'model' => 'Document\Admin\Setup\Model',
       /* รายการต่อหน้า */
-      'perPage' => self::$request->cookie('pages_perPage', 30)->toInt(),
+      'perPage' => self::$request->cookie('document_perPage', 30)->toInt(),
       /* query where */
       'defaultFilters' => array(
         array('P.module_id', (int)$index->module_id),
@@ -90,7 +90,7 @@ class View extends \Kotchasan\View
       'filters' => array(
         'category_id' => array(
           'name' => 'cat',
-          'text' => Language::get('Category'),
+          'text' => '{LNG_Category}',
           'options' => $this->categories,
           'default' => 0,
           'value' => $category_id
@@ -99,29 +99,29 @@ class View extends \Kotchasan\View
       /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */
       'headers' => array(
         'topic' => array(
-          'text' => Language::get('Topic')
+          'text' => '{LNG_Topic}'
         ),
         'picture' => array(
           'text' => '',
           'colspan' => 4
         ),
         'category_id' => array(
-          'text' => Language::get('Category'),
+          'text' => '{LNG_Category}',
           'class' => 'center'
         ),
         'writer' => array(
-          'text' => Language::get('Writer')
+          'text' => '{LNG_Writer}'
         ),
         'create_date' => array(
-          'text' => Language::get('Article Date'),
+          'text' => '{LNG_Article Date}',
           'class' => 'center'
         ),
         'last_update' => array(
-          'text' => Language::get('Last updated'),
+          'text' => '{LNG_Last updated}',
           'class' => 'center'
         ),
         'visited' => array(
-          'text' => Language::get('Viewing'),
+          'text' => '{LNG_Viewing}',
           'class' => 'center'
         )
       ),
@@ -157,18 +157,18 @@ class View extends \Kotchasan\View
         'edit' => array(
           'class' => 'icon-edit button green',
           'href' => $uri->createBackUri(array('module' => 'document-write', 'id' => ':id')),
-          'text' => Language::get('Edit')
+          'text' => '{LNG_Edit}'
         )
       ),
       /* ปุ่มเพิ่ม */
       'addNew' => array(
         'class' => 'button green icon-plus',
         'href' => $uri->createBackUri(array('module' => 'document-write', 'mid' => $index->module_id, 'cat' => $category_id)),
-        'text' => Language::get('Add New').' '.Language::get('Content')
+        'text' => '{LNG_Add New} {LNG_Content}'
       )
     ));
     // save cookie
-    setcookie('pages_perPage', $table->perPage, time() + 3600 * 24 * 365, '/');
+    setcookie('document_perPage', $table->perPage, time() + 3600 * 24 * 365, '/');
     return $table->render();
   }
 
@@ -188,12 +188,8 @@ class View extends \Kotchasan\View
     }
     $item['show_news'] = '<span class="icon-widgets reply'.(preg_match('/news=1/', $item['show_news']) ? 1 : 0).'"></span>';
     $item['create_date'] = Date::format($item['create_date'], 'd M Y H:i');
+    $item['category_id'] = isset($this->categories[$item['category_id']]) ? $this->categories[$item['category_id']] : '{LNG_Uncategorized}';
     $item['last_update'] = Date::format($item['last_update'], 'd M Y H:i');
-    if (isset($this->categories[$item['category_id']])) {
-      $item['category_id'] = '<a href="'.self::$request->getUri()->createBackUri(array('module' => 'document-setup', 'id' => $this->index->module_id, 'cat' => $item['category_id'])).'">'.$this->categories[$item['category_id']].'</a>';
-    } else {
-      $item['category_id'] = '';
-    }
     $item['writer'] = '<span class="status'.$item['status'].'">'.$item['writer'].'</span>';
     $item['can_reply'] = '<a id=can_reply_'.$item['id'].' class="icon-reply reply'.$item['can_reply'].'" title="'.$this->replies[$item['can_reply']].'"></a>';
     $item['published'] = '<a id=published_'.$item['id'].' class="icon-published'.$item['published'].'" title="'.$this->publisheds[$item['published']].'"></a>';

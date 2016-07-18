@@ -29,7 +29,7 @@ class Model extends \Kotchasan\Model
   public function save(Request $request)
   {
     // referer, session
-    if ($request->isReferer() && $request->initSession()) {
+    if ($request->initSession() && $request->isReferer()) {
       $ret = array();
       // ค่าที่ส่งมา
       $email = $request->post('forgot_email')->url();

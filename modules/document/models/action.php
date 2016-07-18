@@ -33,7 +33,7 @@ class Model extends \Kotchasan\Model
    */
   public function view(Request $request)
   {
-    if ($request->isReferer() && $request->initSession() && preg_match('/(quote|edit|delete|deleting|pin|lock|print|pdf)-([0-9]+)-([0-9]+)-([0-9]+)-(.*)$/', $request->post('id')->toString(), $match)) {
+    if ($request->initSession() && $request->isReferer() && preg_match('/(quote|edit|delete|deleting|pin|lock|print|pdf)-([0-9]+)-([0-9]+)-([0-9]+)-(.*)$/', $request->post('id')->toString(), $match)) {
       $action = $match[1];
       $qid = (int)$match[2];
       $rid = (int)$match[3];

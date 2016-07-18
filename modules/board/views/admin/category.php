@@ -8,8 +8,8 @@
 
 namespace Board\Admin\Category;
 
-use \Kotchasan\Language;
 use \Kotchasan\DataTable;
+use \Kotchasan\Language;
 
 /**
  * แสดงรายการหมวดหมู่
@@ -140,10 +140,10 @@ class View extends \Kotchasan\View
     $item['detail'] = $this->unserialize($item['detail']);
     $item['category_id'] = '<label><input type=text class=number size=5 id=categoryid_'.$item['module_id'].'_'.$item['id'].' value="'.$item['category_id'].'" title="'.Language::get('Edit').'"></label>';
     $icons = array(
-      '<span class="icon-newtopic" title="{LNG_Posting} '.$this->cfgToStr($item['can_post']).'"></span>',
-      '<span class="icon-chat reply1" title="{LNG_Comment} '.$this->cfgToStr($item['can_reply']).'"></span>',
-      '<span class="icon-visited color-red" title="{LNG_Viewing} '.$this->cfgToStr($item['can_view']).'"></span>',
-      '<span class="icon-customer color-blue" title="{LNG_Moderator} '.$this->cfgToStr($item['moderator']).'"></span>'
+      empty($item['can_post']) ? '' : '<span class="icon-newtopic" title="{LNG_Posting} '.$this->cfgToStr($item['can_post']).'"></span>',
+      empty($item['can_reply']) ? '' : '<span class="icon-chat reply1" title="{LNG_Comment} '.$this->cfgToStr($item['can_reply']).'"></span>',
+      empty($item['can_view']) ? '' : '<span class="icon-visited color-red" title="{LNG_Viewing} '.$this->cfgToStr($item['can_view']).'"></span>',
+      empty($item['moderator']) ? '' : '<span class="icon-customer color-blue" title="{LNG_Moderator} '.$this->cfgToStr($item['moderator']).'"></span>'
     );
     $item['can_reply'] = '<span class=nowrap>'.implode(' ', $icons).'</span>';
     $item['img_upload_size'] = empty($item['img_upload_type']) ? '' : '{LNG_Type} <b>'.implode(', ', $item['img_upload_type']).'</b> {LNG_File size} <b>'.$item['img_upload_size'].' Kb.</b> '.(isset($this->img_law[$item['img_law']]) ? $this->img_law[$item['img_law']] : '');

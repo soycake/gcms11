@@ -26,7 +26,7 @@ class Model extends \Kotchasan\KBase
   public function action()
   {
     // referer, session, admin
-    if (self::$request->isReferer() && self::$request->initSession() && $login = Login::isAdmin()) {
+    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       // action
       $action = self::$request->post('action')->toString();
       // file debug

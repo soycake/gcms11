@@ -41,9 +41,9 @@ class Controller extends \Kotchasan\Controller
         'class' => 'breadcrumbs'
       ));
       $ul = $breadcrumbs->add('ul');
-      $ul->appendChild('<li><span class="icon-documents">'.Language::get('Module').'</span></li>');
+      $ul->appendChild('<li><span class="icon-documents">{LNG_Module}</span></li>');
       $ul->appendChild('<li><a href="{BACKURL?module=document-settings&mid='.$index->module_id.'}">'.ucfirst($index->module).'</a></li>');
-      $ul->appendChild('<li><span>'.Language::get('Category').'</span></li>');
+      $ul->appendChild('<li><span>{LNG_Category}</span></li>');
       $section->add('header', array(
         'innerHTML' => '<h1 class="icon-category">'.$this->title().'</h1>'
       ));
