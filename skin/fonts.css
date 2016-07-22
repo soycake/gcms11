@@ -55,9 +55,6 @@ a.icon-delete:before, a.icon-edit:before, a.icon-check:before, a.icon-uncheck:be
 .icon-sex:before {
   content: "\67";
 }
-.icon-sex-u:before {
-  content: "\6d";
-}
 .icon-fontfamily:before {
   content: "A";
   font-family: Arial;

@@ -302,7 +302,12 @@ class Form extends \Kotchasan\KBase
   public static function button($attributes = array())
   {
     $obj = new static;
-    $obj->tag = 'input';
+    if (isset($attributes['tag']) && $attributes['tag'] == 'input') {
+      $obj->tag = 'input';
+    } else {
+      $obj->tag = 'button';
+    }
+    unset($attributes['tag']);
     $attributes['type'] = 'button';
     $obj->attributes = $attributes;
     return $obj;
@@ -311,7 +316,12 @@ class Form extends \Kotchasan\KBase
   public static function submit($attributes = array())
   {
     $obj = new static;
-    $obj->tag = 'input';
+    if (isset($attributes['tag']) && $attributes['tag'] == 'input') {
+      $obj->tag = 'input';
+    } else {
+      $obj->tag = 'button';
+    }
+    unset($attributes['tag']);
     $attributes['type'] = 'submit';
     if (isset($attributes['name']) && $attributes['name'] == 'submit') {
       unset($attributes['name']);

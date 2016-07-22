@@ -179,7 +179,7 @@ class View extends \Kotchasan\View
     $item['email'] = '<a href="index.php?module=sendmail&to='.$item['email'].'" class="status'.$item['status'].(empty($item['ban']) ? '' : ' ban').'">'.$item['email'].'</a>';
     $item['create_date'] = Date::format($item['create_date'], 'd M Y');
     $item['lastvisited'] = Date::format($item['lastvisited'], 'd M Y H:i').' ('.number_format($item['visited']).')';
-    $item['sex'] = '<span class=icon-sex-'.(isset($this->sexes[$item['sex']]) ? $item['sex'] : 'u').'></span>';
+    $item['sex'] = '<span class=icon-sex'.(isset($this->sexes[$item['sex']]) ? '-'.$item['sex'] : '').'></span>';
     $item['ban'] = $item['ban'] == 1 ? '<span class="icon-ban ban" title="{LNG_Members were suspended}"></span>' : '<span class="icon-ban"></span>';
     $item['phone1'] = empty($item['phone1']) ? '' : '<a href="tel:'.$item['phone1'].'">'.$item['phone1'].'</a>';
     $item['website'] = empty($item['website']) ? '' : '<a href="http://'.$item['website'].'" target="_blank">'.$item['website'].'</a>';

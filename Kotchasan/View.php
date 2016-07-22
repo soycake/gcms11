@@ -75,6 +75,26 @@ class View extends \Kotchasan\KBase
   }
 
   /**
+   * ใส่ไฟล์ Javascript ลงใน header
+   *
+   * @param string $url
+   */
+  public function addJavascript($url)
+  {
+    $this->metas[$url] = '<script src="'.$url.'"></script>';
+  }
+
+  /**
+   * ใส่ไฟล์ CSS ลงใน header
+   *
+   * @param string $url
+   */
+  public function addCSS($url)
+  {
+    $this->metas[$url] = '<link rel=stylesheet href="'.$url.'">';
+  }
+
+  /**
    * กำหนด header ให้กับเอกสาร
    *
    * @param array $array

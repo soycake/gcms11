@@ -12,6 +12,7 @@ use \Gcms\Gcms;
 use \Gcms\Login;
 use \Kotchasan\Template;
 use \Kotchasan\Http\Request;
+use \Kotchasan\Http\Response;
 
 /**
  * Controller หลัก สำหรับแสดง frontend ของ GCMS
@@ -176,7 +177,8 @@ class Controller extends \Kotchasan\Controller
         '/{LOGO}/' => $image_logo
       ));
     }
-    // output เป็น HTML
-    echo Gcms::$view->renderHTML();
+    // ส่งออก เป็น HTML
+    $response = new Response;
+    $response->setContent(Gcms::$view->renderHTML())->send();
   }
 }

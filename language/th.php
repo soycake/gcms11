@@ -654,4 +654,13 @@ return array(
   'Specify the file extension that allows uploading. English lowercase letters and numbers 2-4 characters to separate each type with a comma (,) and without spaces. eg zip,rar,doc,docx' => 'ระบุนามสกุลของไฟล์ที่ยอมให้อัปโหลด ภาษาอังกฤษตัวพิมพ์เล็กและตัวเลข 2 - 6 ตัวอักษรต่อ 1 ชนิด คั่นแต่ละชนิดด้วย ลูกน้ำ (,) และไม่ต้องมีช่องว่าง เช่น zip,rar,doc,docx',
   'The size of the files can be uploaded. (Should not exceed the value of the Server :upload_max_filesize.)' => 'ขนาดของไฟล์ที่สามารถอัปโหลดได้ (ไม่ควรเกินค่ากำหนดของ Server :upload_max_filesize)',
   'Please select file' => 'กรุณาเลือกไฟล์',
+  'Widgets for controlling and managing the Google Map' => 'กำหนดค่าการแสดงแผนที่กูเกิล',
+  'Determine the size and position of the map' => 'กำหนดขนาดและพิกัดตำแหน่งของแผนที่',
+  'Click Find me button to configure the map to the current location of the computer, or click the Search button to find the approximate location you need.' => 'คลิกที่ปุ่ม Find me เพื่อกำหนดค่าแผนที่ไปยังตำแหน่งที่ตั้งปัจจุบันของเครื่องคอมพิวเตอร์ หรือ คลิกปุ่ม ค้นหา เพื่อค้นหาตำแหน่งใกล้เคียงที่ตั้งที่คุณต้องการ',
+  'Latitude' => 'ละตืจูด',
+  'Longitude' => 'ลองติจูด',
+  'Settings the dialog box shown on the map' => 'กำหนดการแสดงผลของกรอบข้อความที่แสดงบนแผนที่',
+  'Text (HTML) to be displayed at the location of the shop or company' => 'ข้อความ (HTML) ที่จะแสดง ณ. ตำแหน่งที่ตั้งของร้านหรือบริษัท ในรูปกรอบข้อความชี้ไปยังที่ตั้งของร้าน',
+  'Location of the info' => 'พิกัดตำแหน่งของ Info',
+  'Location of the map' => 'พิกัดตำแหน่งของแผนที่'
 );

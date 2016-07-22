@@ -28,7 +28,7 @@ class Write extends \Kotchasan\Controller
   public function render()
   {
     // สมาชิกและสามารถตั้งค่าได้
-    if (Login::isAdmin()) {
+    if (defined('MAIN_INIT') && Login::isAdmin()) {
       // รายการที่ต้องการ
       $index = \Widgets\Textlink\Models\Index::getById(self::$request->get('id')->toInt(), self::$request->get('_name')->topic());
       if ($index) {
@@ -39,23 +39,19 @@ class Write extends \Kotchasan\Controller
           'class' => 'breadcrumbs'
         ));
         $ul = $breadcrumbs->add('ul');
-        $ul->appendChild('<li><span class="icon-widgets">'.Language::get('Widgets').'</span></li>');
-        $ul->appendChild('<li><span>'.Language::get('Text Links').'</span></li>');
-        $ul->appendChild('<li><span>'.Language::get(empty($index->id) ? 'Create' : 'Edit').'</span></li>');
+        $ul->appendChild('<li><span class="icon-widgets">{LNG_Widgets}</span></li>');
+        $ul->appendChild('<li><span>{LNG_Text Links}</span></li>');
+        $ul->appendChild('<li><span>{LNG_'.(empty($index->id) ? 'Create' : 'Edit').'}</span></li>');
         $section->add('header', array(
           'innerHTML' => '<h1 class="icon-ads">'.$this->title().'</h1>'
         ));
         // แสดงฟอร์ม
         $section->appendChild(createClass('Widgets\Textlink\Views\Write')->render($index));
         return $section->render();
-      } else {
-        // 404.html
-        return \Index\Error\Controller::page404();
       }
-    } else {
-      // 404.html
-      return \Index\Error\Controller::page404();
     }
+    // 404.html
+    return \Index\Error\Controller::page404();
   }
 
   /**

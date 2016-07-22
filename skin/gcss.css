@@ -269,7 +269,7 @@ time {
 }
 .icon-published0:before,
 .reply0:before,
-.icon-sex-u:before,
+.icon-sex:before,
 .icon-thumbnail:before,
 .disabled {
   color: #CCC;
@@ -879,7 +879,7 @@ textarea.cke_editable {
   vertical-align: middle;
   white-space: nowrap;
   overflow: hidden;
-  line-height: 2.1em;
+  line-height: 2.3em;
   height: 2.3em;
   padding: 0 0.7em;
   outline: none;

@@ -59,7 +59,7 @@ class Model extends \Kotchasan\KBase
                   if ($v == '') {
                     $v = $languages[$id]['key'];
                   }
-                  $languages[$id]['key'] = strtoupper(trim(preg_replace(array('/[\s_]{1,}/', '/[\?\[\]<>\{\}%]/', '/_$/'), array('_', '', ''), $languages[$id]['key'])));
+                  $languages[$id]['key'] = strtoupper(trim(preg_replace(array('/[\s_\!]{1,}/', '/[\?\[\]<>\{\}%]/', '/_$/'), array('_', '', ''), $languages[$id]['key'])));
                 }
                 $languages[$id][$lng][''] = $v;
               }

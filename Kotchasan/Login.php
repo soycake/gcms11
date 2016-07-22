@@ -69,8 +69,6 @@ class Login extends \Kotchasan\KBase implements LoginInterface
   {
     // create class
     $login = new static;
-    // true ถ้ามาจากการ submit
-    $login->from_submit = self::$request->post('login_password')->exists();
     // การเข้ารหัส
     $pw = new Password(self::$cfg->password_key);
     // ชื่อฟิลด์สำหรับการรับค่าเป็นรายการแรกของ login_fields
@@ -86,6 +84,9 @@ class Login extends \Kotchasan\KBase implements LoginInterface
         $datas = self::$request->getCookieParams();
         self::$text_username = isset($datas['login_username']) ? $pw->decode($datas['login_username']) : null;
       }
+      $login->from_submit = false;
+    } else {
+      $login->from_submit = true;
     }
     self::$text_username = Text::username(self::$text_username);
     // ค่าที่ส่งมา

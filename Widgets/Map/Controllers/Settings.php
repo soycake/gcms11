@@ -1,12 +1,12 @@
 <?php
 /*
- * @filesource Widgets/Textlink/Controllers/Settings.php
+ * @filesource Widgets/Map/Controllers/Settings.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
-namespace Widgets\Textlink\Controllers;
+namespace Widgets\Map\Controllers;
 
 use \Kotchasan\Language;
 use \Kotchasan\Login;
@@ -37,12 +37,12 @@ class Settings extends \Kotchasan\Controller
       ));
       $ul = $breadcrumbs->add('ul');
       $ul->appendChild('<li><span class="icon-widgets">{LNG_Widgets}</span></li>');
-      $ul->appendChild('<li><span>{LNG_Text Links}</span></li>');
+      $ul->appendChild('<li><span>{LNG_Google Map}</span></li>');
       $section->add('header', array(
-        'innerHTML' => '<h1 class="icon-ads">'.$this->title().'</h1>'
+        'innerHTML' => '<h1 class="icon-map">'.$this->title().'</h1>'
       ));
       // แสดงฟอร์ม
-      $section->appendChild(createClass('Widgets\Textlink\Views\Settings')->render());
+      $section->appendChild(createClass('Widgets\Map\Views\Settings')->render());
       return $section->render();
     }
     // 404.html
@@ -54,6 +54,6 @@ class Settings extends \Kotchasan\Controller
    */
   public function title()
   {
-    return Language::get('Widgets for controlling and managing the links or banners');
+    return Language::get('Widgets for controlling and managing the Google Map');
   }
 }
