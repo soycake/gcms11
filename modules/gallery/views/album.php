@@ -78,8 +78,6 @@ class View extends \Gcms\View
     ));
     // คืนค่า
     $index->detail = $template->render();
-    // menu
-    $index->menu = $index->module;
     return $index;
   }
 }

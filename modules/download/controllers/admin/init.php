@@ -25,7 +25,7 @@ class Controller extends \Kotchasan\Controller
    */
   public static function description()
   {
-    return '{LNG_Module Download}';
+    return '{LNG_Module} {LNG_Download file}';
   }
 
   /**
@@ -37,7 +37,7 @@ class Controller extends \Kotchasan\Controller
       // เมนู
       foreach ($items AS $item) {
         Menu::$menus['modules'][$item->module]['write'] = '<a href="index.php?module=download-write&amp;mid='.$item->id.'"><span>{LNG_Add New} {LNG_Download file}</span></a>';
-        Menu::$menus['modules'][$item->module]['setup'] = '<a href="index.php?module=download-setup&amp;mid='.$item->id.'"><span>{LNG_List of download files}</span></a>';
+        Menu::$menus['modules'][$item->module]['setup'] = '<a href="index.php?module=download-setup&amp;mid='.$item->id.'"><span>{LNG_List of} {LNG_Download file}</span></a>';
       }
     }
   }

@@ -39,7 +39,7 @@ class View extends \Kotchasan\KBase
         if ($text != "." && $text != "..") {
           if (is_dir($dir.$text)) {
             if (is_file($dir.$text.'/style.css')) {
-              $data2 .= preg_replace('/url\(img\//isu', 'url('.WEB_URL.$skin.$text.'/img/', file_get_contents($dir.$text.'/style.css'));
+              $data2 .= preg_replace('/url\(img\//isu', 'url('.WEB_URL.$skin.'/'.$text.'/img/', file_get_contents($dir.$text.'/style.css'));
             }
           }
         }

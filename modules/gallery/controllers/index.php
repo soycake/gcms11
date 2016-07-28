@@ -25,15 +25,15 @@ class Controller extends \Kotchasan\Controller
    * Controller หลักของโมดูล ใช้เพื่อตรวจสอบว่าจะเรียกหน้าไหนมาแสดงผล
    *
    * @param Request $request
-   * @param object $module ข้อมูลโมดูลจาก database
+   * @param object $index ข้อมูลโมดูล
    * @return object
    */
-  public function init(Request $request, $module)
+  public function init(Request $request, $index)
   {
     // รายการที่เลือก
     $id = $request->request('id')->toInt();
     // ตรวจสอบโมดูลและอ่านข้อมูลโมดูล
-    $index = \Document\Module\Model::get($request, $module);
+    $index = \Index\Module\Model::getDetails($index);
     if (empty($index)) {
       // 404
       $page = createClass('Index\PageNotFound\Controller')->init($request, 'gallery');

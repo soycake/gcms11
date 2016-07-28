@@ -25,16 +25,16 @@ class Controller extends \Kotchasan\Controller
    * Controller หลักของโมดูล ใช้เพื่อตรวจสอบว่าจะเรียกหน้าไหนมาแสดงผล
    *
    * @param Request $request
-   * @param object $module ข้อมูลโมดูลจาก database
+   * @param object $index ข้อมูลโมดูล
    * @return object
    */
-  public function init(Request $request, $module)
+  public function init(Request $request, $index)
   {
     // รายการที่เลือก
     $id = $request->request('id')->toInt();
     $document = $request->request('alias')->text();
     // ตรวจสอบโมดูลและอ่านข้อมูลโมดูล
-    $index = \Document\Module\Model::get($request, $module);
+    $index = \Document\Module\Model::get($request, $index);
     if (empty($index)) {
       // 404
       $page = createClass('Index\PageNotFound\Controller')->init($request, 'document');
@@ -60,11 +60,11 @@ class Controller extends \Kotchasan\Controller
   }
 
   /**
-   * ฟังก์ชั่นสร้าง URL ของบทความ
+   * ฟังก์ชั่นสร้าง URL
    *
    * @param string $module ชื่อโมดูล
    * @param string $alias alias ของบทความ
-   * @param int $id ID ของบทความ
+   * @param int $id ID
    * @param boolean $encode (option) true=เข้ารหัสด้วย rawurlencode ด้วย (default true)
    * @return string
    */

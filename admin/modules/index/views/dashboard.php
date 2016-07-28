@@ -64,12 +64,12 @@ class View extends \Kotchasan\View
     $content[] = '<table class="summary fullwidth">';
     $content[] = '<caption>{LNG_Overview and summary of this site}</caption>';
     $content[] = '<tbody>';
-    $content[] = '<tr><th scope=row><a href="'.WEB_URL.'/admin/index.php?module=member&amp;order=0">{LNG_Total Members}</a></th><td class=right>'.number_format($counter['members']).' {LNG_people}</td></tr>';
-    $content[] = '<tr class=bg2><th scope=row><a href="'.WEB_URL.'/admin/index.php?module=member&amp;order=2">{LNG_Members who have not confirmed the email}</a></th><td class=right>'.number_format($counter['activate']).' {LNG_people}</td></tr>';
-    $content[] = '<tr><th scope=row><a href="'.WEB_URL.'/admin/index.php?module=member&amp;order=9">{LNG_Members were suspended}</a></th><td class=right>'.number_format($counter['ban']).' {LNG_people}</td></tr>';
+    $content[] = '<tr><th scope=row><a href="'.WEB_URL.'admin/index.php?module=member&amp;sort=id%20desc">{LNG_Total Members}</a></th><td class=right>'.number_format($counter['members']).' {LNG_people}</td></tr>';
+    $content[] = '<tr class=bg2><th scope=row><a href="'.WEB_URL.'admin/index.php?module=member&amp;sort=activatecode%20desc,id%20desc">{LNG_Members who have not confirmed the email}</a></th><td class=right>'.number_format($counter['activate']).' {LNG_people}</td></tr>';
+    $content[] = '<tr><th scope=row><a href="'.WEB_URL.'admin/index.php?module=member&amp;sort=ban%20desc,id%20desc">{LNG_Members were suspended}</a></th><td class=right>'.number_format($counter['ban']).' {LNG_people}</td></tr>';
     $content[] = '<tr class=bg2><th scope=row>{LNG_Visitors total}</th><td class=right>'.number_format($counter['counter']).' {LNG_people}</td></tr>';
     $content[] = '<tr><th scope=row>{LNG_People online}</th><td class=right>'.number_format($counter['useronline']).' {LNG_people}</td></tr>';
-    $content[] = '<tr class=bg2><th scope=row><a href="'.WEB_URL.'/admin/index.php?module=report">{LNG_Visitors today}</a></th><td class=right>'.number_format($counter['visited']).' {LNG_people}</td></tr>';
+    $content[] = '<tr class=bg2><th scope=row><a href="'.WEB_URL.'admin/index.php?module=report">{LNG_Visitors today}</a></th><td class=right>'.number_format($counter['visited']).' {LNG_people}</td></tr>';
     if (is_file(ROOT_PATH.DATA_FOLDER.'index.php')) {
       $date = file_get_contents(ROOT_PATH.DATA_FOLDER.'index.php');
       if (preg_match('/([0-9]+){0,2}-([0-9]+){0,2}-([0-9]+){0,4}\s([0-9]+){0,2}:([0-9]+){0,2}:([0-9]+){0,2}/', $date, $match)) {

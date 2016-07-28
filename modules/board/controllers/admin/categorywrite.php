@@ -10,7 +10,6 @@ namespace Board\Admin\Categorywrite;
 
 use \Kotchasan\Login;
 use \Kotchasan\Html;
-use \Kotchasan\Language;
 use \Gcms\Gcms;
 
 /**
@@ -41,20 +40,19 @@ class Controller extends \Kotchasan\Controller
         'class' => 'breadcrumbs'
       ));
       $ul = $breadcrumbs->add('ul');
-      $ul->appendChild('<li><span class="icon-board">'.Language::get('Module').'</span></li>');
+      $ul->appendChild('<li><span class="icon-board">{LNG_Module}</span></li>');
       $ul->appendChild('<li><a href="{BACKURL?module=board-settings&mid='.$index->module_id.'}">'.ucfirst($index->module).'</a></li>');
-      $ul->appendChild('<li><a href="{BACKURL?module=board-category&mid='.$index->module_id.'}">'.Language::get('Category').'</a></li>');
-      $ul->appendChild('<li><span>'.Language::get(empty($index->id) ? 'Create' : 'Edit').'</span></li>');
+      $ul->appendChild('<li><a href="{BACKURL?module=board-category&mid='.$index->module_id.'}">{LNG_Category}</a></li>');
+      $ul->appendChild('<li><span>{LNG_'.(empty($index->id) ? 'Create' : 'Edit').'}</span></li>');
       $section->add('header', array(
         'innerHTML' => '<h1 class="icon-write">'.$this->title().'</h1>'
       ));
       // แสดงฟอร์ม
       $section->appendChild(createClass('Board\Admin\Categorywrite\View')->render($index));
       return $section->render();
-    } else {
-      // 404.html
-      return \Index\Error\Controller::page404();
     }
+    // 404.html
+    return \Index\Error\Controller::page404();
   }
 
   /**
@@ -62,6 +60,6 @@ class Controller extends \Kotchasan\Controller
    */
   public function title()
   {
-    return Language::get('Create or Edit').' '.Language::get('Category');
+    return '{LNG_Create or Edit} {LNG_Category}';
   }
 }

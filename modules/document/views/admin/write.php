@@ -46,15 +46,16 @@ class View extends \Kotchasan\View
       // รายละเอียดแต่ละภาษา
       $fieldset = $form->add('fieldset', array(
         'id' => 'detail_'.$item,
-        'title' => Language::get('Detail').'&nbsp;<img src='.WEB_URL.'language/'.$item.'.gif alt='.$item.'>'
+        'title' => '{LNG_Detail}&nbsp;<img src='.WEB_URL.'language/'.$item.'.gif alt='.$item.'>'
       ));
       // topic
       $fieldset->add('text', array(
         'id' => 'topic_'.$item,
         'labelClass' => 'g-input icon-edit',
         'itemClass' => 'item',
-        'label' => Language::get('Topic'),
-        'comment' => Language::get('Title or topic of the article 3-255 characters'),
+        'label' => '{LNG_Topic}',
+        'comment' => '{LNG_Title or topic 3 to 255 characters}',
+        'maxlength' => 255,
         'value' => $details->topic
       ));
       // keywords
@@ -62,8 +63,8 @@ class View extends \Kotchasan\View
         'id' => 'keywords_'.$item,
         'labelClass' => 'g-input icon-tags',
         'itemClass' => 'item',
-        'label' => Language::get('Keywords'),
-        'comment' => Language::get('Text keywords for SEO or Search Engine to search'),
+        'label' => '{LNG_Keywords}',
+        'comment' => '{LNG_Text keywords for SEO or Search Engine to search}',
         'value' => $details->keywords
       ));
       // relate
@@ -71,8 +72,8 @@ class View extends \Kotchasan\View
         'id' => 'relate_'.$item,
         'labelClass' => 'g-input icon-edit',
         'itemClass' => 'item',
-        'label' => Language::get('Relate'),
-        'comment' => Language::get('Title or topic of the article 3-255 characters'),
+        'label' => '{LNG_Relate}',
+        'comment' => '{LNG_Title or topic 3 to 255 characters}',
         'value' => $details->relate
       ));
       // description
@@ -80,8 +81,8 @@ class View extends \Kotchasan\View
         'id' => 'description_'.$item,
         'labelClass' => 'g-input icon-file',
         'itemClass' => 'item',
-        'label' => Language::get('Description'),
-        'comment' => Language::get('Text short summary of your story. Which can be used to show in your theme. (If not the program will fill in the contents of the first paragraph)'),
+        'label' => '{LNG_Description}',
+        'comment' => '{LNG_Text short summary of your story. Which can be used to show in your theme. (If not the program will fill in the contents of the first paragraph)}',
         'value' => $details->description
       ));
       // detail
@@ -92,27 +93,27 @@ class View extends \Kotchasan\View
         'language' => Language::name(),
         'toolbar' => 'Document',
         'upload' => true,
-        'label' => Language::get('Detail'),
+        'label' => '{LNG_Detail}',
         'value' => $details->detail
       ));
     }
     // รายละเอียดอื่นๆ
     $fieldset = $form->add('fieldset', array(
       'id' => 'options',
-      'title' => Language::get('Set up or configure other details')
+      'title' => '{LNG_Set up or configure other details}'
     ));
     // alias
     $fieldset->add('text', array(
       'id' => 'alias',
       'labelClass' => 'g-input icon-world',
       'itemClass' => 'item',
-      'label' => Language::get('Alias'),
-      'comment' => Language::get('Used for the URL of the web page (SEO) can use letters, numbers and _ only can not have duplicate names.'),
+      'label' => '{LNG_Alias}',
+      'comment' => '{LNG_Used for the URL of the web page (SEO) can use letters, numbers and _ only can not have duplicate names.}',
       'value' => $index->alias
     ));
     $groups = $fieldset->add('groups-table', array(
-      'label' => Language::get('Article Date'),
-      'comment' => Language::get('The date that the story was written')
+      'label' => '{LNG_Article Date}',
+      'comment' => '{LNG_The date that the story was written}'
     ));
     // create_date
     preg_match('/([0-9]{4,4}\-[0-9]{2,2}\-[0-9]{2,2})\s([0-9]+):([0-9]+)/', date('Y-m-d H:i', $index->create_date), $match);
@@ -131,7 +132,7 @@ class View extends \Kotchasan\View
     $groups->add('select', array(
       'id' => 'create_hour',
       'labelClass' => 'width',
-      'label' => Language::get('Time'),
+      'label' => '{LNG_Time}',
       'options' => $datas,
       'value' => $match[2]
     ));
@@ -161,13 +162,13 @@ class View extends \Kotchasan\View
       'id' => 'picture',
       'labelClass' => 'g-input icon-upload',
       'itemClass' => 'item',
-      'label' => Language::get('Thumbnail'),
-      'comment' => str_replace(array(':type', ':width', ':height'), array(implode(', ', $index->img_typies), $index->icon_width, $index->icon_height), Language::get('Browse image uploaded, type :type size :width*:height pixel (automatic resize)')),
+      'label' => '{LNG_Thumbnail}',
+      'comment' => '{LNG_Browse image uploaded, type :type size :width*:height pixel (automatic resize)}',
       'dataPreview' => 'imgPicture',
       'previewSrc' => $img
     ));
     // หมวดหมู่
-    $categories = array(0 => Language::get('Uncategorized'));
+    $categories = array(0 => '{LNG_Uncategorized}');
     foreach (\Index\Category\Model::categories((int)$index->module_id) as $item) {
       $categories[$item['category_id']] = Gcms::ser2Str($item, 'topic');
     }
@@ -176,8 +177,8 @@ class View extends \Kotchasan\View
       'id' => 'category_'.$index->module_id,
       'name' => 'category_id',
       'labelClass' => 'g-input icon-category',
-      'label' => Language::get('Category'),
-      'comment' => Language::get('Select the category you want'),
+      'label' => '{LNG_Category}',
+      'comment' => '{LNG_Select the category you want}',
       'itemClass' => 'item',
       'options' => $categories,
       'value' => $index->category_id
@@ -187,15 +188,15 @@ class View extends \Kotchasan\View
       'id' => 'can_reply',
       'labelClass' => 'g-input icon-comments',
       'itemClass' => 'item',
-      'label' => Language::get('Comment'),
-      'comment' => Language::get('Comment the story'),
+      'label' => '{LNG_Comment}',
+      'comment' => '{LNG_Comment the story}',
       'options' => Language::get('REPLIES'),
       'value' => $index->can_reply
     ));
     // show_news
     $groups = $fieldset->add('groups-table', array(
-      'label' => Language::get('Display in the widget').' <a href="http://gcms.in.th/index.php?module=howto&id=311" target=_blank class=icon-help></a>',
-      'comment' => Language::get('Use this option if you want a list that is presented in part by itself.')
+      'label' => '{LNG_Display in the widget} <a href="http://gcms.in.th/index.php?module=howto&id=311" target=_blank class=icon-help></a>',
+      'comment' => '{LNG_Use this option if you want a list that is presented in part by itself.}'
     ));
     foreach (Language::get('SHOW_NEWS') as $key => $value) {
       $groups->add('checkbox', array(
@@ -212,8 +213,8 @@ class View extends \Kotchasan\View
       'id' => 'published_date',
       'labelClass' => 'g-input icon-calendar',
       'itemClass' => 'item',
-      'label' => Language::get('Published date'),
-      'comment' => Language::get('The date of publication of this information. The publisher will start automatically when you log on due date'),
+      'label' => '{LNG_Published date}',
+      'comment' => '{LNG_The date of publication of this information. The publisher will start automatically when you log on due date}',
       'value' => $index->published_date
     ));
     // published
@@ -221,8 +222,8 @@ class View extends \Kotchasan\View
       'id' => 'published',
       'labelClass' => 'g-input icon-published1',
       'itemClass' => 'item',
-      'label' => Language::get('Published'),
-      'comment' => Language::get('Publish this item'),
+      'label' => '{LNG_Published}',
+      'comment' => '{LNG_Publish this item}',
       'options' => Language::get('PUBLISHEDS'),
       'value' => $index->published
     ));
@@ -232,13 +233,13 @@ class View extends \Kotchasan\View
     // submit
     $fieldset->add('submit', array(
       'class' => 'button ok large',
-      'value' => Language::get('Save')
+      'value' => '{LNG_Save}'
     ));
     // preview
     $fieldset->add('button', array(
       'id' => 'preview',
       'class' => 'button preview large',
-      'value' => Language::get('Preview')
+      'value' => '{LNG_Preview}'
     ));
     // id
     $fieldset->add('hidden', array(
@@ -262,6 +263,11 @@ class View extends \Kotchasan\View
       'id' => 'tab',
       'value' => $tab
     ));
+    Gcms::$view->setContents(array(
+      '/:type/' => implode(', ', $index->img_typies),
+      '/:width/' => $index->icon_width,
+      '/:height/' => $index->icon_height
+      ), false);
     return $form->render();
   }
 }

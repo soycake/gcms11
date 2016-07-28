@@ -109,7 +109,7 @@ class DataTable extends \Kotchasan\KBase
    *
    * @var array
    */
-  private $actions = array();
+  public $actions = array();
   /**
    * ชื่อฟังก์ชั่น Javascript เรียกหลังจากทำการส่งค่าจาก action ไปประมวลผลแล้ว
    * เช่น doFormSubmit
@@ -234,9 +234,6 @@ class DataTable extends \Kotchasan\KBase
     foreach ($param as $key => $value) {
       $this->$key = $value;
     }
-    if (!empty($this->actions) && $this->checkCol == -1) {
-      $this->checkCol = 1;
-    }
     // รายการต่อหน้า มาจากการเลือกภายในตารง
     $count = self::$request->request('count')->toInt();
     if ($count > 0) {
@@ -252,7 +249,9 @@ class DataTable extends \Kotchasan\KBase
       if ($first === false) {
         if (!empty($this->fields)) {
           foreach ($this->fields as $field) {
-            if (preg_match('/(.*?[`\s]+)?([a-z0-9_]+)`?$/i', $field, $match)) {
+            if (is_array($field)) {
+              $this->columns[$field[1]] = array('text' => $field[1]);
+            } elseif (preg_match('/(.*?[`\s]+)?([a-z0-9_]+)`?$/i', $field, $match)) {
               $this->columns[$match[2]] = array('text' => $match[2]);
             }
           }
@@ -307,6 +306,9 @@ class DataTable extends \Kotchasan\KBase
    */
   public function render()
   {
+    if (!empty($this->actions) && $this->checkCol == -1) {
+      $this->checkCol = 1;
+    }
     $url_query = array();
     $hidden_fields = array();
     foreach (self::$request->getQueryParams() as $key => $value) {

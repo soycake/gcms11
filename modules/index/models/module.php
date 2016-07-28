@@ -115,4 +115,28 @@ class Model extends \Kotchasan\Model
     }
     return empty($module) ? false : (object)$module;
   }
+
+  /**
+   * อ่านรายละเอียดของโมดูล
+   * topic, details, keywords, description
+   *
+   * @param Object $index
+   * @return Object
+   */
+  public static function getDetails($index)
+  {
+    // Model
+    $model = new static;
+    $search = $model->db()->createQuery()
+      ->from('index_detail D')
+      ->join('index I', 'INNER', array(array('I.index', 1), array('I.id', 'D.id'), array('I.module_id', 'D.module_id'), array('I.language', 'D.language')))
+      ->where(array(array('I.module_id', (int)$index->module_id), array('D.language', array(\Kotchasan\Language::name(), ''))))
+      ->cacheOn()
+      ->toArray()
+      ->first('D.topic', 'D.detail', 'D.keywords', 'D.description');
+    foreach ($search as $key => $value) {
+      $index->$key = $value;
+    }
+    return $index;
+  }
 }

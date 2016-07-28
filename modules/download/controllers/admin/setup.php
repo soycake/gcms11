@@ -44,7 +44,7 @@ class Controller extends \Kotchasan\Controller
       $ul = $breadcrumbs->add('ul');
       $ul->appendChild('<li><span class="icon-download">{LNG_Module}</span></li>');
       $ul->appendChild('<li><a href="{BACKURL?module=download-settings&mid='.$index->module_id.'}">'.ucfirst($index->module).'</a></li>');
-      $ul->appendChild('<li><span>{LNG_List of download files}</span></li>');
+      $ul->appendChild('<li><span>{LNG_List of} {LNG_Download file}</span></li>');
       $section->add('header', array(
         'innerHTML' => '<h1 class="icon-list">'.$this->title().'</h1>'
       ));

@@ -25,7 +25,7 @@ class Controller extends \Kotchasan\Controller
    */
   public static function description()
   {
-    return '{LNG_Modules for writing blogs, news or other basic modules that are similar}';
+    return '{LNG_Modules for writing blogs, news or article}';
   }
 
   /**

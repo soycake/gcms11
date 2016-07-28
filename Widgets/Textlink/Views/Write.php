@@ -39,13 +39,13 @@ class Write extends \Kotchasan\View
         'ajax' => true
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => Language::get('Config')
+      'title' => '{LNG_Config}'
     ));
     // name
     $groups = $fieldset->add('groups-table', array(
-      'label' => Language::get('Name'),
+      'label' => '{LNG_Name}',
       'id' => 'name',
-      'comment' => Language::get('Enter the name of Textlink english lowercase letters and numbers. Used for grouping similar position.'),
+      'comment' => '{LNG_Enter the name of Textlink english lowercase letters and numbers. Used for grouping similar position.}',
     ));
     $groups->add('text', array(
       'id' => 'name',
@@ -64,7 +64,7 @@ class Write extends \Kotchasan\View
       'id' => 'description',
       'labelClass' => 'g-input icon-file',
       'itemClass' => 'item',
-      'comment' => Language::get('Notes or short description of the link'),
+      'comment' => '{LNG_Notes or short description of the link}',
       'maxlength' => 49,
       'value' => $index->description
     ));
@@ -78,8 +78,8 @@ class Write extends \Kotchasan\View
       'id' => 'type',
       'labelClass' => 'g-input icon-file',
       'itemClass' => 'item',
-      'label' => Language::get('Type'),
-      'comment' => Language::get('Select the type of link you want, or select the top entry . If you want to link this on their own , such as Adsense.'),
+      'label' => '{LNG_Type}',
+      'comment' => '{LNG_Select the type of link you want, or select the top entry . If you want to link this on their own , such as Adsense.}',
       'options' => $styles,
       'value' => $index->type
     ));
@@ -88,21 +88,21 @@ class Write extends \Kotchasan\View
       'id' => 'template',
       'labelClass' => 'g-input icon-file',
       'itemClass' => 'item',
-      'label' => Language::get('Template'),
-      'comment' => Language::get('Fill HTML code for this link You can choose to enter the code from another source , such as Adsense code or description of the links below.'),
+      'label' => '{LNG_Template}',
+      'comment' => '{LNG_Fill HTML code for this link You can choose to enter the code from another source , such as Adsense code or description of the links below.}',
       'rows' => 5,
       'placeholder' => '<HTML>'
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => Language::get('Detail')
+      'title' => '{LNG_Detail}'
     ));
     // text
     $fieldset->add('text', array(
       'id' => 'text',
       'labelClass' => 'g-input icon-edit',
       'itemClass' => 'item',
-      'label' => Language::get('Text'),
-      'comment' => Language::get('Message on the link can be used to force &lt;br&gt; a new text line'),
+      'label' => '{LNG_Text}',
+      'comment' => '{LNG_Message on the link can be used to force &lt;br&gt; a new text line}',
       'value' => $index->text
     ));
     // url
@@ -110,8 +110,8 @@ class Write extends \Kotchasan\View
       'id' => 'url',
       'labelClass' => 'g-input icon-world',
       'itemClass' => 'item',
-      'label' => Language::get('URL'),
-      'comment' => Language::get('Links for this item, which will open this page when click on it'),
+      'label' => '{LNG_URL}',
+      'comment' => '{LNG_Links for this item, which will open this page when click on it}',
       'value' => $index->url
     ));
     // target
@@ -119,8 +119,8 @@ class Write extends \Kotchasan\View
       'id' => 'target',
       'labelClass' => 'g-input icon-forward',
       'itemClass' => 'item',
-      'label' => Language::get('The opening page of links'),
-      'comment' => Language::get('Determine how to turn the page when a link is clicked'),
+      'label' => '{LNG_The opening page of links}',
+      'comment' => '{LNG_Determine how to turn the page when a link is clicked}',
       'options' => Language::get('MENU_TARGET'),
       'value' => $index->target
     ));
@@ -134,27 +134,27 @@ class Write extends \Kotchasan\View
       'id' => 'logo',
       'labelClass' => 'g-input icon-upload',
       'itemClass' => 'item',
-      'label' => Language::get('Image'),
-      'comment' => Language::get('Upload an image for the link (If you have). Type jpg, gif, png only, uploaded the image should be the same size.'),
+      'label' => '{LNG_Image}',
+      'comment' => '{LNG_Upload an image for the link (If you have). Type jpg, gif, png only, uploaded the image should be the same size.}',
       'dataPreview' => 'imgLogo',
       'previewSrc' => $img
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => Language::get('Publish this item')
+      'title' => '{LNG_Publish this item}'
     ));
     // publish_start
     $fieldset->add('date', array(
       'id' => 'publish_start',
       'labelClass' => 'g-input icon-calendar',
       'itemClass' => 'item',
-      'label' => Language::get('Published date'),
+      'label' => '{LNG_Published date}',
       'value' => date('Y-m-d', $index->publish_start)
     ));
     // publish_end
     $groups = $fieldset->add('groups-table', array(
-      'label' => Language::get('Published close'),
+      'label' => '{LNG_Published close}',
       'id' => 'publish_end',
-      'comment' => Language::get('The date of the start and end of the link. (Links are performed within a given time automatically.)'),
+      'comment' => '{LNG_The date of the start and end of the link. (Links are performed within a given time automatically.)}',
     ));
     $groups->add('date', array(
       'id' => 'publish_end',
@@ -166,7 +166,7 @@ class Write extends \Kotchasan\View
     $groups->add('checkbox', array(
       'id' => 'dateless',
       'itemClass' => 'width',
-      'label' => Language::get('Dateless'),
+      'label' => '{LNG_Dateless}',
       'checked' => $index->publish_end == 0,
       'value' => 1
     ));
@@ -176,7 +176,7 @@ class Write extends \Kotchasan\View
     // submit
     $fieldset->add('submit', array(
       'class' => 'button ok large',
-      'value' => Language::get('Save')
+      'value' => '{LNG_Save}'
     ));
     // id
     $fieldset->add('hidden', array(

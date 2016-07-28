@@ -11,6 +11,7 @@ namespace Document\Admin\Categorywrite;
 use \Kotchasan\Html;
 use \Kotchasan\Language;
 use \Kotchasan\ArrayTool;
+use \Gcms\Gcms;
 
 /**
  * ฟอร์มสร้าง/แก้ไข หมวดหมู่
@@ -40,26 +41,26 @@ class View extends \Kotchasan\View
         'ajax' => true
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => Language::get('Category')
+      'title' => '{LNG_Category}'
     ));
     // category_id
     $fieldset->add('text', array(
       'id' => 'category_id',
       'labelClass' => 'g-input icon-category',
       'itemClass' => 'item',
-      'label' => Language::get('ID'),
-      'comment' => Language::get('The ID of the category, is unique to each category and must be greater than 0.'),
+      'label' => '{LNG_ID}',
+      'comment' => '{LNG_The ID of the category, is unique to each category and must be greater than 0.}',
       'value' => $index->category_id
     ));
     $groups = $fieldset->add('groups', array(
-      'comment' => Language::get('The configuration of the newly added entry only. You can configure it once each.'),
+      'comment' => '{LNG_The configuration of the newly added entry only. You can configure it once each.}',
     ));
     // published
     $groups->add('select', array(
       'id' => 'published',
       'labelClass' => 'g-input icon-published1',
       'itemClass' => 'width50',
-      'label' => Language::get('Published'),
+      'label' => '{LNG_Published}',
       'options' => Language::get('PUBLISHEDS'),
       'value' => $index->published
     ));
@@ -68,7 +69,7 @@ class View extends \Kotchasan\View
       'id' => 'can_reply',
       'labelClass' => 'g-input icon-comments',
       'itemClass' => 'width50',
-      'label' => Language::get('Comment'),
+      'label' => '{LNG_Comment}',
       'options' => Language::get('REPLIES'),
       'value' => $index->can_reply
     ));
@@ -81,7 +82,7 @@ class View extends \Kotchasan\View
     $icon = ArrayTool::unserialize($index->icon);
     foreach (Language::installedLanguage() as $item) {
       $fieldset = $form->add('fieldset', array(
-        'title' => Language::get('Details of').' '.Language::get('Category').' <img src="'.WEB_URL.'/language/'.$item.'.gif" alt="'.$item.'">'
+        'title' => '{LNG_Details of} {LNG_Category} <img src="'.WEB_URL.'/language/'.$item.'.gif" alt="'.$item.'">'
       ));
       // topic
       $fieldset->add('text', array(
@@ -89,8 +90,8 @@ class View extends \Kotchasan\View
         'name' => 'topic['.$item.']',
         'labelClass' => 'g-input icon-edit',
         'itemClass' => 'item',
-        'label' => Language::get('Category'),
-        'comment' => Language::get('The name of the category, less than 50 characters'),
+        'label' => '{LNG_Category}',
+        'comment' => '{LNG_The name of the category, less than 50 characters}',
         'maxlength' => 50,
         'value' => isset($topic[$item]) ? $topic[$item] : (isset($topic['']) && (!$multi_language || ($item == $lng && !isset($topic[$lng]))) ? $topic[''] : '')
       ));
@@ -100,8 +101,8 @@ class View extends \Kotchasan\View
         'name' => 'detail['.$item.']',
         'labelClass' => 'g-input icon-file',
         'itemClass' => 'item',
-        'label' => Language::get('Description'),
-        'comment' => Language::get('Description of this category, less than 255 characters'),
+        'label' => '{LNG_Description}',
+        'comment' => '{LNG_Description of this category, less than 255 characters}',
         'rows' => 3,
         'value' => isset($detail[$item]) ? $detail[$item] : (isset($detail['']) && (!$multi_language || ($item == $lng && !isset($detail[$lng]))) ? $detail[''] : '')
       ));
@@ -117,8 +118,8 @@ class View extends \Kotchasan\View
         'name' => 'icon['.$item.']',
         'labelClass' => 'g-input icon-upload',
         'itemClass' => 'item',
-        'label' => Language::get('Icon'),
-        'comment' => str_replace('%s', 'jpg gif png', Language::get('Image upload types %s only, should be prepared to have the same size')),
+        'label' => '{LNG_Icon}',
+        'comment' => '{LNG_Image upload types :type only, should be prepared to have the same size}',
         'dataPreview' => 'img'.$item,
         'previewSrc' => $img
       ));
@@ -129,7 +130,7 @@ class View extends \Kotchasan\View
     // submit
     $fieldset->add('submit', array(
       'class' => 'button ok large',
-      'value' => Language::get('Save')
+      'value' => '{LNG_Save}'
     ));
     // id
     $fieldset->add('hidden', array(
@@ -141,6 +142,9 @@ class View extends \Kotchasan\View
       'id' => 'module_id',
       'value' => $index->module_id
     ));
+    Gcms::$view->setContents(array(
+      '/:type/' => 'jpg, jpeg, gif, png'
+      ), false);
     return $form->render();
   }
 }

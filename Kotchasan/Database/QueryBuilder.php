@@ -192,7 +192,6 @@ class QueryBuilder extends \Kotchasan\Database\Query
    */
   public function having($condition, $oprator = 'AND')
   {
-
     $ret = $this->buildWhere($condition, $oprator);
     if (is_array($ret)) {
       $this->sqls['having'] = $ret[0];
@@ -470,6 +469,7 @@ class QueryBuilder extends \Kotchasan\Database\Query
    * @assert where(array('(...)', array('fb', '0')))->text() [==] " WHERE (...) AND `fb` = '0'"
    * @assert where(array(array('fb', '0'), '(...)'))->text() [==] " WHERE `fb` = '0' AND (...)"
    * @assert where(array(array('MONTH(create_date)', 1), array('YEAR(create_date)', 1)))->text() [==] " WHERE MONTH(create_date) = 1 AND YEAR(create_date) = 1"
+   * @assert where(array(array('id', array(1, 'a')), array('id', array('G.id', 'G.`id2`'))))->text() [==] " WHERE `id` IN (1, 'a') AND `id` IN (G.`id`, G.`id2`)"
    */
   public function where($condition, $oprator = 'AND', $id = 'id')
   {

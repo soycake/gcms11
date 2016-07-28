@@ -25,7 +25,7 @@ class Controller extends \Kotchasan\Controller
    */
   public static function description()
   {
-    return '{LNG_Module Gallery}';
+    return '{LNG_Module} {LNG_Gallery}';
   }
 
   /**
@@ -37,7 +37,7 @@ class Controller extends \Kotchasan\Controller
       // เมนู
       foreach ($items AS $item) {
         Menu::$menus['modules'][$item->module]['write'] = '<a href="index.php?module=gallery-write&amp;mid='.$item->id.'"><span>{LNG_Add New} {LNG_Album}</span></a>';
-        Menu::$menus['modules'][$item->module]['setup'] = '<a href="index.php?module=gallery-setup&amp;mid='.$item->id.'"><span>{LNG_Album}</span></a>';
+        Menu::$menus['modules'][$item->module]['setup'] = '<a href="index.php?module=gallery-setup&amp;mid='.$item->id.'"><span>{LNG_List of} {LNG_Album}</span></a>';
       }
     }
   }

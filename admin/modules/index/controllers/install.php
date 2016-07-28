@@ -46,7 +46,7 @@ class Controller extends \Kotchasan\Controller
         $ul->appendChild('<li><span class="icon-modules">'.Language::get('Module').'</span></li>');
         $type = 'module';
       } elseif ($widget !== '') {
-        $ul->appendChild('<li><span class="icon-widgets">'.Language::get('Widgets').'</span></li>');
+        $ul->appendChild('<li><span class="icon-widgets">{LNG_Widgets}</span></li>');
         $type = 'widget';
       } else {
         // 404.html

@@ -8,9 +8,9 @@
 
 namespace Board\Admin\Settings;
 
+use \Kotchasan\Http\Request;
 use \Kotchasan\Login;
 use \Kotchasan\Html;
-use \Kotchasan\Language;
 use \Gcms\Gcms;
 
 /**
@@ -26,10 +26,10 @@ class Controller extends \Kotchasan\Controller
   /**
    * แสดงผล
    */
-  public function render()
+  public function render(Request $request)
   {
     // อ่านข้อมูลโมดูล
-    $index = \Board\Admin\Index\Model::module(self::$request->get('mid')->toInt());
+    $index = \Board\Admin\Index\Model::module($request->get('mid')->toInt());
     // login
     $login = Login::isMember();
     // สมาชิกและสามารถตั้งค่าได้
@@ -50,10 +50,9 @@ class Controller extends \Kotchasan\Controller
       // แสดงฟอร์ม
       $section->appendChild(createClass('Board\Admin\Settings\View')->render($index));
       return $section->render();
-    } else {
-      // 404.html
-      return \Index\Error\Controller::page404();
     }
+    // 404.html
+    return \Index\Error\Controller::page404();
   }
 
   /**
@@ -61,6 +60,6 @@ class Controller extends \Kotchasan\Controller
    */
   public function title()
   {
-    return Language::get('Module settings');
+    return '{LNG_Module settings} Board';
   }
 }

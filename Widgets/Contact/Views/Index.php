@@ -9,7 +9,6 @@
 namespace Widgets\Contact\Views;
 
 use \Kotchasan\Html;
-use \Kotchasan\Language;
 use \Kotchasan\Login;
 
 /**
@@ -45,7 +44,7 @@ class Index extends \Kotchasan\View
       'id' => 'mail_reciever',
       'itemClass' => 'item',
       'labelClass' => 'g-input icon-email-sent',
-      'label' => Language::get('Reciever'),
+      'label' => '{LNG_Reciever}',
       'options' => $emails
     ));
     // sender
@@ -54,33 +53,33 @@ class Index extends \Kotchasan\View
       'id' => 'mail_sender',
       'itemClass' => 'item',
       'labelClass' => 'g-input icon-email',
-      'label' => Language::get('Sender'),
+      'label' => '{LNG_Sender}',
       'value' => $login ? $login['email'] : '',
-      'placeholder' => ''.Language::get('Please fill in').' '.Language::get('Sender')
+      'placeholder' => '{LNG_Please fill in} {LNG_Sender}'
     ));
     // subject
     $fieldset->add('text', array(
       'id' => 'mail_subject',
       'itemClass' => 'item',
       'labelClass' => 'g-input icon-edit',
-      'label' => Language::get('Subject'),
-      'placeholder' => ''.Language::get('Please fill in').' '.Language::get('Subject')
+      'label' => '{LNG_Subject}',
+      'placeholder' => '{LNG_Please fill in} {LNG_Subject}'
     ));
     // detail
     $fieldset->add('textarea', array(
       'id' => 'mail_detail',
       'itemClass' => 'item',
       'labelClass' => 'g-input icon-file',
-      'label' => Language::get('Detail'),
+      'label' => '{LNG_Detail}',
       'rows' => 10,
-      'placeholder' => ''.Language::get('Please fill in').' '.Language::get('Detail')
+      'placeholder' => '{LNG_Please fill in} {LNG_Detail}'
     ));
     // antispam
     $fieldset->add('antispam', array(
       'id' => 'mail_antispam',
       'itemClass' => 'item',
       'labelClass' => 'g-input',
-      'placeholder' => Language::get('Please enter the characters you see in the box'),
+      'placeholder' => '{LNG_Please enter the characters you see in the box}',
       'maxlength' => 4
     ));
     $fieldset = $form->add('fieldset', array(
@@ -89,7 +88,7 @@ class Index extends \Kotchasan\View
     // submit
     $fieldset->add('submit', array(
       'class' => 'button ok large',
-      'value' => Language::get('Send message')
+      'value' => '{LNG_Send message}'
     ));
     return $form->render();
   }

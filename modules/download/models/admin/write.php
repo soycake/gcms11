@@ -77,22 +77,21 @@ class Model extends \Kotchasan\Model
         $save = array(
           'name' => self::$request->post('name')->topic(),
           'detail' => self::$request->post('detail')->topic(),
-          'category_id' => self::$request->post('category_id')->toInt(),
           'file' => self::$request->post('file')->topic()
         );
         $id = self::$request->post('id')->toInt();
         // ตรวจสอบรายการที่เลือก
         $index = self::get(self::$request->post('module_id')->toInt(), $id);
         if ($index && Gcms::canConfig($login, $index, 'can_upload')) {
-          $input = false;
+          $error = false;
           // detail
           if ($save['detail'] == '') {
             $ret['ret_detail'] = 'this';
-            $input = !$input ? 'detail' : $input;
+            $error = true;
           } else {
             $ret['ret_detail'] = '';
           }
-          if (!$input) {
+          if (!$error) {
             // อัปโหลดไฟล์
             foreach (self::$request->getUploadedFiles() as $item => $file) {
               /* @var $file UploadedFile */
@@ -100,21 +99,21 @@ class Model extends \Kotchasan\Model
                 if (!File::makeDirectory(ROOT_PATH.DATA_FOLDER.'download/')) {
                   // ไดเรคทอรี่ไม่สามารถสร้างได้
                   $ret['ret_'.$item] = sprintf(Language::get('Directory %s cannot be created or is read-only.'), DATA_FOLDER.'download/');
-                  $input = !$input ? $item : $input;
+                  $error = true;
                 } elseif (!$file->validFileExt($index->file_typies)) {
                   // ชนิดของไฟล์ไม่ถูกต้อง
                   $ret['ret_'.$item] = Language::get('The type of file is invalid');
-                  $input = !$input ? $item : $input;
+                  $error = true;
                 } elseif ($file->getSize() > $index->upload_size) {
                   // ขนาดของไฟล์ใหญ่เกินไป
                   $ret['ret_'.$item] = Language::get('The file size larger than the limit');
-                  $input = !$input ? $item : $input;
+                  $error = true;
                 } else {
                   $save['ext'] = $file->getClientFileExt();
                   $file_name = str_replace('.'.$save['ext'], '', $file->getClientFilename());
                   if ($file_name == '' && $save['name'] == '') {
                     $ret['ret_name'] = 'this';
-                    $input = !$input ? 'name' : $input;
+                    $error = true;
                   } else {
                     // อัปโหลด
                     $save['file'] = DATA_FOLDER.'download/'.Text::rndname(10).'.'.$save['ext'];
@@ -133,18 +132,18 @@ class Model extends \Kotchasan\Model
                     } catch (\Exception $exc) {
                       // ไม่สามารถอัปโหลดได้
                       $ret['ret_'.$item] = Language::get($exc->getMessage());
-                      $input = !$input ? $item : $input;
+                      $error = true;
                     }
                   }
                 }
               } elseif ($id == 0) {
                 // ใหม่ ต้องมีไฟล์
-                $ret['ret_'.$item] = 'Please select file';
-                $input = !$input ? $item : $input;
+                $ret['ret_'.$item] = Language::get('Please select file');
+                $error = true;
               }
             }
           }
-          if (!$input) {
+          if (!$error) {
             $save['last_update'] = time();
             if ($id == 0) {
               // ใหม่
@@ -158,9 +157,7 @@ class Model extends \Kotchasan\Model
             }
             // ส่งค่ากลับ
             $ret['alert'] = Language::get('Saved successfully');
-            $ret['location'] = self::$request->getUri()->postBack('index.php', array('mid' => $index->module_id, 'module' => 'download-setup'));
-          } else {
-            $ret['input'] = $input;
+            $ret['location'] = self::$request->getUri()->postBack('index.php', array('module' => 'download-setup', 'mid' => $index->module_id));
           }
         } else {
           $ret['alert'] = Language::get('Can not be performed this request. Because they do not find the information you need or you are not allowed');

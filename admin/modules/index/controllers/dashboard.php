@@ -36,7 +36,7 @@ class Controller extends \Kotchasan\Controller
         'class' => 'breadcrumbs'
       ));
       $ul = $breadcrumbs->add('ul');
-      $ul->appendChild('<li><span class="icon-home">'.Language::get('Home').'</span></li>');
+      $ul->appendChild('<li><span class="icon-home">{LNG_Home}</span></li>');
       $section->add('header', array(
         'innerHTML' => '<h1 class="icon-dashboard">'.$this->title().'</h1>'
       ));

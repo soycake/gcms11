@@ -104,12 +104,11 @@ class View extends \Gcms\View
     Gcms::$view->addBreadcrumb(Gcms::createUrl($index->module, '', 0, 0, 'wbid='.$index->id), $index->topic);
     // breadcrumb ของหน้า
     $index->canonical = WEB_URL.'index.php?module='.$index->module.'-edit&amp;qid='.$index->id;
-    $topic = Language::get('Edit').' '.Language::get('Posted');
+    $topic = '{LNG_Edit} {LNG_Posted}';
     Gcms::$view->addBreadcrumb($index->canonical, $topic);
     // คืนค่า
     $index->topic = $topic.' - '.$index->topic;
     $index->detail = $template->render();
-    $index->menu = $index->module;
     return $index;
   }
 }

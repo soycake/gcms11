@@ -62,21 +62,6 @@ class View extends \Kotchasan\View
       'maxlength' => 200,
       'value' => isset($index->detail) ? $index->detail : ''
     ));
-    // category_id
-    $categories = array(0 => '{LNG_Uncategorized}');
-    foreach (\Index\Category\Model::categories((int)$index->module_id) as $item) {
-      $categories[$item['category_id']] = Gcms::ser2Str($item, 'topic');
-    }
-    $fieldset->add('select', array(
-      'id' => 'category_'.$index->module_id,
-      'name' => 'category_id',
-      'labelClass' => 'g-input icon-category',
-      'label' => '{LNG_Category}',
-      'comment' => '{LNG_Select the category you want}',
-      'itemClass' => 'item',
-      'options' => $categories,
-      'value' => isset($index->category_id) ? $index->category_id : 0
-    ));
     // file
     $fieldset->add('text', array(
       'id' => 'file',

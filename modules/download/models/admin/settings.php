@@ -32,7 +32,7 @@ class Model extends \Kotchasan\Model
     return array(
       'file_typies' => array('doc', 'ppt', 'pptx', 'docx', 'rar', 'zip', 'jpg', 'pdf'),
       'upload_size' => 2097152,
-      'list_per_page' => 10,
+      'list_per_page' => 20,
       'sort' => 1,
       'can_download' => array(-1, 0, 1),
       'can_upload' => array(1),

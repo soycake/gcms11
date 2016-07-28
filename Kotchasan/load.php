@@ -100,6 +100,7 @@ if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
 } else {
   $host = $_SERVER['HTTP_HOST'];
 }
+
 /**
  * ไดเร็คทอรี่ที่ติดตั้งเว็บไซต์ตั้งแต่ DOCUMENT_ROOT
  * เช่น kotchasan/

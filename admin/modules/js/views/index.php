@@ -37,6 +37,7 @@ class View extends \Kotchasan\KBase
     $js[] = file_get_contents(ROOT_PATH.'js/sorttable.js');
     $js[] = file_get_contents(ROOT_PATH.'js/common.js');
     $js[] = file_get_contents(APP_PATH.'modules/js/views/admin.js');
+    $js[] = file_get_contents(APP_PATH.'modules/js/views/fb.js');
     $lng = Language::name();
     $data_folder = Language::languageFolder();
     if (is_file($data_folder.$lng.'.js')) {

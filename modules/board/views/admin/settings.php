@@ -89,7 +89,7 @@ class View extends \Kotchasan\View
       'previewSrc' => WEB_URL.$index->default_icon
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => Language::get('Display')
+      'title' => '{LNG_Display}'
     ));
     // list_per_page
     $fieldset->add('number', array(
@@ -184,7 +184,7 @@ class View extends \Kotchasan\View
     // img_law
     $fieldset->add('select', array(
       'id' => 'img_law',
-      'labelClass' => 'g-input icon-config',
+      'labelClass' => 'g-input icon-image',
       'itemClass' => 'item',
       'label' => '{LNG_Upload rules}',
       'comment' => '{LNG_The rules for uploading pictures for questions. (Choose the type of files. If is uploaded.)}',
@@ -236,7 +236,7 @@ class View extends \Kotchasan\View
         $check = isset($index->moderator) && is_array($index->moderator) && in_array($i, $index->moderator) ? ' checked' : '';
         $row[] = array(
           'class' => 'center',
-          'text' => $i > 1 ? '<label data-text="{LNG_Moderator}"><input type=checkbox name=moderator[] title="{LNG_Members of this group can edit content written by others}" value='.$i.$check.'></label>' : ''
+          'text' => $i > 1 ? '<label data-text="{LNG_Moderator}"><input type=checkbox name=moderator[] title="{LNG_Members of this group can edit, delete items created by others}" value='.$i.$check.'></label>' : ''
         );
         $check = isset($index->can_config) && is_array($index->can_config) && in_array($i, $index->can_config) ? ' checked' : '';
         $row[] = array(

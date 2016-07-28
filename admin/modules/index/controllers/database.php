@@ -38,8 +38,8 @@ class Controller extends \Kotchasan\Controller
         'class' => 'breadcrumbs'
       ));
       $ul = $breadcrumbs->add('ul');
-      $ul->appendChild('<li><span class="icon-tools">'.Language::get('Tools').'</span></li>');
-      $ul->appendChild('<li><span>'.Language::get('Database').'</span></li>');
+      $ul->appendChild('<li><span class="icon-tools">{LNG_Tools}</span></li>');
+      $ul->appendChild('<li><span>{LNG_Database}</span></li>');
       $section->add('header', array(
         'innerHTML' => '<h1 class="icon-database">'.$this->title().'</h1>'
       ));
@@ -51,10 +51,9 @@ class Controller extends \Kotchasan\Controller
       $div->appendChild($view->export($db));
       $div->appendChild($view->import($db));
       return $section->render();
-    } else {
-      // 404.html
-      return \Index\Error\Controller::page404();
     }
+    // 404.html
+    return \Index\Error\Controller::page404();
   }
 
   /**

@@ -56,34 +56,34 @@ class View extends \Kotchasan\View
         array(
           'id' => 'action',
           'class' => 'ok',
-          'text' => Language::get('With selected'),
+          'text' => '{LNG_With selected}',
           'options' => array(
-            'delete' => Language::get('Delete')
+            'delete' => '{LNG_Delete}'
           )
         )
       ),
       /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */
       'headers' => array(
         'topic' => array(
-          'text' => Language::get('Category')
+          'text' => '{LNG_Category}'
         ),
         'icon' => array(
-          'text' => Language::get('Icon'),
+          'text' => '{LNG_Icon}',
           'class' => 'center'
         ),
         'category_id' => array(
-          'text' => Language::get('ID')
+          'text' => '{LNG_ID}'
         ),
         'published' => array(
-          'text' => Language::get('Status'),
+          'text' => '{LNG_Status}',
           'class' => 'center',
           'colspan' => 2
         ),
         'detail' => array(
-          'text' => Language::get('Description')
+          'text' => '{LNG_Description}'
         ),
         'c1' => array(
-          'text' => Language::get('Contents'),
+          'text' => '{LNG_Contents}',
           'class' => 'center'
         )
       ),
@@ -107,14 +107,14 @@ class View extends \Kotchasan\View
         'edit' => array(
           'class' => 'icon-edit button green',
           'href' => $uri->createBackUri(array('module' => 'document-categorywrite', 'mid' => $index->module_id, 'id' => ':id')),
-          'text' => Language::get('Edit')
+          'text' => '{LNG_Edit}'
         )
       ),
       /* ปุ่มเพิ่ม */
       'addNew' => array(
         'class' => 'button green icon-plus',
         'href' => $uri->createBackUri(array('module' => 'document-categorywrite', 'mid' => $index->module_id)),
-        'text' => Language::get('Add New').' '.Language::get('Category')
+        'text' => '{LNG_Add New} {LNG_Category}'
       )
     ));
     $table->script('initListCategory("index");');
@@ -131,7 +131,7 @@ class View extends \Kotchasan\View
   {
     $item['topic'] = $this->unserialize($item['topic']);
     $item['detail'] = $this->unserialize($item['detail']);
-    $item['category_id'] = '<label><input type=text class=number size=5 id=categoryid_'.$item['module_id'].'_'.$item['id'].' value="'.$item['category_id'].'" title="'.Language::get('Edit').'"></label>';
+    $item['category_id'] = '<label><input type=text class=number size=5 id=categoryid_'.$item['module_id'].'_'.$item['id'].' value="'.$item['category_id'].'" title="{LNG_Edit}"></label>';
     $item['can_reply'] = '<a id=can_reply_'.$item['id'].' class="icon-reply reply'.$item['can_reply'].'" title="'.$this->replies[$item['can_reply']].'"></a>';
     $item['published'] = '<a id=published_'.$item['id'].' class="icon-published'.$item['published'].'" title="'.$this->publisheds[$item['published']].'"></a>';
     return $item;

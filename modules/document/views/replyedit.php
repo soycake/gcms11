@@ -69,7 +69,7 @@ class View extends \Gcms\View
     $index->canonical = WEB_URL.'index.php?module='.$index->module.'-edit&amp;rid='.$index->id;
     Gcms::$view->addBreadcrumb($index->canonical, '{LNG_Edit}');
     // คืนค่า
-    $index->topic = Language::get('Edit').' '.Language::get('comments').' - '.$index->topic;
+    $index->topic = '{LNG_Edit} {LNG_comments} - '.$index->topic;
     $index->detail = $template->render();
     return $index;
   }

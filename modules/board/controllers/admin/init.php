@@ -8,7 +8,6 @@
 
 namespace Board\Admin\Init;
 
-use \Kotchasan\Language;
 
 /**
  * จัดการการตั้งค่าเริ่มต้น
@@ -25,6 +24,6 @@ class Controller extends \Kotchasan\Controller
    */
   public static function description()
   {
-    return Language::get('Module forum');
+    return '{LNG_Module} {LNG_Board}';
   }
 }

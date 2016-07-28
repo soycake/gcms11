@@ -1,12 +1,12 @@
 <?php
 /*
- * @filesource download/views/admin/category.php
+ * @filesource personnel/views/admin/category.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
-namespace Download\Admin\Category;
+namespace Personnel\Admin\Category;
 
 use \Kotchasan\Language;
 use \Kotchasan\DataTable;
@@ -30,7 +30,7 @@ class View extends \Kotchasan\View
   private $languages;
 
   /**
-   * module=download-category
+   * module=personnel-category
    *
    * @param object $index
    * @return string
@@ -44,17 +44,17 @@ class View extends \Kotchasan\View
         'id' => 'setup_frm',
         'class' => 'setup_frm',
         'autocomplete' => 'off',
-        'action' => 'index.php/download/model/admin/category/save',
+        'action' => 'index.php/personnel/model/admin/category/save',
         'onsubmit' => 'doFormSubmit',
         'ajax' => true
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => '{LNG_Details of} {LNG_Category}'
+      'title' => '{LNG_Details of} {LNG_Personnel groups}'
     ));
     // ตารางหมวดหมู่
     $table = new DataTable(array(
       /* ข้อมูลใส่ลงในตาราง */
-      'datas' => \Download\Admin\Category\Model::all((int)$index->module_id),
+      'datas' => \Personnel\Admin\Category\Model::all((int)$index->module_id),
       /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
       'onRow' => array($this, 'onRow'),
       /* คอลัมน์ที่ไม่ต้องแสดงผล */

@@ -183,11 +183,6 @@ class View extends \Kotchasan\View
       'title' => '{LNG_Role of Members}'
     ));
     // สถานะสมาชิก
-    $status = array();
-    $status[-1] = '{LNG_Guest}';
-    foreach (self::$cfg->member_status AS $i => $item) {
-      $status[$i] = $item;
-    }
     $table = new HtmlTable(array(
       'class' => 'responsive config_table'
     ));
@@ -199,7 +194,7 @@ class View extends \Kotchasan\View
       array('text' => '{LNG_Moderator}'),
       array('text' => '{LNG_Settings}')
     ));
-    foreach ($status AS $i => $item) {
+    foreach (\Kotchasan\ArrayTool::merge(array(-1 => '{LNG_Guest}'), self::$cfg->member_status) as $i => $item) {
       $row = array();
       $row[] = array(
         'scope' => 'col',
@@ -223,7 +218,7 @@ class View extends \Kotchasan\View
       $check = isset($index->moderator) && is_array($index->moderator) && in_array($i, $index->moderator) ? ' checked' : '';
       $row[] = array(
         'class' => 'center',
-        'text' => $i > 1 ? '<label data-text="{LNG_Moderator}"><input type=checkbox name=moderator[] title="{LNG_Members of this group can edit content written by others}" value='.$i.$check.'></label>' : ''
+        'text' => $i > 1 ? '<label data-text="{LNG_Moderator}"><input type=checkbox name=moderator[] title="{LNG_Members of this group can edit, delete items created by others}" value='.$i.$check.'></label>' : ''
       );
       $check = isset($index->can_config) && is_array($index->can_config) && in_array($i, $index->can_config) ? ' checked' : '';
       $row[] = array(

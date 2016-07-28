@@ -164,7 +164,7 @@ class Controller extends \Kotchasan\Controller
         ));
       }
       // เมนูหลัก
-      Gcms::$view->setContents(Gcms::$menu->render($page->menu));
+      Gcms::$view->setContents(Gcms::$menu->render(isset($page->menu) ? $page->menu : $page->module));
       // เนื้อหา
       Gcms::$view->setContents(array(
         // content

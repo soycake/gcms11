@@ -8,7 +8,6 @@
 
 namespace Widgets\Textlink\Controllers;
 
-use \Kotchasan\Language;
 use \Kotchasan\Login;
 use \Kotchasan\Html;
 
@@ -59,6 +58,6 @@ class Write extends \Kotchasan\Controller
    */
   public function title()
   {
-    return Language::get('Create or Edit').' '.Language::get('Text Links');
+    return '{LNG_Create or Edit} {LNG_Text Links}';
   }
 }

@@ -91,7 +91,7 @@ class Index extends \Kotchasan\Model
           $ret['input'] = 'mail_detail';
         } else {
           // ส่งอีเมล์
-          $err = Email::custom($reciever, $sender, $subject, $detail);
+          $err = Email::send($reciever, $sender, $subject, $detail);
           if (empty($err)) {
             // เคลียร์ Antispam
             $antispam->delete();

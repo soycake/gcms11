@@ -267,10 +267,10 @@ abstract class Driver extends Query
    * @param string $table_name ชื่อตาราง
    * @return int คืนค่า id ล่าสุดของตาราง
    */
-  public function lastId($table_name)
+  public function getNextId($table_name)
   {
     $result = $this->doCustomQuery("SHOW TABLE STATUS LIKE '$table_name'");
-    return $result && sizeof($result) == 1 ? (int)$result[0]['Auto_increment'] : 0;
+    return $result && sizeof($result) == 1 ? (int)$result[0]['Auto_increment'] : 1;
   }
 
   /**

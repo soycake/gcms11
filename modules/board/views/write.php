@@ -89,7 +89,6 @@ class View extends \Gcms\View
     // คืนค่า
     $index->topic = $topic.' - '.$index->topic;
     $index->detail = $template->render();
-    $index->menu = $index->module;
     return $index;
   }
 }

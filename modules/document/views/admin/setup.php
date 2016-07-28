@@ -47,7 +47,7 @@ class View extends \Kotchasan\View
     $this->replies = Language::get('REPLIES');
     $this->thumbnails = Language::get('THUMBNAILS');
     $this->default_icon = WEB_URL.'/'.$index->default_icon;
-    $this->categories = array(0 => Language::get('all items'));
+    $this->categories = array(0 => '{LNG_all items}');
     foreach (\Index\Category\Model::categories((int)$index->module_id) as $item) {
       $this->categories[$item['category_id']] = Gcms::ser2Str($item, 'topic');
     }
@@ -78,9 +78,9 @@ class View extends \Kotchasan\View
         array(
           'id' => 'action',
           'class' => 'ok',
-          'text' => Language::get('With selected'),
+          'text' => '{LNG_With selected}',
           'options' => array(
-            'delete' => Language::get('Delete')
+            'delete' => '{LNG_Delete}'
           )
         )
       ),

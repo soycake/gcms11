@@ -1,11 +1,21 @@
-<article class=item>
-  <p>
-  <h6 title="{LNG_DOWNLOAD_NAME}">{NAME}.{EXT}</h6>
-  <img alt="{EXT}" src="{ICON}">
-  </p>
-  <p class=description>{DETAIL}</p>
-  <footer>
-    <a class=icon-download id=download-{ID} title="{LNG_DOWNLOAD}"></a>
-                              <span class=reaction>{{LNG_DOWNLOAD_FILE_TIME} {DATE}, {LNG_DOWNLOAD} <span id=downloads_{ID}>{DOWNLOADS}</span>, {LNG_SIZE_OF} {LNG_FILE} {SIZE}}</span>
-    </footer>
-  </article>
+<article class="item">
+  <div class="table collapse">
+    <div class="tr">
+      <div class="td middle"><span class=icon><img alt="{EXT}" src="{ICON}"></span></div>
+      <div class="td">
+        <h6 title="{LNG_File Name}">{NAME}.{EXT}</h6>
+        <div class=description>{DETAIL}</div>
+      </div>
+    </div>
+    <div class="tr">
+      <div class="td center">
+        <a class=icon-download id="download_{ID}" title="{LNG_Download}"></a>
+      </div>
+      <div class="td footer">
+        <span>{LNG_Download} <font id="downloads_{ID}">{DOWNLOADS}</font></span>
+        <span class="icon-calendar" title="{LNG_Uploaded}">{DATE}</span>
+        <span>{LNG_File size} {SIZE}</span>
+      </div>
+    </div>
+  </div>
+</article>

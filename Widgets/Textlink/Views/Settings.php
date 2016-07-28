@@ -34,12 +34,12 @@ class Settings extends \Kotchasan\View
     // Uri
     $uri = self::$request->getUri();
     // name
-    $typies = array('' => Language::get('all items'));
+    $typies = array('' => '{LNG_all items}');
     $actions = array();
     foreach (Language::get('PUBLISHEDS') as $key => $value) {
       $actions['published_'.$key] = $value;
     }
-    $actions['delete'] = Language::get('Delete');
+    $actions['delete'] = '{LNG_Delete}';
     // ตาราง
     $table = new DataTable(array(
       /* Model */
@@ -75,7 +75,7 @@ class Settings extends \Kotchasan\View
         array(
           'id' => 'action',
           'class' => 'ok',
-          'text' => Language::get('With selected'),
+          'text' => '{LNG_With selected}',
           'options' => $actions
         )
       ),
@@ -83,7 +83,7 @@ class Settings extends \Kotchasan\View
       'filters' => array(
         'name' => array(
           'name' => 'name',
-          'text' => Language::get('Type of link'),
+          'text' => '{LNG_Type of link}',
           'options' => \Widgets\Textlink\Models\Index::getTypies(),
           'default' => '',
           'value' => self::$request->get('name')->topic()
@@ -92,27 +92,27 @@ class Settings extends \Kotchasan\View
       /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */
       'headers' => array(
         'name' => array(
-          'text' => Language::get('Name')
+          'text' => '{LNG_Name}'
         ),
         'description' => array(
-          'text' => Language::get('Description').' ('.Language::get('Type').')'
+          'text' => '{LNG_Description} ({LNG_Type})'
         ),
         'url' => array(
-          'text' => Language::get('URL')
+          'text' => '{LNG_URL}'
         ),
         'text' => array(
-          'text' => Language::get('message')
+          'text' => '{LNG_message}'
         ),
         'width' => array(
-          'text' => Language::get('Size of').' '.Language::get('Image'),
+          'text' => '{LNG_Size of} {LNG_Image}',
           'class' => 'center'
         ),
         'publish_start' => array(
-          'text' => Language::get('Published date'),
+          'text' => '{LNG_Published date}',
           'class' => 'center'
         ),
         'publish_end' => array(
-          'text' => Language::get('Published close'),
+          'text' => '{LNG_Published close}',
           'class' => 'center'
         ),
         'published' => array(
@@ -139,14 +139,14 @@ class Settings extends \Kotchasan\View
         'edit' => array(
           'class' => 'icon-edit button green',
           'href' => $uri->createBackUri(array('module' => 'Textlink-write', 'id' => ':id')),
-          'text' => Language::get('Edit')
+          'text' => '{LNG_Edit}'
         )
       ),
       /* ปุ่มเพิ่ม */
       'addNew' => array(
         'class' => 'button green icon-plus',
         'href' => $uri->createBackUri(array('module' => 'Textlink-write')),
-        'text' => Language::get('Add New').' '.Language::get('Text Links')
+        'text' => '{LNG_Add New} {LNG_Text Links}'
       )
     ));
     return $table->render();

@@ -73,7 +73,7 @@ class View extends \Kotchasan\View
     // list_per_page
     $fieldset->add('select', array(
       'id' => 'list_per_page',
-      'labelClass' => 'g-input icon-config',
+      'labelClass' => 'g-input icon-published1',
       'itemClass' => 'item',
       'label' => '{LNG_Amount}',
       'comment' => '{LNG_The number of items displayed per page}',

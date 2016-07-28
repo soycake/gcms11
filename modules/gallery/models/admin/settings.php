@@ -13,7 +13,7 @@ use \Kotchasan\Language;
 use \Gcms\Gcms;
 
 /**
- *  บันทึกการตั้งค่า
+ *  การตั้งค่า
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *

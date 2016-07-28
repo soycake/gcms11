@@ -9,7 +9,6 @@
 namespace Gallery\Feed;
 
 use \Kotchasan\Http\Request;
-use \Kotchasan\Language;
 
 /**
  * RSS Feed

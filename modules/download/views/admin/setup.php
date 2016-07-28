@@ -11,7 +11,6 @@ namespace Download\Admin\Setup;
 use \Kotchasan\DataTable;
 use \Kotchasan\Language;
 use \Kotchasan\Date;
-use \Gcms\Gcms;
 use \Kotchasan\Text;
 
 /**
@@ -23,12 +22,6 @@ use \Kotchasan\Text;
  */
 class View extends \Kotchasan\View
 {
-  /**
-   * ข้อมูลโมดูล
-   *
-   * @var object
-   */
-  private $categories;
 
   /**
    * ตารางรายการบทความ
@@ -38,10 +31,6 @@ class View extends \Kotchasan\View
    */
   public function render($index)
   {
-    $this->categories = array(0 => '{LNG_all items}');
-    foreach (\Index\Category\Model::categories((int)$index->module_id) as $item) {
-      $this->categories[$item['category_id']] = Gcms::ser2Str($item, 'topic');
-    }
     // Uri
     $uri = self::$request->getUri();
     // ตาราง
@@ -56,7 +45,6 @@ class View extends \Kotchasan\View
         'name',
         'ext',
         'detail',
-        'category_id',
         'size',
         'last_update',
         'downloads',
@@ -78,24 +66,14 @@ class View extends \Kotchasan\View
         array(
           'id' => 'action',
           'class' => 'ok',
-          'text' => Language::get('With selected'),
+          'text' => '{LNG_With selected}',
           'options' => array(
-            'delete' => Language::get('Delete')
+            'delete' => '{LNG_Delete}'
           )
         )
       ),
       /* คอลัมน์ที่สามารถค้นหาได้ */
       'searchColumns' => array('name', 'ext', 'detail', 'file'),
-      /* ตัวเลือกการแสดงผลที่ส่วนหัว */
-      'filters' => array(
-        'category_id' => array(
-          'name' => 'cat',
-          'text' => '{LNG_Category}',
-          'options' => $this->categories,
-          'default' => 0,
-          'value' => self::$request->get('cat')->toInt()
-        )
-      ),
       /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */
       'headers' => array(
         'name' => array(
@@ -103,10 +81,6 @@ class View extends \Kotchasan\View
         ),
         'detail' => array(
           'text' => '{LNG_Description}',
-        ),
-        'category_id' => array(
-          'text' => '{LNG_Category}',
-          'class' => 'center'
         ),
         'size' => array(
           'text' => '{LNG_File size}',
@@ -123,9 +97,6 @@ class View extends \Kotchasan\View
       ),
       /* รูปแบบการแสดงผลของคอลัมน์ (tbody) */
       'cols' => array(
-        'category_id' => array(
-          'class' => 'center'
-        ),
         'size' => array(
           'class' => 'center'
         ),
@@ -166,7 +137,6 @@ class View extends \Kotchasan\View
   {
     $item['name'] = "<a href='".WEB_URL."$item[file]' target=_blank>$item[name].$item[ext]</a>";
     $item['size'] = Text::formatFileSize($item['size']);
-    $item['category_id'] = isset($this->categories[$item['category_id']]) ? $this->categories[$item['category_id']] : '{LNG_Uncategorized}';
     $item['last_update'] = Date::format($item['last_update'], 'd M Y H:i');
     return $item;
   }

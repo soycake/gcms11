@@ -67,7 +67,7 @@ class View extends \Kotchasan\View
       'labelClass' => 'g-input icon-width',
       'itemClass' => 'item',
       'label' => '{LNG_Size of} {LNG_Image} ({LNG_Width})',
-      'comment' => '{LNG_The size of the images are stored as pixels . The image will be resized automatically}',
+      'comment' => '{LNG_The size of the images are stored as pixels. The image will be resized automatically.}',
       'value' => $index->image_width
     ));
     $groups = $fieldset->add('groups-table', array(

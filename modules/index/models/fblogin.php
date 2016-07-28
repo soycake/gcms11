@@ -65,7 +65,7 @@ class Model extends \Kotchasan\Model
         ->first('id', 'email', 'visited', 'fb', 'website');
       if ($search === false) {
         // ยังไม่เคยลงทะเบียน, ลงทะเบียนใหม่
-        $facebook_data['id'] = 1 + $db->lastId($this->getTableName('user'));
+        $facebook_data['id'] =  $db->getNextId($this->getTableName('user'));
         $facebook_data['fb'] = 1;
         $facebook_data['subscrib'] = 1;
         $facebook_data['visited'] = 1;
@@ -86,7 +86,7 @@ class Model extends \Kotchasan\Model
       } else {
         // ไม่สามารถ login ได้ เนื่องจากมี email อยู่ก่อนแล้ว
         $facebook_data = false;
-        $ret['alert'] = str_replace(':name', Language::get('Users'), Language::get('This :name is already registered'));
+        $ret['alert'] = str_replace(':name', Language::get('User'), Language::get('This :name is already registered'));
         $ret['isMember'] = 0;
       }
       if (is_array($facebook_data)) {

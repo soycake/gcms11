@@ -44,19 +44,21 @@ class Model extends \Kotchasan\Orm\Field
         $action = self::$request->post('action')->toString();
         $index = \Download\Admin\Index\Model::module(self::$request->post('mid')->toInt());
         if ($index && Gcms::canConfig($login, $index, 'can_upload') && preg_match('/^[0-9,]+$/', $id)) {
-          $id = explode(',', $id);
           $module_id = (int)$index->module_id;
           // Model
           $model = new \Kotchasan\Model;
           if ($action === 'delete') {
             // ลบ
+            $id = explode(',', $id);
             $query = $model->db()->createQuery()->select('file')->from('download')->where(array(array('id', $id), array('module_id', $module_id)))->toArray();
             foreach ($query->execute() as $item) {
               // ลบไฟล์
               @unlink(ROOT_PATH.$item['file']);
             }
-            // ลบฐานข้อมูล
+            // ลบข้อมูล
             $model->db()->createQuery()->delete('download', array(array('id', $id), array('module_id', $module_id)))->execute();
+            // reload
+            $ret['location'] = 'reload';
           }
         } else {
           $ret['alert'] = Language::get('Can not be performed this request. Because they do not find the information you need or you are not allowed');

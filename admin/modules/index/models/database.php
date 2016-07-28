@@ -45,7 +45,7 @@ class Model extends \Kotchasan\Model
     header("content-type: text/html; charset=UTF-8");
     // referer, session, member
     if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
-      if ($login['email'] == 'demo') {
+      if ($login['email'] == 'demo' || !empty($login['fb'])) {
         // ไม่สามารถดาวน์โหลดได้
         header("HTTP/1.0 404 Not Found");
       } else {

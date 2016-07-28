@@ -60,9 +60,9 @@ class View extends \Kotchasan\View
         array(
           'id' => 'action',
           'class' => 'ok',
-          'text' => Language::get('With selected'),
+          'text' => '{LNG_With selected}',
           'options' => array(
-            'delete' => Language::get('Delete')
+            'delete' => '{LNG_Delete}'
           )
         )
       ),

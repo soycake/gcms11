@@ -8,8 +8,8 @@
 
 namespace Board\Admin\Category;
 
-use \Kotchasan\DataTable;
 use \Kotchasan\Language;
+use \Kotchasan\DataTable;
 
 /**
  * แสดงรายการหมวดหมู่
@@ -54,37 +54,37 @@ class View extends \Kotchasan\View
         array(
           'id' => 'action',
           'class' => 'ok',
-          'text' => Language::get('With selected'),
+          'text' => '{LNG_With selected}',
           'options' => array(
-            'delete' => Language::get('Delete')
+            'delete' => '{LNG_Delete}'
           )
         )
       ),
       /* ส่วนหัวของตาราง และการเรียงลำดับ (thead) */
       'headers' => array(
         'topic' => array(
-          'text' => Language::get('Category')
+          'text' => '{LNG_Category}'
         ),
         'category_id' => array(
-          'text' => Language::get('ID')
+          'text' => '{LNG_ID}'
         ),
         'detail' => array(
-          'text' => Language::get('Description')
+          'text' => '{LNG_Description}'
         ),
         'can_reply' => array(
-          'text' => Language::get('Config'),
+          'text' => '{LNG_Config}',
           'class' => 'center'
         ),
         'img_upload_size' => array(
-          'text' => Language::get('Upload'),
+          'text' => '{LNG_Upload}',
           'class' => 'center'
         ),
         'c1' => array(
-          'text' => Language::get('Posted'),
+          'text' => '{LNG_Posted}',
           'class' => 'center'
         ),
         'c2' => array(
-          'text' => Language::get('comments'),
+          'text' => '{LNG_comments}',
           'class' => 'center'
         )
       ),
@@ -114,14 +114,14 @@ class View extends \Kotchasan\View
         'edit' => array(
           'class' => 'icon-edit button green',
           'href' => $uri->createBackUri(array('module' => 'board-categorywrite', 'mid' => $index->module_id, 'id' => ':id')),
-          'text' => Language::get('Edit')
+          'text' => '{LNG_Edit}'
         )
       ),
       /* ปุ่มเพิ่ม */
       'addNew' => array(
         'class' => 'button green icon-plus',
         'href' => $uri->createBackUri(array('module' => 'board-categorywrite', 'mid' => $index->module_id)),
-        'text' => Language::get('Add New').' '.Language::get('Category')
+        'text' => '{LNG_Add New} {LNG_Category}'
       )
     ));
     $table->script('initListCategory("index");');
@@ -138,7 +138,7 @@ class View extends \Kotchasan\View
   {
     $item['topic'] = $this->unserialize($item['topic']);
     $item['detail'] = $this->unserialize($item['detail']);
-    $item['category_id'] = '<label><input type=text class=number size=5 id=categoryid_'.$item['module_id'].'_'.$item['id'].' value="'.$item['category_id'].'" title="'.Language::get('Edit').'"></label>';
+    $item['category_id'] = '<label><input type=text class=number size=5 id=categoryid_'.$item['module_id'].'_'.$item['id'].' value="'.$item['category_id'].'" title="{LNG_Edit}"></label>';
     $icons = array(
       empty($item['can_post']) ? '' : '<span class="icon-newtopic" title="{LNG_Posting} '.$this->cfgToStr($item['can_post']).'"></span>',
       empty($item['can_reply']) ? '' : '<span class="icon-chat reply1" title="{LNG_Comment} '.$this->cfgToStr($item['can_reply']).'"></span>',
