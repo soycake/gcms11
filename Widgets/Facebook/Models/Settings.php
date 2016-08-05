@@ -23,13 +23,24 @@ use \Kotchasan\Config;
 class Settings extends \Kotchasan\KBase
 {
 
+  public static function defaultSettings()
+  {
+    return array(
+      'height' => 214,
+      'user' => 'gcmscms',
+      'show_facepile' => 1,
+      'small_header' => 0,
+      'hide_cover' => 0
+    );
+  }
+
   /**
    * form submit
    */
   public function save(Request $request)
   {
     $ret = array();
-    // referer, session, member
+    // referer, session, admin
     if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isAdmin()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
@@ -43,17 +54,13 @@ class Settings extends \Kotchasan\KBase
         );
         // โหลด config
         $config = Config::load(ROOT_PATH.'settings/config.php');
-        if ($save['user'] == '') {
-          $ret['ret_user'] = 'this';
+        $config->facebook_page = $save;
+        // save config
+        if (Config::save($config, ROOT_PATH.'settings/config.php')) {
+          $ret['alert'] = Language::get('Saved successfully');
+          $ret['location'] = 'reload';
         } else {
-          $config->facebook_page = $save;
-          // save config
-          if (Config::save($config, ROOT_PATH.'settings/config.php')) {
-            $ret['alert'] = Language::get('Saved successfully');
-            $ret['location'] = 'reload';
-          } else {
-            $ret['alert'] = sprintf(Language::get('File %s cannot be created or is read-only.'), 'settings/config.php');
-          }
+          $ret['alert'] = sprintf(Language::get('File %s cannot be created or is read-only.'), 'settings/config.php');
         }
       }
     } else {

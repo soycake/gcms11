@@ -8,6 +8,8 @@
 
 namespace Widgets\Facebook\Controllers;
 
+use \Kotchasan\Http\Request;
+
 /**
  * Controller หลัก สำหรับแสดงผล Widget
  *
@@ -15,25 +17,25 @@ namespace Widgets\Facebook\Controllers;
  *
  * @since 1.0
  */
-class Index extends \Kotchasan\Controller
+class Preview extends \Kotchasan\Controller
 {
 
   /**
-   * แสดงผล Widget
-   *
-   * @param array $query_string ข้อมูลที่ส่งมาจากการเรียก Widget
-   * @return string
+   * หน้าเว็บ Facebook Page
+   * @param Request $request
    */
-  public function get($query_string)
+  public function index(Request $request)
   {
     if (empty(self::$cfg->facebook_page)) {
       self::$cfg->facebook_page = \Widgets\Facebook\Models\Settings::defaultSettings();
     }
+    $query_string = array();
     foreach (self::$cfg->facebook_page as $key => $value) {
-      if (!isset($query_string[$key])) {
-        $query_string[$key] = $value;
-      }
+      $query_string[$key] = $request->get($key, $value)->toString();
     }
-    return \Widgets\Facebook\Views\Index::render($query_string);
+    if (!empty($query_string)) {
+      // หน้าเว็บ Facebook
+      echo \Widgets\Facebook\Views\Preview::render($query_string);
+    }
   }
 }

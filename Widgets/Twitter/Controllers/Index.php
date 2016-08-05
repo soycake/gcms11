@@ -27,13 +27,7 @@ class Index extends \Kotchasan\Controller
   public function get($query_string)
   {
     if (empty(self::$cfg->twitter)) {
-      self::$cfg->twitter = array(
-        'height' => 214,
-        'user' => 'gcmscms',
-        'show_facepile' => 1,
-        'small_header' => 0,
-        'hide_cover' => 0
-      );
+      self::$cfg->twitter = \Widgets\Twitter\Models\Settings::defaultSettings();
     }
     foreach (self::$cfg->twitter as $key => $value) {
       if (!isset($query_string[$key])) {

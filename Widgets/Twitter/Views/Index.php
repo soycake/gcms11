@@ -1,15 +1,15 @@
 <?php
 /*
- * @filesource Widgets/Facebook/Views/Settings.php
+ * @filesource Widgets/Twitter/Views/Settings.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
-namespace Widgets\Facebook\Views;
+namespace Widgets\Twitter\Views;
 
 /**
- * Facebook Page
+ * Twitter
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -19,39 +19,28 @@ class Index extends \Kotchasan\View
 {
 
   /**
-   * Facebook Page
+   * Twitter
    *
+   * @param array $query_string
    * @return string
    */
   public static function render($query_string)
   {
-    $facebook = array();
-    $facebook[] = '<div class="fb-page"';
-    $facebook[] = ' data-href="https://www.facebook.com/'.$query_string['user'].'/"';
-    if (!empty($query_string['height'])) {
-      $facebook[] = ' data-height="'.$query_string['height'].'"';
+    if (!empty($query_string['user'])) {
+      $content = '<a class="twitter-timeline"';
+      $content .= ' href="https://twitter.com/'.$query_string['user'].'"';
+      $content .= ' data-link-color="'.$query_string['link_color'].'"';
+      $content .= ' data-border-color="'.$query_string['border_color'].'"';
+      $content .= ' data-theme="'.$query_string['theme'].'"';
+      $content .= ' height="'.$query_string['height'].'"';
+      if (!empty($query_string['amount'])) {
+        $content .= ' data-tweet-limit="'.$query_string['amount'].'"';
+      }
+      $content .= '>Tweets by @'.$query_string['user'].'</a>';
+      $content .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";';
+      $content .= 'if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}';
+      $content .= '}(document,"script","twitter-wjs");</script>';
+      return $content;
     }
-    $facebook[] = ' data-tabs="timeline"';
-    $facebook[] = ' data-width="500"';
-    $facebook[] = ' data-show-facepile="'.(empty($query_string['show_facepile']) ? 'false' : 'true').'"';
-    $facebook[] = ' data-small-header="'.(empty($query_string['small_header']) ? 'false' : 'true').'"';
-    $facebook[] = ' data-hide-cover="'.(empty($query_string['hide_cover']) ? 'true' : 'false').'"></div>';
-    $facebook[] = '<script>';
-    $facebook[] = '(function(d, id) {';
-    $facebook[] = 'if (d.getElementById(id)) return;';
-    $facebook[] = 'if (d.getElementById("fb-root") === null) {';
-    $facebook[] = 'var div = d.createElement("div");';
-    $facebook[] = 'div.id="fb-root";';
-    $facebook[] = 'd.body.appendChild(div);';
-    $facebook[] = '}';
-    $facebook[] = 'var js = d.createElement("script");';
-    $facebook[] = 'js.id = id;';
-    $facebook[] = 'js.src = "//connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v2.7&appId='.(empty(self::$cfg->facebook_appId) ? '' : self::$cfg->facebook_appId).'";';
-    $facebook[] = 'd.getElementsByTagName("head")[0].appendChild(js);';
-    $facebook[] = '}(document, "facebook-jssdk"));';
-    $facebook[] = '</script>';
-    $facebook[] = '</body>';
-    $facebook[] = '</html>';
-    return implode("\n", $facebook);
   }
 }

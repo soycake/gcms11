@@ -1,12 +1,12 @@
 <?php
 /*
- * @filesource Widgets/Facebook/Controllers/Settings.php
+ * @filesource Widgets/Twitter/Controllers/Settings.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
-namespace Widgets\Facebook\Controllers;
+namespace Widgets\Twitter\Controllers;
 
 use \Kotchasan\Login;
 use \Kotchasan\Html;
@@ -36,12 +36,12 @@ class Settings extends \Kotchasan\Controller
       ));
       $ul = $breadcrumbs->add('ul');
       $ul->appendChild('<li><span class="icon-widgets">{LNG_Widgets}</span></li>');
-      $ul->appendChild('<li><span>{LNG_Facebook Page}</span></li>');
+      $ul->appendChild('<li><span>{LNG_Twitter}</span></li>');
       $section->add('header', array(
-        'innerHTML' => '<h1 class="icon-facebook">'.$this->title().'</h1>'
+        'innerHTML' => '<h1 class="icon-twitter">'.$this->title().'</h1>'
       ));
       // แสดงฟอร์ม
-      $section->appendChild(createClass('Widgets\Facebook\Views\Settings')->render());
+      $section->appendChild(createClass('Widgets\Twitter\Views\Settings')->render());
       return $section->render();
     }
     // 404.html
@@ -53,6 +53,6 @@ class Settings extends \Kotchasan\Controller
    */
   public function title()
   {
-    return '{LNG_Configuring} {LNG_Facebook Page}';
+    return '{LNG_Configuring} {LNG_Twitter}';
   }
 }

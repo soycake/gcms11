@@ -29,13 +29,7 @@ class Settings extends \Kotchasan\View
   public function render()
   {
     if (empty(self::$cfg->facebook_page)) {
-      self::$cfg->facebook_page = array(
-        'height' => 214,
-        'user' => 'gcmscms',
-        'show_facepile' => 1,
-        'small_header' => 0,
-        'hide_cover' => 0
-      );
+      self::$cfg->facebook_page = \Widgets\Facebook\Models\Settings::defaultSettings();
     }
     // form
     $form = Html::create('form', array(
@@ -55,7 +49,7 @@ class Settings extends \Kotchasan\View
       'labelClass' => 'g-input icon-height',
       'itemClass' => 'item',
       'label' => '{LNG_Height}',
-      'comment' => '{LNG_Set the display size of the Facebook Page (min 70px)}',
+      'comment' => '{LNG_The size of the widget} ({LNG_more than} 70 {LNG_pixel})',
       'value' => self::$cfg->facebook_page['height']
     ));
     // user
@@ -109,7 +103,8 @@ class Settings extends \Kotchasan\View
       'value' => '{LNG_Save}'
     ));
     $form->add('div', array(
-      'innerHTML' => '<iframe style="height:'.(self::$cfg->facebook_page['height'] + 20).'px;width:100%" src="'.WEB_URL.'Widgets/Facebook/Views/Preview.php?'.time().'"></iframe>'
+      'class' => 'margin-top-right-bottom-left',
+      'innerHTML' => \Widgets\Facebook\Views\Index::render(self::$cfg->facebook_page)
     ));
     return $form->render();
   }

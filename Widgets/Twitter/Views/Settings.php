@@ -1,14 +1,13 @@
 <?php
 /*
- * @filesource Widgets/Facebook/Views/Settings.php
+ * @filesource Widgets/Twitter/Views/Settings.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
-namespace Widgets\Facebook\Views;
+namespace Widgets\Twitter\Views;
 
-use \Kotchasan\Language;
 use \Kotchasan\Html;
 
 /**
@@ -22,83 +21,106 @@ class Settings extends \Kotchasan\View
 {
 
   /**
-   * module=Facebook-Settings
+   * module=Twitter-Settings
    *
    * @return string
    */
   public function render()
   {
-    if (empty(self::$cfg->facebook_page)) {
-      self::$cfg->facebook_page = array(
-        'height' => 214,
-        'user' => 'gcmscms',
-        'show_facepile' => 1,
-        'small_header' => 0,
-        'hide_cover' => 0
-      );
+    if (empty(self::$cfg->twitter)) {
+      self::$cfg->twitter = \Widgets\Twitter\Models\Settings::defaultSettings();
     }
     // form
     $form = Html::create('form', array(
         'id' => 'setup_frm',
         'class' => 'setup_frm',
         'autocomplete' => 'off',
-        'action' => 'index.php/Widgets/Facebook/Models/Settings/save',
+        'action' => 'index.php/Widgets/Twitter/Models/Settings/save',
         'onsubmit' => 'doFormSubmit',
         'ajax' => true
     ));
     $fieldset = $form->add('fieldset', array(
-      'title' => '{LNG_Set to display the} {LNG_Facebook Page}'
+      'title' => '{LNG_Configuring}'
     ));
-    // height
-    $fieldset->add('number', array(
-      'id' => 'height',
-      'labelClass' => 'g-input icon-height',
-      'itemClass' => 'item',
-      'label' => '{LNG_Height}',
-      'comment' => '{LNG_Set the display size of the Facebook Page (min 70px)}',
-      'value' => self::$cfg->facebook_page['height']
+    // id
+    $groups = $fieldset->add('groups-table', array(
+      'label' => '{LNG_Twitter ID}',
+      'comment' => '{LNG_Twitter widget ID, can be found from the URL displayed on the browser Addressbar when visited your Widget settngs}',
+    ));
+    $groups->add('label', array(
+      'for' => 'twitter_id',
+      'innerHTML' => 'https://twitter.com/settings/widgets/'
+    ));
+    $groups->add('text', array(
+      'id' => 'twitter_id',
+      'labelClass' => 'g-input',
+      'itemClass' => 'width',
+      'value' => self::$cfg->twitter['id']
+    ));
+    $groups->add('span', array(
+      'innerHTML' => '/edit'
     ));
     // user
     $groups = $fieldset->add('groups-table', array(
-      'label' => '{LNG_Username}',
-      'comment' => '{LNG_Facebook profile username eg https://www.facebook.com/<em>username</em>}'
+      'label' => '{LNG_Twitter Name}',
+      'comment' => '{LNG_Enter your Twitter username. By entering the site and go to your Profile in the Address Bar will appear on your Twitter account name}',
     ));
     $groups->add('label', array(
-      'for' => 'user',
-      'innerHTML' => 'https://www.facebook.com/'
+      'for' => 'twitter_user',
+      'innerHTML' => 'https://twitter.com/'
     ));
     $groups->add('text', array(
-      'id' => 'user',
-      'labelClass' => 'g-input icon-facebook',
+      'id' => 'twitter_user',
+      'labelClass' => 'g-input',
       'itemClass' => 'width',
-      'value' => self::$cfg->facebook_page['user']
+      'value' => self::$cfg->twitter['user']
     ));
-    // show_facepile
-    $fieldset->add('select', array(
-      'id' => 'show_facepile',
-      'labelClass' => 'g-input icon-users',
-      'itemClass' => 'item',
-      'label' => '{LNG_Friend&#39;s Faces}',
-      'options' => Language::get('BOOLEANS'),
-      'value' => self::$cfg->facebook_page['show_facepile']
+    $fieldset = $form->add('fieldset', array(
+      'title' => '{LNG_Set to display the}'
     ));
-    // hide_cover
-    $fieldset->add('select', array(
-      'id' => 'hide_cover',
-      'labelClass' => 'g-input icon-image',
+    // height
+    $fieldset->add('number', array(
+      'id' => 'twitter_height',
+      'labelClass' => 'g-input icon-height',
       'itemClass' => 'item',
-      'label' => '{LNG_Cover Photo}',
-      'options' => Language::get('BOOLEANS'),
-      'value' => self::$cfg->facebook_page['hide_cover']
+      'label' => '{LNG_Height}',
+      'comment' => '{LNG_The size of the widget} ({LNG_pixel})',
+      'value' => self::$cfg->twitter['height']
     ));
-    // small_header
-    $fieldset->add('select', array(
-      'id' => 'small_header',
-      'labelClass' => 'g-input icon-image',
+    // amount
+    $fieldset->add('number', array(
+      'id' => 'twitter_amount',
+      'labelClass' => 'g-input icon-edit',
       'itemClass' => 'item',
-      'label' => '{LNG_Small Header}',
-      'options' => Language::get('BOOLEANS'),
-      'value' => self::$cfg->facebook_page['small_header']
+      'label' => '{LNG_Amount}',
+      'comment' => '{LNG_Determine the maximum number of messages to be displayed (set to 0 to display the Scrollbar)}',
+      'value' => self::$cfg->twitter['amount']
+    ));
+    // theme
+    $fieldset->add('select', array(
+      'id' => 'twitter_theme',
+      'labelClass' => 'g-input icon-template',
+      'itemClass' => 'item',
+      'label' => '{LNG_Theme}',
+      'comment' => '{LNG_Twitter message box styles}',
+      'options' => array('light' => '{LNG_Light}', 'dark' => '{LNG_Dark}'),
+      'value' => self::$cfg->twitter['theme']
+    ));
+    // border_color
+    $fieldset->add('color', array(
+      'id' => 'twitter_border_color',
+      'labelClass' => 'g-input icon-color',
+      'itemClass' => 'item',
+      'label' => '{LNG_Border color}',
+      'value' => self::$cfg->twitter['border_color']
+    ));
+    // link_color
+    $fieldset->add('color', array(
+      'id' => 'twitter_link_color',
+      'labelClass' => 'g-input icon-color',
+      'itemClass' => 'item',
+      'label' => '{LNG_Link Color}',
+      'value' => self::$cfg->twitter['link_color']
     ));
     $fieldset = $form->add('fieldset', array(
       'class' => 'submit'
@@ -109,7 +131,9 @@ class Settings extends \Kotchasan\View
       'value' => '{LNG_Save}'
     ));
     $form->add('div', array(
-      'innerHTML' => '<iframe style="height:'.(self::$cfg->facebook_page['height'] + 20).'px;width:100%" src="'.WEB_URL.'Widgets/Facebook/Views/Preview.php?'.time().'"></iframe>'
+      'class' => 'margin-top-right-bottom-left',
+      'style' => 'height:'.self::$cfg->twitter['height'].'px;max-width:300px;',
+      'innerHTML' => \Widgets\Twitter\Views\Index::render(self::$cfg->twitter)
     ));
     return $form->render();
   }
