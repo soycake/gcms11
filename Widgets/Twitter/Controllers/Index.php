@@ -1,12 +1,12 @@
 <?php
 /*
- * @filesource Widgets/Album/Controllers/Index.php
+ * @filesource Widgets/Twitter/Controllers/Index.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
-namespace Widgets\Album\Controllers;
+namespace Widgets\Twitter\Controllers;
 
 /**
  * Controller หลัก สำหรับแสดงผล Widget
@@ -26,10 +26,20 @@ class Index extends \Kotchasan\Controller
    */
   public function get($query_string)
   {
-    $calendar = array(
-      '<div id=widget-calendar></div>',
-      '<script>widgetsAlbumInit("widget-calendar", true);</script>'
-    );
-    return implode('', $calendar);
+    if (empty(self::$cfg->twitter)) {
+      self::$cfg->twitter = array(
+        'height' => 214,
+        'user' => 'gcmscms',
+        'show_facepile' => 1,
+        'small_header' => 0,
+        'hide_cover' => 0
+      );
+    }
+    foreach (self::$cfg->twitter as $key => $value) {
+      if (!isset($query_string[$key])) {
+        $query_string[$key] = $value;
+      }
+    }
+    return \Widgets\Twitter\Views\Index::render($query_string);
   }
 }

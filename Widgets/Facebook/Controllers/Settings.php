@@ -1,12 +1,12 @@
 <?php
 /*
- * @filesource Widgets/Gallery/Controllers/Settings.php
+ * @filesource Widgets/Facebook/Controllers/Settings.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
-namespace Widgets\Gallery\Controllers;
+namespace Widgets\Facebook\Controllers;
 
 use \Kotchasan\Login;
 use \Kotchasan\Html;
@@ -36,12 +36,12 @@ class Settings extends \Kotchasan\Controller
       ));
       $ul = $breadcrumbs->add('ul');
       $ul->appendChild('<li><span class="icon-widgets">{LNG_Widgets}</span></li>');
-      $ul->appendChild('<li><span>{LNG_Gallery}</span></li>');
+      $ul->appendChild('<li><span>{LNG_Facebook Page}</span></li>');
       $section->add('header', array(
-        'innerHTML' => '<h1 class="icon-gallery">'.$this->title().'</h1>'
+        'innerHTML' => '<h1 class="icon-facebook">'.$this->title().'</h1>'
       ));
       // แสดงฟอร์ม
-      $section->appendChild(createClass('Widgets\Gallery\Views\Settings')->render());
+      $section->appendChild(createClass('Widgets\Facebook\Views\Settings')->render());
       return $section->render();
     }
     // 404.html
@@ -53,6 +53,6 @@ class Settings extends \Kotchasan\Controller
    */
   public function title()
   {
-    return '{LNG_Widget for displaying thumbnails from RSS}';
+    return '{LNG_Configuring} {LNG_Facebook Page}';
   }
 }

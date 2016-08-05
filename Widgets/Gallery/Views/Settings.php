@@ -8,7 +8,6 @@
 
 namespace Widgets\Gallery\Views;
 
-use \Kotchasan\Language;
 use \Kotchasan\Html;
 
 /**
