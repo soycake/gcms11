@@ -32,8 +32,9 @@ class Model extends \Kotchasan\Model
     // Model
     $model = new static;
     $query = $model->db()->createQuery()
-      ->from('edocument')
-      ->where(array('module_id', (int)$index->module_id));
+      ->from('edocument D')
+      ->join('user U', 'INNER', array('U.id', 'D.sender_id'))
+      ->where(array('D.module_id', (int)$index->module_id));
     // จำนวน
     $index->total = $query->cacheOn()->count();
     // ข้อมูลแบ่งหน้า
@@ -45,8 +46,8 @@ class Model extends \Kotchasan\Model
     $index->page = max(1, ($index->page > $index->totalpage ? $index->totalpage : $index->page));
     $index->start = $index->list_per_page * ($index->page - 1);
     // query
-    $query->select('id', 'name', 'ext', 'detail', 'last_update', 'downloads', 'size')
-      ->order('last_update DESC')
+    $query->select('D.*', 'U.email', 'U.displayname', 'U.status')
+      ->order('D.last_update DESC')
       ->limit($index->list_per_page, $index->start);
     $index->items = $query->cacheOn()->execute();
     // คืนค่า

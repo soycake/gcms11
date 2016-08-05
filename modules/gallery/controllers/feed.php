@@ -40,9 +40,8 @@ class Controller extends \Kotchasan\Controller
       $xml .= '<title>'.$item->topic.'</title>';
       $xml .= '<link>'.$link.'</link>';
       $xml .= '<description><![CDATA['.Text::cut($item->detail, 50).']]></description>';
-      $image = str_replace('image', 'thumb', $item->image);
-      if ($image != '' && is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$image)) {
-        $xml .= '<enclosure url="'.WEB_URL.DATA_FOLDER.'gallery/'.$image.'" type="image/jpeg"></enclosure>';
+      if (is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$item->id.'/thumb_'.$item->image)) {
+        $xml .= '<enclosure url="'.WEB_URL.DATA_FOLDER.'gallery/'.$item->id.'/thumb_'.$item->image.'" type="image/jpeg"></enclosure>';
       }
       $xml .= '<guid isPermaLink="true">'.$link.'</guid>';
       $xml .= '<pubDate>'.date("D, d M Y H:i:s +0700", $item->last_update).'</pubDate>';

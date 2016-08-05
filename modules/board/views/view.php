@@ -127,8 +127,8 @@ class View extends \Gcms\View
           '/{DELETE}/' => $moderator ? '{LNG_Delete}' : '{LNG_Removal request}',
           '/{PIN}/' => $story->pin == 0 ? 'un' : '',
           '/{LOCK}/' => $story->locked == 0 ? 'un' : '',
-          '/{PIN_TITLE}/' => $story->pin == 1 ? '{LNG_Unpin}' : '{LNG_Pin}',
-          '/{LOCK_TITLE}/' => $story->locked == 1 ? '{LNG_Unlock}' : '{LNG_Lock}'
+          '/{PIN_TITLE}/' => '{LNG_click to} '.($story->pin == 1 ? '{LNG_Unpin}' : '{LNG_Pin}'),
+          '/{LOCK_TITLE}/' => '{LNG_click to} '.($story->locked == 1 ? '{LNG_Unlock}' : '{LNG_Lock}')
         );
         $story->detail = Template::create($index->owner, $index->module, 'view')->add($replace)->render();
       } else {

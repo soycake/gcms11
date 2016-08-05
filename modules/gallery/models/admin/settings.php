@@ -73,6 +73,7 @@ class Model extends \Kotchasan\Model
             // คืนค่า input ที่ error
             $ret['input'] = 'img_typies_jpg';
           } else {
+            $save['can_view'][] = 1;
             $save['can_write'][] = 1;
             $save['can_config'][] = 1;
             $this->db()->createQuery()->update('modules')->set(array('config' => serialize($save)))->where($index->module_id)->execute();

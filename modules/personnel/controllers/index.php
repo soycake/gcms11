@@ -9,6 +9,7 @@
 namespace Personnel\Index;
 
 use \Kotchasan\Http\Request;
+use \Gcms\Gcms;
 
 /**
  * Controller หลัก สำหรับแสดง frontend ของ GCMS
@@ -29,21 +30,21 @@ class Controller extends \Kotchasan\Controller
    */
   public function init(Request $request, $index)
   {
-    // รายการที่เลือก
-    $id = $request->request('id')->toInt();
     // ตรวจสอบโมดูลและอ่านข้อมูลโมดูล
     $index = \Index\Module\Model::getDetails($index);
-    if (empty($index)) {
-      // 404
-      $page = createClass('Index\PageNotFound\Controller')->init($request, 'personnel');
-    } elseif (!empty($id)) {
+    if ($request->request('id')->exists()) {
       // แสดงข้อมูลบุคคลาการ
       $page = createClass('Personnel\View\View')->index($request, $index);
     } else {
-      // แสดงรายการบุคคลากร
+      // แสดงรายการบุคลากร
       $page = createClass('Personnel\Lists\View')->index($request, $index);
     }
-    return $page;
+    if ($page) {
+      return $page;
+    } else {
+      // 404
+      return createClass('Index\PageNotFound\Controller')->init($request, 'personnel');
+    }
   }
 
   /**
@@ -51,10 +52,15 @@ class Controller extends \Kotchasan\Controller
    *
    * @param string $module ชื่อโมดูล
    * @param int $id ID
+   * @param int $category_id หมวด
    * @return string
    */
-  public static function url($module, $id)
+  public static function url($module, $id, $category_id = 0)
   {
-    return Gcms::createUrl($module, '', 0, $id);
+    if (empty($id)) {
+      return Gcms::createUrl($module, '', $category_id);
+    } else {
+      return Gcms::createUrl($module, '', $category_id, 0, 'id='.$id);
+    }
   }
 }

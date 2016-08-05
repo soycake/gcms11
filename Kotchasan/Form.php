@@ -349,6 +349,26 @@ class Form extends \Kotchasan\KBase
     return $obj;
   }
 
+  public static function reset($attributes = array())
+  {
+    $obj = new static;
+    if (isset($attributes['tag']) && $attributes['tag'] == 'input') {
+      $obj->tag = 'input';
+    } else {
+      $obj->tag = 'button';
+    }
+    unset($attributes['tag']);
+    $attributes['type'] = 'reset';
+    if (isset($attributes['name']) && $attributes['name'] == 'reset') {
+      unset($attributes['name']);
+    }
+    if (isset($attributes['id']) && $attributes['id'] == 'reset') {
+      unset($attributes['id']);
+    }
+    $obj->attributes = $attributes;
+    return $obj;
+  }
+
   public static function checkbox($attributes = array())
   {
     $obj = new static;

@@ -9,7 +9,6 @@
 namespace Personnel\Admin\Setup;
 
 use \Kotchasan\DataTable;
-use \Kotchasan\Language;
 use \Gcms\Gcms;
 
 /**

@@ -9,7 +9,6 @@
 namespace Index\Dashboard;
 
 use \Kotchasan\Login;
-use \Kotchasan\Language;
 use \Kotchasan\Html;
 
 /**
@@ -54,6 +53,6 @@ class Controller extends \Kotchasan\Controller
    */
   public function title()
   {
-    return Language::get('Dashboard');
+    return '{LNG_Dashboard}';
   }
 }

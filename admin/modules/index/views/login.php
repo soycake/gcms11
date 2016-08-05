@@ -94,7 +94,8 @@ class View extends \Kotchasan\View
       'class' => 'button ok large wide',
       'value' => '{LNG_Sign In}'
     ));
-    // submit
+/*
+    // Facebook Login
     $fieldset->add('button', array(
       'class' => 'button blue large wide margin-top',
       'id' => 'fb_login',
@@ -102,6 +103,7 @@ class View extends \Kotchasan\View
     ));
     $token = self::$request->createToken();
     $form->script("initFB('$token');");
+*/
     // template
     $template = Template::create('', '', 'login');
     $template->add(array(

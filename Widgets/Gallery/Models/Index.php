@@ -24,10 +24,11 @@ class Index extends \Kotchasan\Model
    * @param array $query_string ข้อมูลที่เรียก query string
    * @return array
    */
-  public function get($query_string)
+  public static function get($query_string)
   {
     // query อัลบัมล่าสุด
-    return $this->db()->createQuery()
+    $model = new static;
+    return $model->db()->createQuery()
         ->select('C.id', 'C.topic', 'G.image', 'M.module')
         ->from('gallery_album C')
         ->join('gallery G', 'INNER', array(array('G.album_id', 'C.id'), array('G.module_id', 'C.module_id'), array('G.count', 0)))

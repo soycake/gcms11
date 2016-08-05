@@ -44,16 +44,18 @@ class Controller extends \Kotchasan\Controller
         }
         if ($feed != '') {
           $datas = json_decode($feed);
-          $items = $datas->{'items'};
-          if (sizeof($items) == 1) {
-            $viewCount = (int)$items[0]->{'statistics'}->{'viewCount'};
-            if ($viewCount != $mv->views) {
-              \Video\View\Model::updateView($mv->id, $viewCount);
+          if (isset($datas->{'items'})) {
+            $items = $datas->{'items'};
+            if (sizeof($items) == 1) {
+              $viewCount = (int)$items[0]->{'statistics'}->{'viewCount'};
+              if ($viewCount != $mv->views) {
+                \Video\View\Model::updateView($mv->id, $viewCount);
+              }
             }
           }
         }
         echo '<figure class=mv>';
-        echo '<div class=youtube><iframe width=560 height=315 src="//www.youtube.com/embed/'.$mv->youtube.'?wmode=transparent" frameborder=0></iframe></div>';
+        echo '<div class=youtube><iframe width=560 height=315 src="//www.youtube.com/embed/'.$mv->youtube.'?wmode=transparent&amp;autoplay=true" frameborder=0></iframe></div>';
         echo '<figcaption>'.$mv->topic.'</figcaption>';
         echo '</figure>';
       }

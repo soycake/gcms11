@@ -122,7 +122,7 @@ class View extends \Kotchasan\View
     if (!empty($index->picture) && is_file(ROOT_PATH.DATA_FOLDER.'personnel/'.$index->picture)) {
       $img = WEB_URL.DATA_FOLDER.'personnel/'.$index->picture;
     } else {
-      $img = WEB_URL.'modules/personnel/img/noicon.jpg';
+      $img = WEB_URL.'modules/personnel/img/noimage.jpg';
     }
     $fieldset->add('file', array(
       'id' => 'picture',

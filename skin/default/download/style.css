@@ -30,11 +30,12 @@
 #download-list .footer {
   font-style: italic;
   text-shadow: 1px 1px rgba(255, 255, 255, 0.05);
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.03);
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   padding: 0 5px;
+  color: inherit;
 }
 #download-list .footer > span {
   margin-right: 5px;

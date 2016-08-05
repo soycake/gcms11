@@ -136,5 +136,7 @@ return array(
     'image' => 'Image Banner, show all',
     'banner' => 'Image Banner, show theme one by one loop',
     'slideshow' => 'Banner Slideshow'
-  )
+  ),
+  'FROM_TIME' => 'from H:i',
+  'TO_TIME' => 'to H:i'
 );

@@ -93,7 +93,7 @@ class View extends \Gcms\View
           $tags[] = '<a href="'.Gcms::createUrl('tag', $tag).'">'.$tag.'</a>';
         }
         // เนื้อหา
-        $detail = Gcms::showDetail(str_replace(array('{', '}'), array('&#x007B;', '&#x007D;'), $story->detail), $canView, true, true);
+        $detail = Gcms::showDetail(str_replace(array('&#x007B;', '&#x007D;'), array('{', '}'), $story->detail), $canView, true, true);
         $replace = array(
           '/(quote-{QID}-0-0-{MODULE})/' => $canReply ? '\\1' : 'hidden',
           '/{COMMENTLIST}/' => isset($listitem) ? $listitem->render() : '',

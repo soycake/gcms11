@@ -116,8 +116,10 @@ class Model extends \Kotchasan\Model
             }
             if (!$input) {
               $save['new_date'] = $save['new_date'] * 86400;
-              $save['can_view'][] = 1;
               $save['can_post'][] = 1;
+              $save['can_reply'][] = 1;
+              $save['can_view'][] = 1;
+              $save['moderator'][] = 1;
               $save['can_config'][] = 1;
               $this->db()->createQuery()->update('modules')->set(array('config' => serialize($save)))->where($index->module_id)->execute();
               // คืนค่า

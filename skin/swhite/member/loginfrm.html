@@ -1,0 +1,25 @@
+<form id=login_frm class="register_frm mainform" method=post action="{WEBURL}index.php" autocomplete=off>
+  <h2 class=icon-user>{LNG_Visitors please login}</h2>
+  <fieldset>
+    <p>
+      <label for=login_username>{LNG_Email}</label>
+      <input type=text name=login_username id=login_username size=15 maxlength=255 value="{EMAIL}" title="{LNG_Please fill in}" required>
+    </p>
+    <p>
+      <label for=login_password>{LNG_Password}</label>
+      <input type=password name=login_password id=login_password  size=15 maxlength=20 value="{PASSWORD}" title="{LNG_Please fill in}" required>
+    </p>
+  </fieldset>
+  <fieldset>
+    <label>
+      <input type=checkbox name=login_remember id=login_remember value=1 title="{LNG_Remember me}" {REMEMBER}>
+      {LNG_Remember me}
+    </label>
+    <input type=submit class="button login" value="{LNG_Sign In}" title="{LNG_Member Login}">
+  </fieldset>
+</form>
+<script>
+  $G(window).Ready(function () {
+    new GForm('login_frm', '{WEBURL}xhr.php/index/model/login/chklogin').onsubmit(doLoginSubmit);
+  });
+</script>

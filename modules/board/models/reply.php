@@ -14,8 +14,8 @@ use \Gcms\Login;
 use \Gcms\Gcms;
 use \Kotchasan\Language;
 use \Kotchasan\Validator;
-use \Kotchasan\Antispam;
 use \Kotchasan\File;
+use \Kotchasan\Antispam;
 
 /**
  *  Model สำหรับบันทึกความคิดเห็น
@@ -55,7 +55,6 @@ class Model extends \Kotchasan\Model
         if (!$antispam->valid($request->post('reply_antispam')->toString())) {
           // Antispam ไม่ถูกต้อง
           $ret['ret_reply_antispam'] = 'this';
-          $ret['input'] = 'reply_antispam';
         } else {
           // อ่านข้อมูล
           $index = $this->get($id, $request->post('module_id')->toInt(), $index_id);
@@ -98,31 +97,25 @@ class Model extends \Kotchasan\Model
           } elseif ($post['detail'] == '' && $requireDetail) {
             // ไม่ได้กรอกรายละเอียด และ ไม่มีรูป
             $ret['ret_reply_detail'] = Language::get('Please fill in').' '.Language::get('Detail');
-            $ret['input'] = 'reply_detail';
           } elseif ($id == 0) {
             // ใหม่
             if ($email == '') {
               // ไม่ได้กรอกอีเมล์
               $ret['ret_reply_email'] = Language::get('Please fill in').' '.Language::get('Email');
-              $ret['input'] = 'reply_email';
             } elseif ($password == '' && !$guest) {
               // สมาชิกเท่านั้น และ ไม่ได้กรอกรหัสผ่าน
               $ret['ret_reply_password'] = Language::get('Please fill in').' '.Language::get('Password');
-              $ret['input'] = 'reply_password';
             } elseif ($email != '' && $password != '') {
               $user = Login::checkMember($email, $password);
               if (is_string($user)) {
                 if (Login::$login_input == 'password') {
                   $ret['ret_reply_password'] = $user;
-                  $ret['input'] = 'reply_password';
                 } else {
                   $ret['ret_reply_email'] = $user;
-                  $ret['input'] = 'reply_email';
                 }
               } elseif (!in_array($user['status'], $index['can_reply'])) {
                 // ไม่สามารถแสดงความคิดเห็นได้
                 $ret['ret_reply_email'] = Language::get('Sorry, you do not have permission to comment');
-                $ret['input'] = 'reply_email';
               } else {
                 // สมาชิก สามารถแสดงความคิดเห็นได้
                 $post['member_id'] = $user['id'];
@@ -138,11 +131,9 @@ class Model extends \Kotchasan\Model
               if ($search) {
                 // พบอีเมล์ ต้องการ password
                 $ret['ret_reply_password'] = Language::get('Please fill in').' '.Language::get('Password');
-                $ret['input'] = 'reply_password';
               } elseif (!Validator::email($email)) {
                 // อีเมล์ไม่ถูกต้อง
                 $ret['ret_reply_email'] = str_replace(':name', Language::get('Email'), Language::get('Invalid :name'));
-                $ret['input'] = 'reply_email';
               } else {
                 // guest
                 $post['member_id'] = 0;
@@ -179,10 +170,8 @@ class Model extends \Kotchasan\Model
               $k = str_replace('reply_', '', $item);
               if (!$file->validFileExt($index['img_upload_type'])) {
                 $ret['ret_'.$item] = Language::get('The type of file is invalid');
-                $ret['input'] = $item;
               } elseif ($file->getSize() > ($index['img_upload_size'] * 1024)) {
                 $ret['ret_'.$item] = Language::get('The file size larger than the limit');
-                $ret['input'] = $item;
               } else {
                 // อัปโหลดได้
                 $ext = $file->getClientFileExt();
@@ -200,7 +189,6 @@ class Model extends \Kotchasan\Model
                 } catch (\Exception $exc) {
                   // ไม่สามารถอัปโหลดได้
                   $ret['ret_'.$item] = Language::get($exc->getMessage());
-                  $ret['input'] = $item;
                 }
               }
             }
@@ -268,7 +256,7 @@ class Model extends \Kotchasan\Model
         ->from('board_r R')
         ->join('modules M', 'INNER', array('M.id', 'R.module_id'))
         ->join('board_q Q', 'INNER', array('Q.id', 'R.index_id'))
-        ->join('category C', 'LEFT', array(array('C.category_id', 'Q.category_id'), array('C.module_id', 'Q.module_id')))
+        ->join('category C', 'LEFT', array(array('C.module_id', 'Q.module_id'), array('C.category_id', 'Q.category_id')))
         ->where(array(array('R.id', $id), array('R.index_id', $index_id), array('R.module_id', $module_id)))
         ->toArray()
         ->cacheOn()
@@ -278,7 +266,7 @@ class Model extends \Kotchasan\Model
       $index = $this->db()->createQuery()
         ->from('board_q Q')
         ->join('modules M', 'INNER', array('M.id', 'Q.module_id'))
-        ->join('category C', 'LEFT', array(array('C.category_id', 'Q.category_id'), array('C.module_id', 'Q.module_id')))
+        ->join('category C', 'LEFT', array(array('C.module_id', 'Q.module_id'), array('C.category_id', 'Q.category_id')))
         ->where(array(array('Q.id', $index_id), array('Q.module_id', $module_id)))
         ->toArray()
         ->cacheOn()
@@ -288,7 +276,7 @@ class Model extends \Kotchasan\Model
       // config จากโมดูล
       $index = ArrayTool::unserialize($index['mconfig'], $index);
       // config จากหมวด
-      if ($index['category_id'] > 0) {
+      if (!empty($index['category_id'])) {
         $index = ArrayTool::unserialize($index['config'], $index);
       }
       unset($index['mconfig']);

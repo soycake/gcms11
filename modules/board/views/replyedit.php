@@ -8,7 +8,6 @@
 
 namespace Board\Replyedit;
 
-use \Kotchasan\Language;
 use \Kotchasan\Template;
 use \Kotchasan\Http\Request;
 use \Gcms\Gcms;

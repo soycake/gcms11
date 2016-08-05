@@ -8,9 +8,10 @@
 
 namespace Edocument\Admin\Write;
 
-use Kotchasan\Language;
-use Gcms\Gcms;
-use Kotchasan\Login;
+use \Kotchasan\Http\Request;
+use \Kotchasan\Language;
+use \Gcms\Gcms;
+use \Kotchasan\Login;
 use \Kotchasan\ArrayTool;
 use \Kotchasan\File;
 use \Kotchasan\Http\UploadedFile;
@@ -18,7 +19,7 @@ use \Kotchasan\Text;
 use \Gcms\Email;
 
 /**
- * อ่านข้อมูลโมดูล.
+ * อ่านข้อมูลโมดูล
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -38,7 +39,7 @@ class Model extends \Kotchasan\Model
   public static function get($module_id, $id, $new = false)
   {
     // model
-    $model = new static();
+    $model = new static;
     $query = $model->db()->createQuery();
     if (empty($id)) {
       // ใหม่ ตรวจสอบโมดูล
@@ -75,25 +76,31 @@ class Model extends \Kotchasan\Model
   /**
    * บันทึก
    */
-  public function save()
+  public function save(Request $request)
   {
     $ret = array();
     // referer, session, member
-    if (self::$request->initSession() && self::$request->isReferer() && $login = Login::isMember()) {
+    if ($request->initSession() && $request->isReferer() && $login = Login::isMember()) {
       if ($login['email'] == 'demo') {
         $ret['alert'] = Language::get('Unable to complete the transaction');
       } else {
         // ค่าที่ส่งมา
         $save = array(
-          'document_no' => self::$request->post('document_no')->topic(),
-          'reciever' => self::$request->post('reciever', array())->toInt(),
-          'topic' => self::$request->post('topic')->topic(),
-          'detail' => self::$request->post('detail')->textarea()
+          'document_no' => $request->post('document_no')->topic(),
+          'reciever' => $request->post('reciever', array())->toInt(),
+          'topic' => $request->post('topic')->topic(),
+          'detail' => $request->post('detail')->textarea()
         );
         $id = self::$request->post('id')->toInt();
         // ตรวจสอบรายการที่เลือก
-        $index = self::get(self::$request->post('module_id')->toInt(), $id);
-        if ($index && Gcms::canConfig($login, $index, 'can_upload')) {
+        $index = self::get($request->post('module_id')->toInt(), $id);
+        if (!$index || !Gcms::canConfig($login, $index, 'can_upload')) {
+          // ไม่พบ หรือไม่สามารถอัปโหลดได้
+          $ret['alert'] = Language::get('Can not be performed this request. Because they do not find the information you need or you are not allowed');
+        } elseif ($id > 0 && !($login['id'] == $index->sender_id || Gcms::canConfig($login, $index, 'moderator'))) {
+          // แก้ไข ไม่ใช่เจ้าของหรือ moderator
+          $ret['alert'] = Language::get('Can not be performed this request. Because they do not find the information you need or you are not allowed');
+        } else {
           $error = false;
           // document_no
           if ($save['document_no'] == '') {
@@ -190,14 +197,14 @@ class Model extends \Kotchasan\Model
               // แก้ไข
               $this->db()->update($this->getFullTableName('edocument'), $id, $save);
             }
-            if (self::$request->post('send_mail')->toInt() == 1) {
+            if ($request->post('send_mail')->toInt() == 1) {
               $query = $this->db()->createQuery()->select('fname', 'lname', 'email')->from('user')->where(array('status', $reciever));
               foreach ($query->toArray()->execute() as $item) {
                 // ส่งอีเมล์
                 $replace = array(
                   '/%FNAME%/' => $item['fname'],
                   '/%LNAME%/' => $item['lname'],
-                  '/%URL%/' => WEB_URL.'/index.php?module='.$index->module
+                  '/%URL%/' => WEB_URL.'index.php?module='.$index->module
                 );
                 Email::send(1, 'edocument', $replace, $item['email']);
               }
@@ -205,10 +212,8 @@ class Model extends \Kotchasan\Model
             } else {
               $ret['alert'] = Language::get('Saved successfully');
             }
-            $ret['location'] = self::$request->getUri()->postBack('index.php', array('mid' => $index->module_id, 'module' => 'edocument-setup'));
+            $ret['location'] = $request->getUri()->postBack('index.php', array('mid' => $index->module_id, 'module' => 'edocument-setup'));
           }
-        } else {
-          $ret['alert'] = Language::get('Can not be performed this request. Because they do not find the information you need or you are not allowed');
         }
       }
     } else {

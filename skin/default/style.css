@@ -27,6 +27,7 @@ a {
 .header_bg {
   background-image: url(img/header_bg.png);
   background-repeat: repeat-x;
+  background-color: #2A333A;
 }
 #logo > h1 {
   font-size: 300%;
@@ -68,6 +69,16 @@ a {
   border-color: #94C523;
   margin-bottom: 10px;
 }
+.homepage header {
+  margin-bottom: 0;
+}
+.homepage header h2 {
+  background-color: #E5F3FF;
+  border-color: #B7DEFF;
+  border-style: solid;
+  border-width: 1px;
+  padding: 0 5px;
+}
 .sidebar .widget header h2, .login .head {
   background-color: #C3E672;
   padding: 5px;
@@ -95,10 +106,6 @@ a {
   color: #093;
   font-size: 90%;
 }
-.memberfrm a {
-  display: block;
-  line-height: 1.8em;
-}
 p.usericon > img {
   border: 1px solid #CCCCFF;
   padding: 2px;
@@ -122,9 +129,6 @@ p.usericon > img {
 }
 #document-list > .row span {
   margin-left: 5px;
-}
-#comment-list .r {
-  margin-bottom: 10px;
 }
 #comment-list .reaction, #document-view .reaction, #board-view .reaction {
   border: 1px solid #B7DEFF;
@@ -155,14 +159,6 @@ p.usericon > img {
 }
 .tab > ul > li.select > a, .tab > ul > li > a:focus {
   background-color: #F9ECF9;
-}
-.homepage header {
-  background-color: #E5F3FF;
-  border-color: #B7DEFF;
-  border-style: solid;
-  border-width: 1px;
-  padding: 5px;
-  margin-bottom: 5px;
 }
 .homepage .next {
   text-align: right;

@@ -73,7 +73,7 @@ class View extends \Kotchasan\View
     if (is_file(ROOT_PATH.DATA_FOLDER.'index.php')) {
       $date = file_get_contents(ROOT_PATH.DATA_FOLDER.'index.php');
       if (preg_match('/([0-9]+){0,2}-([0-9]+){0,2}-([0-9]+){0,4}\s([0-9]+){0,2}:([0-9]+){0,2}:([0-9]+){0,2}/', $date, $match)) {
-        $cron_time = gcms::mktime2date(mktime($match[4], $match[5], $match[6], $match[2], $match[1], $match[3]));
+        $cron_time = Date::format(mktime($match[4], $match[5], $match[6], $match[2], $match[1], $match[3]));
       } else {
         $cron_time = '-';
       }

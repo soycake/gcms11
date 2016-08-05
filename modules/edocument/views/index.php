@@ -41,13 +41,14 @@ class View extends \Gcms\View
     foreach ($index->items as $item) {
       $listitem->add(array(
         '/{ID}/' => $item->id,
-        '/{NAME}/' => $item->name,
+        '/{NO}/' => $item->document_no,
+        '/{NAME}/' => $item->topic,
         '/{EXT}/' => $item->ext,
+        '/{SENDER}/' => $item->displayname == '' ? $item->email : $item->displayname,
+        '/{STATUS}/' => $item->status,
         '/{ICON}/' => WEB_URL.'/skin/ext/'.(is_file(ROOT_PATH.'skin/ext/'.$item->ext.'.png') ? $item->ext : 'file').'.png',
         '/{DETAIL}/' => $item->detail,
-        '/{DATE}/' => Date::format($item->last_update),
-        '/{DATEISO}/' => date(DATE_ISO8601, $item->last_update),
-        '/{DOWNLOADS}/' => number_format($item->downloads),
+        '/{DATE}/' => Date::format($item->last_update, 'd M Y'),
         '/{SIZE}/' => Text::formatFileSize($item->size)
       ));
     }
@@ -59,6 +60,8 @@ class View extends \Gcms\View
       $menu = Gcms::$menu->moduleMenu($index->module);
       if ($menu) {
         Gcms::$view->addBreadcrumb($index->canonical, $menu->menu_text, $menu->menu_tooltip);
+      } elseif ($index->topic != '') {
+        Gcms::$view->addBreadcrumb($index->canonical, $index->topic);
       }
     }
     // current URL

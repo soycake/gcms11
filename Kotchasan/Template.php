@@ -123,6 +123,19 @@ class Template
   }
 
   /**
+   * ฟังก์ชั่นใส่ HTML ลงใน template ตรงๆ
+   * ใช้สำหรับแทรก HTML ลงระหว่างแต่ละรายการ
+   *
+   * @param string $html โค้ด HTML
+   * @return \static
+   */
+  public function insertHTML($html)
+  {
+    $this->items[] = $html;
+    return $this;
+  }
+
+  /**
    * ฟังก์ชั่น preg_replace
    *
    * @param array $patt คีย์ใน template
@@ -208,5 +221,15 @@ class Template
   public static function getPath()
   {
     return TEMPLATE_ROOT.self::$src;
+  }
+
+  /**
+   * ฟังก์ชั่นตรวจสอบว่ามีการ add ข้อมูลมาหรือเปล่า
+   *
+   * @return boolean คืนค่า true ถ้ามีการเรียกใช้คำสั่ง add มาก่อนหน้า, หรือ false ถ้าไม่ใช่
+   */
+  public function hasItem()
+  {
+    return empty($this->items) ? false : true;
   }
 }

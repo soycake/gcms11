@@ -224,7 +224,7 @@ a:hover {
   border-bottom: 10px solid transparent;
   border-right:10px solid #d1e9ed;
 }
-.no {
+#comment-list .no {
   color: #cee7ec;
   font-size: 500%;
   font-family: Courier;

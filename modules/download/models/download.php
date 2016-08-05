@@ -44,7 +44,7 @@ class Model extends \Kotchasan\Model
         $status = $login ? $login['status'] : -1;
         // ตรวจสอบข้อมูล
         $ret = array();
-        if (!$download || !is_file((ROOT_PATH.$download->file))) {
+        if (!$download || !is_file(ROOT_PATH.$download->file)) {
           $ret['alert'] = Language::get('Sorry, Item not found It&#39;s may be deleted');
         } elseif (!in_array($status, $download->can_download)) {
           $ret['alert'] = Language::get('Can not be performed this request. Because they do not find the information you need or you are not allowed');

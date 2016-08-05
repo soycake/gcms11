@@ -16,11 +16,6 @@
   -o-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  border-width: 1px;
-  border-style: solid;
-}
-.widget_share > a:hover {
-  color: #111;
 }
 .widget_share > a:before {
   margin-right: 0;

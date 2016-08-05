@@ -13,7 +13,6 @@ use \Kotchasan\Http\Request;
 use \Gcms\Gcms;
 use \Kotchasan\Date;
 use \Kotchasan\Grid;
-use \Kotchasan\Text;
 
 /**
  * แสดงรายการบทความ

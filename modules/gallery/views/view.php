@@ -37,32 +37,30 @@ class View extends \Gcms\View
   {
     // ลิสต์ข้อมูล
     $index = \Gallery\View\Model::get($request, $index);
-    if (empty($index) || empty($index->items)) {
-      // 404
-      return createClass('Index\PageNotFound\Controller')->init($request, 'gallery');
-    } else {
+    if ($index) {
       // login
       $login = Login::isMember();
+      $login_status = $login ? $login['status'] : -1;
       // breadcrumb ของโมดูล
-      if (Gcms::isHome($index->module)) {
-        $index->canonical = WEB_URL.'index.php';
+      $menu = Gcms::$menu->moduleMenu($index->module);
+      if ($menu) {
+        Gcms::$view->addBreadcrumb(Gcms::createUrl($index->module), $menu->menu_text, $menu->menu_tooltip);
       } else {
-        $index->canonical = Controller::url($index->module, $index->id);
-        $menu = Gcms::$menu->moduleMenu($index->module);
-        if ($menu) {
-          Gcms::$view->addBreadcrumb($index->canonical, $menu->menu_text, $menu->menu_tooltip);
-        }
+        Gcms::$view->addBreadcrumb(Gcms::createUrl($index->module), $index->title);
       }
+      // หน้านี้
+      $index->canonical = Controller::url($index->module, $index->id);
+      Gcms::$view->addBreadcrumb($index->canonical, $index->topic);
       // current URL
       $uri = \Kotchasan\Http\Uri::createFromUri($index->canonical);
-      if (Gcms::canConfig($login, $index, 'can_view')) {
+      if (in_array($login_status, $index->can_view)) {
         // รายการ
         $listitem = Grid::create($index->owner, $index->module, 'listitem');
         foreach ($index->items as $item) {
           // image
-          if (is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$item->image)) {
-            $thumb = WEB_URL.DATA_FOLDER.'gallery/'.str_replace('image', 'thumb', $item->image);
-            $img = WEB_URL.DATA_FOLDER.'gallery/'.$item->image;
+          if (is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$index->id.'/'.$item->image)) {
+            $thumb = WEB_URL.DATA_FOLDER.'gallery/'.$index->id.'/thumb_'.$item->image;
+            $img = WEB_URL.DATA_FOLDER.'gallery/'.$index->id.'/'.$item->image;
           } else {
             $thumb = WEB_URL.'modules/gallery/img/noimage.jpg';
             $img = WEB_URL.'modules/gallery/img/noimage.jpg';
@@ -99,5 +97,6 @@ class View extends \Gcms\View
       }
       return $index;
     }
+    return null;
   }
 }

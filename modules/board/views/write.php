@@ -84,10 +84,9 @@ class View extends \Gcms\View
     }
     // breadcrumb ของหน้า
     $index->canonical = Gcms::createUrl($index->module, 'write', $index->category_id);
-    $topic = Language::get('Create topic');
-    Gcms::$view->addBreadcrumb($index->canonical, $topic);
+    $index->topic = Language::get('Create topic');
+    Gcms::$view->addBreadcrumb($index->canonical, $index->topic);
     // คืนค่า
-    $index->topic = $topic.' - '.$index->topic;
     $index->detail = $template->render();
     return $index;
   }

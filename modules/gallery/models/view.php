@@ -34,13 +34,14 @@ class Model extends \Kotchasan\Model
     $album = $model->db()->createQuery()
       ->from('gallery_album')
       ->where(array(
-        array('id', $index->id),
+        array('id', $request->request('id')->toInt()),
         array('module_id', $index->module_id)
       ))
       ->cacheOn()
       ->toArray()
       ->first('id', 'topic', 'detail', 'visited', 'last_update');
     if ($album) {
+      $index->title = $index->topic;
       foreach ($album as $key => $value) {
         $index->$key = $value;
       }
@@ -65,7 +66,8 @@ class Model extends \Kotchasan\Model
       // รายการที่แสดง
       $query->select('G.id', 'G.image')->order('count')->limit($list_per_page, $index->start);
       $index->items = $query->cacheOn()->execute();
+      return $index;
     }
-    return $index;
+    return null;
   }
 }

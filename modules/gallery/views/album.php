@@ -39,9 +39,8 @@ class View extends \Gcms\View
     $listitem = Grid::create($index->owner, $index->module, 'albumitem');
     foreach ($index->items as $item) {
       // image
-      $img = str_replace('image', 'thumb', $item->image);
-      if (is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$img)) {
-        $img = WEB_URL.DATA_FOLDER.'gallery/'.$img;
+      if (is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$item->id.'/thumb_'.$item->image)) {
+        $img = WEB_URL.DATA_FOLDER.'gallery/'.$item->id.'/thumb_'.$item->image;
       } else {
         $img = WEB_URL.'modules/gallery/img/noimage.jpg';
       }
@@ -60,6 +59,8 @@ class View extends \Gcms\View
       $menu = Gcms::$menu->moduleMenu($index->module);
       if ($menu) {
         Gcms::$view->addBreadcrumb($index->canonical, $menu->menu_text, $menu->menu_tooltip);
+      } else {
+        Gcms::$view->addBreadcrumb($index->canonical, $index->topic);
       }
     }
     // current URL

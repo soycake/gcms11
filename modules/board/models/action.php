@@ -45,8 +45,8 @@ class Model extends \Kotchasan\Model
         $index = $this->db()->createQuery()
           ->from('board_r C')
           ->join('board_q Q', 'INNER', array(array('Q.id', 'C.index_id'), array('Q.module_id', 'C.module_id')))
-          ->join('category G', 'INNER', array(array('G.category_id', 'Q.category_id'), array('G.module_id', 'Q.module_id')))
           ->join('modules M', 'INNER', array('M.id', 'C.module_id'))
+          ->join('category G', 'LEFT', array(array('G.module_id', 'Q.module_id'), array('G.category_id', 'Q.category_id')))
           ->join('user U', 'LEFT', array('U.id', 'C.member_id'))
           ->where(array('C.id', $rid))
           ->toArray()
@@ -56,7 +56,7 @@ class Model extends \Kotchasan\Model
         $index = $this->db()->createQuery()
           ->from('board_q Q')
           ->join('modules M', 'INNER', array('M.id', 'Q.module_id'))
-          ->join('category G', 'INNER', array(array('G.category_id', 'Q.category_id'), array('G.module_id', 'Q.module_id')))
+          ->join('category G', 'LEFT', array(array('G.module_id', 'Q.module_id'), array('G.category_id', 'Q.category_id')))
           ->join('user U', 'LEFT', array('U.id', 'Q.member_id'))
           ->where(array('Q.id', $qid))
           ->toArray()
@@ -87,11 +87,11 @@ class Model extends \Kotchasan\Model
           if ($action == 'pin') {
             $ret['value'] = $index['pin'] == 0 ? 1 : 0;
             $this->db()->update($this->getFullTableName('board_q'), $qid, array('pin' => $ret['value']));
-            $ret['title'] = Language::get($ret['value'] == 1 ? 'Unpin' : 'Pin');
+            $ret['title'] = Language::get('click to').' '.Language::get($ret['value'] == 1 ? 'Unpin' : 'Pin');
           } elseif ($action == 'lock') {
             $ret['value'] = $index['locked'] == 0 ? 1 : 0;
             $this->db()->update($this->getFullTableName('board_q'), $qid, array('locked' => $ret['value']));
-            $ret['title'] = Language::get($ret['value'] == 1 ? 'Unlock' : 'Lock');
+            $ret['title'] = Language::get('click to').' '.Language::get($ret['value'] == 1 ? 'Unlock' : 'Lock');
           }
         } elseif ($action === 'delete' && $isMember) {
           // สามารถลบได้ (mod=ลบ,สมาชิก=แจ้งลบ)

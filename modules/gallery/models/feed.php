@@ -52,9 +52,8 @@ class Model extends \Kotchasan\Model
           ->order(($request->get('rnd')->exists() ? 'RAND()' : 'G.id DESC'))
           ->cacheOn()
           ->execute();
-    } else {
-      // เรียก method โดยตรง
-      new \Kotchasan\Http\NotFound('Do not call method directly');
     }
+    // เรียก method โดยตรง
+    new \Kotchasan\Http\NotFound('Do not call method directly');
   }
 }
