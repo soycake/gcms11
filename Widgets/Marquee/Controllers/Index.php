@@ -1,12 +1,12 @@
 <?php
 /*
- * @filesource Widgets/Album/Controllers/Index.php
+ * @filesource Widgets/Marquee/Controllers/Index.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
  */
 
-namespace Widgets\Album\Controllers;
+namespace Widgets\Marquee\Controllers;
 
 /**
  * Controller หลัก สำหรับแสดงผล Widget
@@ -26,10 +26,11 @@ class Index extends \Kotchasan\Controller
    */
   public function get($query_string)
   {
-    $calendar = array(
-      '<div id=widget-calendar></div>',
-      '<script>widgetsAlbumInit("widget-calendar", true);</script>'
-    );
-    return implode('', $calendar);
+    foreach (self::$cfg->marquee as $key => $value) {
+      if (!isset($query_string[$key])) {
+        $query_string[$key] = $value;
+      }
+    }
+    return \Widgets\Marquee\Views\Index::render($query_string);
   }
 }
