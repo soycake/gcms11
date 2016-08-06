@@ -62,6 +62,53 @@ class View extends \Kotchasan\View
       $content[] = '<h2>{TITLE}</h2>';
       $content[] = '<p>การติดตั้งได้ดำเนินการเสร็จเรียบร้อยแล้ว หากคุณต้องการความช่วยเหลือ คุณสามารถ ติดต่อสอบถามได้ที่ <a href="http://www.goragod.com" target="_blank">http://www.goragod.com</a> หรือ <a href="http://gcms.in.th" target="_blank">http://gcms.in.th</a></p>';
       $content[] = '<ul>';
+      // install database
+      $sqlfiles = array();
+      $sqlfiles[] = ROOT_PATH.'install/sql.php';
+      foreach ($sqlfiles AS $folder) {
+        $fr = file($folder);
+        foreach ($fr AS $value) {
+          $sql = str_replace(array('{prefix}', '{WEBMASTER}', '{WEBURL}', '\r', '\n'), array($_SESSION['prefix'], $_SESSION['email'], WEB_URL, "\r", "\n"), trim($value));
+          if ($sql != '') {
+            if (preg_match('/^<\?.*\?>$/', $sql)) {
+              // php code
+            } elseif (preg_match('/^define\([\'"]([A-Z_]+)[\'"](.*)\);$/', $sql, $match)) {
+              $defines[$match[1]] = $match[0];
+            } elseif (preg_match('/DROP[\s]+TABLE[\s]+(IF[\s]+EXISTS[\s]+)?`?([a-z0-9_]+)`?/iu', $sql, $match)) {
+              $ret = $db->query($sql);
+              $content[] = "<li class=\"".($ret === false ? 'incorrect' : 'correct')."\">DROP TABLE <b>$match[2]</b> ...</li>";
+            } elseif (preg_match('/CREATE[\s]+TABLE[\s]+(IF[\s]+NOT[\s]+EXISTS[\s]+)?`?([a-z0-9_]+)`?/iu', $sql, $match)) {
+              $ret = $db->query($sql);
+              $content[] = "<li class=\"".($ret === false ? 'incorrect' : 'correct')."\">CREATE TABLE <b>$match[2]</b> ...</li>";
+            } elseif (preg_match('/ALTER[\s]+TABLE[\s]+`?([a-z0-9_]+)`?[\s]+ADD[\s]+`?([a-z0-9_]+)`?(.*)/iu', $sql, $match)) {
+              // add column
+              $sql = "SELECT * FROM `information_schema`.`columns` WHERE `table_schema`='$config[db_name]' AND `table_name`='$match[1]' AND `column_name`='$match[2]'";
+              $search = $db->customQuery($sql);
+              if (sizeof($search) == 1) {
+                $sql = "ALTER TABLE `$match[1]` DROP COLUMN `$match[2]`";
+                $db->query($sql);
+              }
+              $ret = $db->query($match[0]);
+              if (sizeof($search) == 1) {
+                $content[] = "<li class=\"".($ret === false ? 'incorrect' : 'correct')."\">REPLACE COLUMN <b>$match[2]</b> to TABLE <b>$match[1]</b></li>";
+              } else {
+                $content[] = "<li class=\"".($ret === false ? 'incorrect' : 'correct')."\">ADD COLUMN <b>$match[2]</b> to TABLE <b>$match[1]</b></li>";
+              }
+            } elseif (preg_match('/INSERT[\s]+INTO[\s]+`?([a-z0-9_]+)`?(.*)/iu', $sql, $match)) {
+              $ret = $db->query($sql);
+              if (isset($q) && $q != $match[1]) {
+                $q = $match[1];
+                $content[] = "<li class=\"".($ret === false ? 'incorrect' : 'correct')."\">INSERT INTO <b>$match[1]</b> ...</li>";
+              }
+            } else {
+              $db->query($sql);
+            }
+          }
+        }
+      }
+      // install Admin
+      $sql = "INSERT INTO `$_SESSION[prefix]_user` (`id`, `password`, `email`, `displayname`,`country`, `status`, `fb`, `admin_access`) VALUES (1,'".md5($_SESSION['password'].$_SESSION['email'])."','$_SESSION[email]','Admin','TH',1,'0','1');";
+      $db->query($sql);
       // config
       self::$cfg->password_key = \Kotchasan\Text::rndname(10, '1234567890');
       self::$cfg->version = self::$cfg->new_version;
@@ -128,7 +175,7 @@ class View extends \Kotchasan\View
       $content[] = '<p class=warning>กรุณาลบโฟลเดอร์ <em>install/</em> ออกจาก Server ของคุณ';
       $content[] = '<p>คุณควรปรับ chmod ให้โฟลเดอร์ <em>'.DATA_FOLDER.'</em> เป็น 755 ก่อนดำเนินการต่อ (ถ้าคุณได้ทำการปรับ chmod ด้วยตัวเอง)</p>';
       $content[] = '<p>เมื่อเรียบร้อยแล้ว กรุณา<b>เข้าระบบผู้ดูแล</b>เพื่อตั้งค่าที่จำเป็นอื่นๆโดยใช้ขื่ออีเมล์ <em>'.$_SESSION['email'].'</em> และ รหัสผ่าน <em>'.$_SESSION['password'].'</em></p>';
-      $content[] = '<p><a href="'.WEB_URL.'/admin/index.php?module=system" class="button large admin">เข้าระบบผู้ดูแล</a></p>';
+      $content[] = '<p><a href="'.WEB_URL.'admin/index.php?module=system" class="button large admin">เข้าระบบผู้ดูแล</a></p>';
     }
     return (object)array(
         'title' => 'ติดตั้ง GCMS เวอร์ชั่น '.self::$cfg->version.' เรียบร้อย',
