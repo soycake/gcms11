@@ -105,8 +105,8 @@ class View extends \Kotchasan\View
       $figure = $div->add('figure');
       $a = $figure->add('a', array(
         'id' => 'preview_'.$id,
-        'href' => WEB_URL.DATA_FOLDER.'gallery/'.$item->image,
-        'innerHTML' => '<img src="'.WEB_URL.DATA_FOLDER.'gallery/'.str_replace('image', 'thumb', $item->image).'" alt='.$id.'>'
+        'href' => WEB_URL.DATA_FOLDER.'gallery/'.$index->id.'/'.$item->image,
+        'innerHTML' => '<img src="'.WEB_URL.DATA_FOLDER.'gallery/'.$index->id.'/thumb_'.$item->image.'" alt='.$id.'>'
       ));
       if ($i > 0) {
         $a = $figure->add('a', array(

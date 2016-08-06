@@ -27,6 +27,7 @@ class View extends \Kotchasan\View
    * @var object
    */
   private $thumbnails;
+  private $module;
 
   /**
    * ตารางรายการบทความ
@@ -36,6 +37,8 @@ class View extends \Kotchasan\View
    */
   public function render($index)
   {
+    $this->module = $index->module;
+    $this->thumbnails = Language::get('THUMBNAILS');
     // Uri
     $uri = self::$request->getUri();
     // ตาราง
@@ -131,9 +134,9 @@ class View extends \Kotchasan\View
    */
   public function onRow($item)
   {
-    $image = str_replace('image', 'thumb', $item['image']);
-    if (is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$image)) {
-      $item['image'] = '<img src="'.WEB_URL.DATA_FOLDER.'gallery/'.$image.'" title="'.$this->thumbnails[1].'" style="max-width:50px;max-height:50px" alt=thumbnail>';
+    $item['topic'] = '<a href="../index.php?module='.$this->module.'&amp;id='.$item['id'].'">'.$item['topic'].'</a>';
+    if (is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$item['id'].'/'.$item['image'])) {
+      $item['image'] = '<img src="'.WEB_URL.DATA_FOLDER.'gallery/'.$item['id'].'/thumb_'.$item['image'].'" title="'.$this->thumbnails[1].'" style="max-width:50px;max-height:50px" alt=thumbnail>';
     } else {
       $item['image'] = '<span class=icon-thumbnail title="'.$this->thumbnails[0].'"></span>';
     }

@@ -41,7 +41,7 @@ class Model extends \Kotchasan\Model
       ->join('modules M', 'INNER', array(array('M.id', 'A.module_id'), array('M.owner', 'gallery')))
       ->where(array('A.id', $id))
       ->toArray()
-      ->first('A.id', $model->buildNext('count', 'gallery'), 'M.id module_id', 'M.owner', 'M.module', 'M.config');
+      ->first('A.id', $model->buildNext('count', 'gallery', array(array('module_id', 'A.module_id'), array('album_id', 'A.id'))), 'M.id module_id', 'M.owner', 'M.module', 'M.config');
     if ($result) {
       $result = ArrayTool::unserialize($result['config'], $result);
       unset($result['config']);
@@ -73,11 +73,11 @@ class Model extends \Kotchasan\Model
                 $ret['alert'] = Language::get('The type of file is invalid');
               } else {
                 // อัปโหลด
-                $image = $index->module_id.'_'.$index->id.'_'.$index->count.'_image.'.$file->getClientFileExt();
+                $image = $index->count.'.'.$file->getClientFileExt();
                 try {
-                  $image = $file->resizeImage($index->img_typies, ROOT_PATH.DATA_FOLDER.'gallery/', $image, $index->image_width);
-                  $thumb = str_replace('image', 'thumb', $image['name']);
-                  $file->cropImage($index->img_typies, ROOT_PATH.DATA_FOLDER.'gallery/'.$thumb, $index->icon_width, $index->icon_height);
+                  $dir = ROOT_PATH.DATA_FOLDER.'gallery/'.$index->id.'/';
+                  $image = $file->resizeImage($index->img_typies, $dir, $image, $index->image_width);
+                  $file->cropImage($index->img_typies, $dir.'thumb_'.$image['name'], $index->icon_width, $index->icon_height);
                   // save
                   $save = array(
                     'album_id' => $index->id,

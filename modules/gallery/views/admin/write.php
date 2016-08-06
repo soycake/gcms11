@@ -62,8 +62,8 @@ class View extends \Kotchasan\View
       'value' => $index->detail
     ));
     // image
-    if (!empty($index->image) && is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$index->image)) {
-      $img = WEB_URL.DATA_FOLDER.'gallery/'.$index->image;
+    if (!empty($index->image) && is_file(ROOT_PATH.DATA_FOLDER.'gallery/'.$index->id.'/'.$index->image)) {
+      $img = WEB_URL.DATA_FOLDER.'gallery/'.$index->id.'/'.$index->image;
     } else {
       $img = WEB_URL.'modules/gallery/img/noimage.jpg';
     }

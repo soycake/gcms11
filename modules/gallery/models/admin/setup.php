@@ -11,6 +11,7 @@ namespace Gallery\Admin\Setup;
 use \Kotchasan\Login;
 use \Kotchasan\Language;
 use \Gcms\Gcms;
+use \Kotchasan\File;
 
 /**
  * โมเดลสำหรับแสดงรายการบทความ (setup.php)
@@ -78,13 +79,15 @@ class Model extends \Kotchasan\Orm\Field
             // ลบอัลบัม
             $query = $model->db()->createQuery()->select('album_id', 'image')->from('gallery')->where(array(array('album_id', $id), array('module_id', $module_id)))->toArray();
             foreach ($query->execute() as $item) {
-              // ลบรูปภาพ
-              @unlink(ROOT_PATH.DATA_FOLDER.'gallery/'.$item['image']);
-              @unlink(ROOT_PATH.DATA_FOLDER.'gallery/'.str_replace('image', 'thumb', $item['image']));
+              // ลบไดเรคทอรี่ของอัลบัม
+              File::removeDirectory(ROOT_PATH.DATA_FOLDER.'gallery/'.$item['album_id'].'/');
             }
             // ลบฐานข้อมูล
             $model->db()->createQuery()->delete('gallery', array(array('album_id', $id), array('module_id', $module_id)))->execute();
             $model->db()->createQuery()->delete('gallery_album', array(array('id', $id), array('module_id', $module_id)))->execute();
+            // คืนค่า
+            $ret['alert'] = Language::get('Deleted successfully');
+            $ret['location'] = 'reload';
           } elseif ($action === 'deletep') {
             // ลบรูปภาพ
             $query = $model->db()->createQuery()->select('album_id', 'image')->from('gallery')->where(array(
@@ -95,8 +98,8 @@ class Model extends \Kotchasan\Orm\Field
               ->toArray();
             foreach ($query->execute() as $item) {
               // ลบรูปภาพ
-              @unlink(ROOT_PATH.DATA_FOLDER.'gallery/'.$item['image']);
-              @unlink(ROOT_PATH.DATA_FOLDER.'gallery/'.str_replace('image', 'thumb', $item['image']));
+              @unlink(ROOT_PATH.DATA_FOLDER.'gallery/'.$item['album_id'].'/'.$item['image']);
+              @unlink(ROOT_PATH.DATA_FOLDER.'gallery/'.$item['album_id'].'/thumb_'.$item['image']);
             }
             // ลบฐานข้อมูล
             $model->db()->createQuery()->delete('gallery', array(

@@ -117,57 +117,45 @@ class Model extends \Kotchasan\Model
         // ตรวจสอบรายการที่เลือก
         $index = self::get(self::$request->post('module_id')->toInt(), $id, true);
         if ($index && Gcms::canConfig($login, $index, 'can_write')) {
-          $input = false;
-          // topic
-          if ($save['topic'] == '') {
-            $ret['ret_topic'] = 'this';
-            $input = !$input ? 'topic' : $input;
-          } else {
-            $ret['ret_topic'] = '';
-          }
-          // detail
-          if ($save['detail'] == '') {
-            $ret['ret_detail'] = 'this';
-            $input = !$input ? 'detail' : $input;
-          } else {
-            $ret['ret_detail'] = '';
-          }
           // เวลานี้
           $mktime = time();
-          if (!$input) {
+          // ตรวจสอบค่าที่ส่งมา
+          if ($save['topic'] == '') {
+            $ret['ret_topic'] = 'this';
+          } elseif ($save['detail'] == '') {
+            $ret['ret_detail'] = 'this';
+          } else {
             // อัปโหลดไฟล์
             foreach (self::$request->getUploadedFiles() as $item => $file) {
               /* @var $file UploadedFile */
               if ($file->hasUploadFile()) {
-                if (!File::makeDirectory(ROOT_PATH.DATA_FOLDER.'gallery/')) {
+                $dir = ROOT_PATH.DATA_FOLDER.'gallery/'.$index->id.'/';
+                if (!File::makeDirectory(ROOT_PATH.DATA_FOLDER.'gallery/') || !File::makeDirectory($dir)) {
                   // ไดเรคทอรี่ไม่สามารถสร้างได้
                   $ret['ret_'.$item] = sprintf(Language::get('Directory %s cannot be created or is read-only.'), DATA_FOLDER.'gallery/');
-                  $input = !$input ? $item : $input;
                 } elseif (!$file->validFileExt($index->img_typies)) {
                   // ชนิดของไฟล์ไม่ถูกต้อง
                   $ret['ret_'.$item] = Language::get('The type of file is invalid');
-                  $input = !$input ? $item : $input;
                 } else {
                   // อัปโหลด
-                  $image = $index->module_id.'_'.$index->id.'_0_image.'.$file->getClientFileExt();
+                  $image = '0.'.$file->getClientFileExt();
                   try {
-                    $image = $file->resizeImage($index->img_typies, ROOT_PATH.DATA_FOLDER.'gallery/', $image, $index->image_width);
-                    $thumb = str_replace('image', 'thumb', $image['name']);
-                    $file->cropImage($index->img_typies, ROOT_PATH.DATA_FOLDER.'gallery/'.$thumb, $index->icon_width, $index->icon_height);
+                    // image
+                    $image = $file->resizeImage($index->img_typies, $dir, $image, $index->image_width);
+                    // thumb
+                    $file->cropImage($index->img_typies, $dir.'thumb_'.$image['name'], $index->icon_width, $index->icon_height);
                   } catch (\Exception $exc) {
                     // ไม่สามารถอัปโหลดได้
                     $ret['ret_'.$item] = Language::get($exc->getMessage());
-                    $input = !$input ? $item : $input;
                   }
                 }
-              } elseif ($index->id == 0) {
+              } elseif ($id == 0) {
                 // ใหม่ ต้องมีรูปภาพ
-                $ret['ret_'.$item] = 'Please select an image of the album cover';
-                $input = !$input ? $item : $input;
+                $ret['ret_'.$item] = Language::get('Please select an image of the album cover');
               }
             }
           }
-          if (!$input) {
+          if (empty($ret)) {
             $save['last_update'] = $mktime;
             if ($id == 0) {
               // ใหม่
@@ -192,8 +180,6 @@ class Model extends \Kotchasan\Model
             // ส่งค่ากลับ
             $ret['alert'] = Language::get('Saved successfully');
             $ret['location'] = self::$request->getUri()->postBack('index.php', array('mid' => $index->module_id, 'module' => 'gallery-setup'));
-          } else {
-            $ret['input'] = $input;
           }
         } else {
           $ret['alert'] = Language::get('Can not be performed this request. Because they do not find the information you need or you are not allowed');

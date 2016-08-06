@@ -97,7 +97,7 @@ class File
   /**
    * ลบไดเรคทอรี่และไฟล์ หรือ ไดเร็คทอรี่ในนั้นทั้งหมด
    *
-   * @param string $dir ไดเรคทอรี่ที่ต้องการลบ
+   * @param string $dir ไดเรคทอรี่ที่ต้องการลบ มี / ต่อท้ายด้วย
    */
   public static function removeDirectory($dir)
   {
