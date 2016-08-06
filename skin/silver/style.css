@@ -90,10 +90,6 @@ form fieldset > legend, .bdr_content header > h3.icon-tags {
   font-size: 1.4em;
   border-top: 3px solid #06AFE4;
 }
-.memberfrm a {
-  display: block;
-  line-height: 1.7em;
-}
 .homepage header {
   margin-bottom: 0;
 }

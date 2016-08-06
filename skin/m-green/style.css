@@ -58,10 +58,7 @@ body {
   background-color: transparent;
 }
 .sidemenu ul > li {
-  color: #D8FF00;
-  font-weight: bold;
-}
-.sidemenu ul > li {
+  color: #FFF;
   background-color: #17A991;
   border-left-width: 3px;
   border-top-width: 1px;
@@ -70,7 +67,6 @@ body {
   border-style: solid none none solid;
 }
 .sidemenu ul > li:hover, .sidemenu ul > li.select {
-  color: #FFF;
   border-left-color: rgba(0,0,0,0.5)
 }
 .sidemenu ul > li:hover > a, .sidemenu ul > li.select > a {
@@ -146,6 +142,9 @@ body {
 .xsidebar .widget header {
   margin-left: -10px;
 }
+.homepage header {
+  margin-bottom: 0;
+}
 .login p {
   padding: 2px 0;
 }
@@ -159,19 +158,18 @@ body {
 .login .head > span {
   color: #066;
 }
-.memberfrm a {
-  display: block;
-  line-height: 1.8em;
-}
 .breadcrumbs {
   color: #CCC;
 }
-.bdr_content header > h3.icon-tags, .content .mainform legend > span, .content .member_section legend > span, .content .member_section h2 {
+.bdr_content header > h3.icon-tags, .content .mainform legend > span, .content .member_section legend > span {
   margin-bottom: 10px;
   line-height: normal;
   display: block;
   font-weight: normal;
   font-size: 140%;
+}
+.content .member_section header {
+  margin-bottom: 0;
 }
 .q .reaction, .r .reaction {
   background-color: #EDF8ED;

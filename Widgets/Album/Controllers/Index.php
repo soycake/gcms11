@@ -26,7 +26,11 @@ class Index extends \Kotchasan\Controller
    */
   public function get($query_string)
   {
-    $query_string['rows'] = empty($query_string['rows']) ? 3 : (int)$query_string['rows'];
+    if (preg_match('/([0-9]+)_([0-9]+)/', $query_string['module'], $match)) {
+      $query_string['rows'] = $match[1];
+      $query_string['cols'] = $match[2];
+    }
+    $query_string['rows'] = empty($query_string['rows']) ? 3 : max(1, (int)$query_string['rows']);
     if (empty($query_string['cols']) || !in_array($query_string['cols'], array(1, 2, 4, 6, 8))) {
       $query_string['cols'] = 2;
     } else {

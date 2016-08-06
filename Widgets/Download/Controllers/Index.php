@@ -66,7 +66,7 @@ class Index extends \Kotchasan\Controller
           '/{SIZE}/' => Text::formatFileSize($item->size)
         ));
       }
-      $widget[] = $listitem->render();
+      $widget[] = createClass('Kotchasan\View')->renderHTML($listitem->render());
       $widget[] = '</div></div>';
       $widget[] = '<script>initDownloadList("'.$id.'");</script>';
       return implode('', $widget);

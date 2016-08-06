@@ -278,6 +278,10 @@ body .widget_share a:before {
 .bdr_content header {
   margin-bottom: 10px;
 }
+.member_section > header > h2,
+.bdr_content > header > h2 {
+  line-height: 2.3em;
+}
 .bdr_content header > h3.icon-tags, .mainform legend {
   font-size: 1.4em;
   background-color: #F5F5F5;

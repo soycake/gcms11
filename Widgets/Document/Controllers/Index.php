@@ -114,7 +114,7 @@ class Index extends \Kotchasan\Controller
           '/{COLS}/' => $match[6]
         ));
       }
-      echo $listitem->render();
+      echo createClass('Kotchasan\View')->renderHTML($listitem->render());
     }
   }
 }

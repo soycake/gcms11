@@ -48,9 +48,10 @@ class Index extends \Kotchasan\View
         '/{COMMENTS}/' => number_format($item->comments),
         '/{VISITED}/' => number_format($item->visited),
         '/{DETAIL}/' => $item->description,
-        '/{PICTURE}/' => $thumb
+        '/{PICTURE}/' => $thumb,
+        '/{COLS}/' => $index->cols
       ));
     }
-    return str_replace('{COLS}', $index->cols, $listitem->render());
+    return createClass('Kotchasan\View')->renderHTML($listitem->render());
   }
 }
