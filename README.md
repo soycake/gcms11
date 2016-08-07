@@ -2,6 +2,7 @@
 เวอร์ชั่นถัดไปของ GCMS
 
 
+
 ## การติดตั้ง
 
 1 ดาวน์โหลดโค้ดทั้งหมดจาก Github
@@ -14,8 +15,8 @@
 
 5 ลบไดเร็คทอรี่ install/ ออก
 
-
 ```ไม่รองรับการอัปเกรดจาก GCMS เวอร์ชั่นก่อนหน้านะครับ โดยจะต้องทำการอัปเกรดด้วยตัวเอง```
+
 
 
 ## วิธีการอัปเกรดจากเวอร์ชั่นก่อนหน้า
@@ -34,6 +35,7 @@
 ALTER TABLE `yourprefix_user` ADD `ban` INT( 11 ) UNSIGNED NOT NULL ;
 ALTER TABLE `yourprefix_eventcalendar` ADD `end_date` DATETIME NOT NULL AFTER `begin_date` ;
 ```
+
 6 ทดสอบเรียกเว็บไซต์ โดยเข้าระบบแอดมิน
 
 7 ตรวจสอบค่าติดตั้งต่างๆตามโมดูล และ ส่วนเสริมต่างๆให้เรียบร้อย โดยกดบันทึกใหม่ทุกรายการ
@@ -43,6 +45,8 @@ ALTER TABLE `yourprefix_eventcalendar` ADD `end_date` DATETIME NOT NULL AFTER `b
 9 ลบไดเร็คทอรี่ install/ ออก
 
 
+
+## เว็บไซต์ตัวอย่าง
 
 เว็บไซต์ตัวอย่าง http://demo.gcms.in.th เว็บไซต์ทั่วไป
 
