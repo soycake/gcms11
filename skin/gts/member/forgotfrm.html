@@ -1,8 +1,11 @@
 <div class=bdr_content>
-  <form id=forgot_frm class=main_frm method=post action="{WEBURL}index.php" autocomplete="off">
-    <header>
-      <h2 class="cuttext icon-password">{LNG_Request new password}</h2>
-    </header>
+  <header>
+    <h2 class="cuttext icon-password">{LNG_Request new password}</h2>
+    <nav class="breadcrumbs cuttext">
+      <ul>{BREADCRUMBS}</ul>
+    </nav>
+  </header>
+  <form id=forgot_frm class=main_frm method=post action="{WEBURL}index.php">
     <fieldset>
       <div class=item>
         <label class="g-input icon-email"><input type=text name=forgot_email id=forgot_email plecaholder="{LNG_Email}" value="{EMAIL}" title="{LNG_New password will be sent to the email address registered. If you do not remember or do not receive emails. Please contact your system administrator (Please check in the Junk Box)}" autofocus></label>

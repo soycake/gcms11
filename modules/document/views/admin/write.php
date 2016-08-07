@@ -255,7 +255,7 @@ class View extends \Kotchasan\View
     $tab = self::$request->get('tab')->toString();
     $tab = empty($tab) ? 'detail_'.reset($languages) : $tab;
     $form->script('initWriteTab("accordient_menu", "'.$tab.'");');
-    $form->script('checkSaved("preview", "'.WEB_URL.'/index.php?module='.$index->module.'", "id");');
+    $form->script('checkSaved("preview", "'.WEB_URL.'index.php?module='.$index->module.'", "id");');
     $form->script('new GValidator("alias", "keyup,change", checkAlias, "index.php/index/model/checker/alias", null, "setup_frm");');
     $form->script('selectChanged("category_'.$index->module_id.'","index.php/index/model/category/action",doFormSubmit);');
     // tab

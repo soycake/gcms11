@@ -47,7 +47,7 @@ class View extends \Gcms\View
         if ($i > 0) {
           $listitem->insertHTML('</ul></article><article>');
         }
-        $listitem->insertHTML('<h3>'.$categories[$old_cat]->topic.'</h3><ul>');
+        $listitem->insertHTML('<h3>'.(empty($categories[$old_cat]->topic) ? '{LNG_Unknown}' : $categories[$old_cat]->topic).'</h3><ul>');
       }
       if ($n > 0 && ($old_order != $item->order || ($item->order > 0 && $n % $item->order == 0))) {
         $listitem->insertHTML('</ul><ul>');

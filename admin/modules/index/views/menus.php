@@ -135,7 +135,7 @@ class View extends \Kotchasan\View
    */
   public function onRow($item)
   {
-    $url = empty($item['menu_url']) ? WEB_URL.'/index.php?module='.$item['module'] : $item['menu_url'];
+    $url = empty($item['menu_url']) ? WEB_URL.'index.php?module='.$item['module'] : $item['menu_url'];
     $text = '';
     for ($i = 0; $i < $item['level']; $i++) {
       $text .= '&nbsp;&nbsp;&nbsp;';

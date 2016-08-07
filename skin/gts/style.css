@@ -160,6 +160,11 @@ nav.breadcrumbs li:before {
 .bdr_content > header {
   padding: 2.3em 0 0;
 }
+.widget > header > h2,
+.member_section > header > h2,
+.bdr_content header h2 {
+  line-height: 2.3em;
+}
 .bdr_content > header, header.header {
   position: relative;
   margin-bottom: 1%;

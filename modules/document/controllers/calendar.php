@@ -82,7 +82,7 @@ class Controller extends \Kotchasan\Controller
         echo '<div id=calendar-tooltip>';
         echo '<h5>'.Date::format("$match[3]-$match[2]-$match[1]", 'd M Y').'</h5>';
         foreach (createClass('Document\Calendar\Model')->tooltip($ids, $settings) as $item) {
-          echo '<a href="'.WEB_URL.'/index.php?module='.$item['module'].'&amp;id='.$item['id'].'" title="'.$item['description'].'">'.$item['topic'].'</a>';
+          echo '<a href="'.WEB_URL.'index.php?module='.$item['module'].'&amp;id='.$item['id'].'" title="'.$item['description'].'">'.$item['topic'].'</a>';
         }
         echo '</div>';
       }

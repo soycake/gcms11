@@ -107,7 +107,7 @@ class View extends \Kotchasan\View
     $l = sizeof($pageviews);
     foreach ($pageviews AS $i => $item) {
       $c = $i > $l - 8 ? $i > $l - 4 ? '' : 'mobile' : 'tablet';
-      $thead[] = '<td class="'.$c.'"><a href="'.WEB_URL.'/admin/index.php?module=pagesview&amp;date='.$item['year'].'-'.$item['month'].'">'.Date::monthName($item['month']).'</a></td>';
+      $thead[] = '<td class="'.$c.'"><a href="'.WEB_URL.'admin/index.php?module=pagesview&amp;date='.$item['year'].'-'.$item['month'].'">'.Date::monthName($item['month']).'</a></td>';
       $pageview[] = '<td class="'.$c.'">'.number_format($item['pages_view']).'</td>';
       $visited[] = '<td class="'.$c.'">'.number_format($item['visited']).'</td>';
     }

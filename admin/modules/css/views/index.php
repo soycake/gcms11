@@ -37,7 +37,7 @@ class View extends \Kotchasan\KBase
       if ($text != "." && $text != "..") {
         if (is_dir($dir.$text)) {
           if (is_file($dir.$text.'/admin.css')) {
-            $data2 .= preg_replace('/url\(img\//isu', 'url('.WEB_URL.'/modules/'.$text.'/img/', file_get_contents($dir.$text.'/admin.css'));
+            $data2 .= preg_replace('/url\(img\//isu', 'url('.WEB_URL.'modules/'.$text.'/img/', file_get_contents($dir.$text.'/admin.css'));
           }
         }
       }
@@ -50,7 +50,7 @@ class View extends \Kotchasan\KBase
       if ($text != "." && $text != "..") {
         if (is_dir($dir.$text)) {
           if (is_file($dir.$text.'/admin.css')) {
-            $data2 .= preg_replace('/url\(img\//isu', 'url('.WEB_URL.'/Widgets/'.$text.'/img/', file_get_contents($dir.$text.'/admin.css'));
+            $data2 .= preg_replace('/url\(img\//isu', 'url('.WEB_URL.'Widgets/'.$text.'/img/', file_get_contents($dir.$text.'/admin.css'));
           }
         }
       }

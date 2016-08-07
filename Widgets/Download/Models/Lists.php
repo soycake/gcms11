@@ -1,6 +1,6 @@
 <?php
 /*
- * @filesource Widgets/Download/Models/Index.php
+ * @filesource Widgets/Download/Models/Lists.php
  * @link http://www.kotchasan.com/
  * @copyright 2016 Goragod.com
  * @license http://www.kotchasan.com/license/
@@ -9,17 +9,17 @@
 namespace Widgets\Download\Models;
 
 /**
- * อ่านรายการอัลบัมทั้งหมด
+ * รายการไฟล์ดาวน์โหลด
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
  * @since 1.0
  */
-class Index extends \Kotchasan\Model
+class Lists extends \Kotchasan\Model
 {
 
   /**
-   * รายการกระทู้
+   * รายการไฟล์ดาวน์โหลด
    *
    * @param int $module_id
    * @param string $categories

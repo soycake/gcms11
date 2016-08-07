@@ -82,7 +82,7 @@ class View extends \Kotchasan\View
     $icon = ArrayTool::unserialize($index->icon);
     foreach (Language::installedLanguage() as $item) {
       $fieldset = $form->add('fieldset', array(
-        'title' => '{LNG_Details of} {LNG_Category} <img src="'.WEB_URL.'/language/'.$item.'.gif" alt="'.$item.'">'
+        'title' => '{LNG_Details of} {LNG_Category} <img src="'.WEB_URL.'language/'.$item.'.gif" alt="'.$item.'">'
       ));
       // topic
       $fieldset->add('text', array(

@@ -96,7 +96,7 @@ class Index extends \Kotchasan\Controller
           '/{ICON}/' => $icon
         ));
       }
-      echo $listitem->render();
+      echo createClass('Kotchasan\View')->renderHTML($listitem->render());
     }
   }
 }

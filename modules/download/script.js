@@ -28,9 +28,14 @@ function initDownloadList(id) {
     }
     return false;
   };
-  forEach($G(id).elems('a'), function () {
-    if (patt.test(this.id)) {
-      callClick(this, doDownloadClick);
-    }
-  });
+  var e = $E(id);
+  if (e.tagName.toLowerCase() == 'a' && patt.test(e.id)) {
+    callClick(e, doDownloadClick);
+  } else {
+    forEach($G(id).elems('a'), function () {
+      if (patt.test(this.id)) {
+        callClick(this, doDownloadClick);
+      }
+    });
+  }
 }

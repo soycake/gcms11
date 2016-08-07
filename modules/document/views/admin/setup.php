@@ -46,7 +46,7 @@ class View extends \Kotchasan\View
     $this->publisheds = Language::get('PUBLISHEDS');
     $this->replies = Language::get('REPLIES');
     $this->thumbnails = Language::get('THUMBNAILS');
-    $this->default_icon = WEB_URL.'/'.$index->default_icon;
+    $this->default_icon = WEB_URL.$index->default_icon;
     $this->categories = array(0 => '{LNG_all items}');
     foreach (\Index\Category\Model::categories((int)$index->module_id) as $item) {
       $this->categories[$item['category_id']] = Gcms::ser2Str($item, 'topic');

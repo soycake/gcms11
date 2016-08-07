@@ -62,13 +62,11 @@ body {
   border-width: 0 0 1px 5px;
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.5);
-  color: #D8FF00;
-  font-weight: bold;
+  color: #FFF;
   transition: all 0.2s;
 }
 .sidemenu ul > li.select > a, .sidemenu ul > li:hover > a {
   background: #c00006;
-  color: #FFF;
 }
 .topmenu > ul ul, .sidemenu > ul ul {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
@@ -138,6 +136,9 @@ body {
 .homepage .sidebar .widget header {
   margin-left: -10px;
 }
+.homepage header {
+  margin-bottom: 0;
+}
 .login p {
   padding: 2px 0;
 }
@@ -151,19 +152,18 @@ body {
 .login .head > span {
   color: #066;
 }
-.memberfrm a {
-  display: block;
-  line-height: 1.8em;
-}
 .breadcrumbs {
   color: #CCC;
 }
-.bdr_content header > h3.icon-tags, .content .mainform legend > span, .content .member_section legend > span, .content .member_section h2 {
+.bdr_content header > h3.icon-tags, .content .mainform legend > span, .content .member_section legend > span {
   margin-bottom: 10px;
   line-height: normal;
   display: block;
   font-weight: normal;
   font-size: 140%;
+}
+.content .member_section header {
+  margin-bottom: 0;
 }
 .q .reaction, .r .reaction {
   background-color: #FDEAFB;

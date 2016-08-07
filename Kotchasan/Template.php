@@ -172,13 +172,11 @@ class Template
     if ($this->cols === 0) {
       // template
       return empty($this->items) ? $this->skin : implode("\n", $this->items);
-    } elseif (empty($this->items)) {
-      // grid ไม่มีรายการ
-      return '';
-    } else {
+    } elseif (!empty($this->items)) {
       // grid
       return "<div class=row>\n".implode("\n", $this->items)."\n</div>";
     }
+    return '';
   }
 
   /**

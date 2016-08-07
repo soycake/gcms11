@@ -1,8 +1,8 @@
-#video_list .item figure {
+.videoitem figure {
   display: block;
   position: relative;
 }
-#video_list .item span {
+.videoitem span {
   padding: 5px;
   position: absolute;
   bottom: 0;
@@ -11,7 +11,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   color: #FFF;
 }
-#video_list .item .thumbnail {
+.videoitem .thumbnail {
   background-image: url(img/play.png);
   background-position: 50% 50%;
   position: absolute;

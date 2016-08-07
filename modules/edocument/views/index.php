@@ -46,7 +46,7 @@ class View extends \Gcms\View
         '/{EXT}/' => $item->ext,
         '/{SENDER}/' => $item->displayname == '' ? $item->email : $item->displayname,
         '/{STATUS}/' => $item->status,
-        '/{ICON}/' => WEB_URL.'/skin/ext/'.(is_file(ROOT_PATH.'skin/ext/'.$item->ext.'.png') ? $item->ext : 'file').'.png',
+        '/{ICON}/' => WEB_URL.'skin/ext/'.(is_file(ROOT_PATH.'skin/ext/'.$item->ext.'.png') ? $item->ext : 'file').'.png',
         '/{DETAIL}/' => $item->detail,
         '/{DATE}/' => Date::format($item->last_update, 'd M Y'),
         '/{SIZE}/' => Text::formatFileSize($item->size)
