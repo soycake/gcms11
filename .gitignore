@@ -4,3 +4,5 @@
 robots.txt
 /datas/*
 /settings/*
+news.php
+getupdate.php

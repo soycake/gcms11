@@ -39,6 +39,10 @@ class Index extends \Kotchasan\Controller
       $query_string['cat'] = isset($query_string['cat']) ? $query_string['cat'] : 0;
       $query_string['count'] = isset($query_string['count']) ? (int)$query_string['count'] : 10;
       return \Widgets\Download\Views\Lists::render($index, $query_string);
+      $widget[] = createClass('Kotchasan\View')->renderHTML($listitem->render());
+      $widget[] = '</div></div>';
+      $widget[] = '<script>initDownloadList("'.$id.'");</script>';
+      return implode('', $widget);
     }
     return '';
   }

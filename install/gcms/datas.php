@@ -6,8 +6,6 @@ TRUNCATE `{prefix}_index`;
 TRUNCATE `{prefix}_index_detail`;
 TRUNCATE `{prefix}_menus`;
 TRUNCATE `{prefix}_modules`;
-TRUNCATE `{prefix}_tags`;
-TRUNCATE `{prefix}_textlink`;
 INSERT INTO `{prefix}_board_q` (`id`, `module_id`, `category_id`, `sender`, `member_id`, `email`, `ip`, `create_date`, `last_update`, `visited`, `comments`, `comment_id`, `commentator`, `commentator_id`, `comment_date`, `picture`, `pictureW`, `pictureH`, `hassubpic`, `can_reply`, `published`, `pin`, `locked`, `related`, `topic`, `detail`) VALUES ('1','4','2','','1','admin@goragod.com','171.5.250.37','1379218020','1430719076','262','1','3','hansa-hi@hotmail.com','0','1430719076','','0','0','0','0','0','0','0','','กระทู้แรกของคุณ','นี่คือ กระทู้แรกของคุณ');
 INSERT INTO `{prefix}_board_r` (`id`, `module_id`, `index_id`, `detail`, `sender`, `member_id`, `email`, `ip`, `last_update`, `picture`, `pictureW`, `pictureH`) VALUES ('3','4','1','ความคิดเห็นจากบุคคลทั่วไป','','0','hansa-hi@hotmail.com','49.49.135.93','1430719076','','0','0');
 INSERT INTO `{prefix}_category` (`id`, `module_id`, `category_id`, `group_id`, `config`, `c1`, `c2`, `topic`, `detail`, `icon`, `published`) VALUES ('1','3','1','0','can_reply=0','1','0','a:1:{s:0:"";s:36:"บทความทั่วไป";}','a:1:{s:0:"";s:76:"บทความทั่วไป แหล่งเรียนรู้";}','','1');
@@ -48,5 +46,3 @@ INSERT INTO `{prefix}_modules` (`id`, `owner`, `module`, `config`) VALUES ('4','
 INSERT INTO `{prefix}_modules` (`id`, `owner`, `module`, `config`) VALUES ('5','download','download','a:7:{s:11:"file_typies";a:8:{i:0;s:3:"doc";i:1;s:3:"ppt";i:2;s:4:"pptx";i:3;s:4:"docx";i:4;s:3:"rar";i:5;s:3:"zip";i:6;s:3:"jpg";i:7;s:3:"pdf";}s:11:"upload_size";i:2097152;s:13:"list_per_page";i:20;s:4:"sort";i:1;s:12:"can_download";a:3:{i:0;i:-1;i:1;i:0;i:2;i:1;}s:10:"can_upload";a:1:{i:0;i:1;}s:10:"can_config";a:1:{i:0;i:1;}}');
 INSERT INTO `{prefix}_modules` (`id`, `owner`, `module`, `config`) VALUES ('6','gallery','gallery','a:10:{s:10:"icon_width";i:400;s:11:"icon_height";i:300;s:11:"image_width";i:800;s:10:"img_typies";a:2:{i:0;s:3:"jpg";i:1;s:4:"jpeg";}s:4:"rows";i:3;s:4:"cols";i:4;s:4:"sort";i:1;s:8:"can_view";a:3:{i:0;i:-1;i:1;i:0;i:2;i:1;}s:9:"can_write";a:1:{i:0;i:1;}s:10:"can_config";a:1:{i:0;i:1;}}');
 INSERT INTO `{prefix}_modules` (`id`, `owner`, `module`, `config`) VALUES ('8','video','video','');
-INSERT INTO `{prefix}_tags` (`id`, `tag`, `count`) VALUES ('1','GCMS','1');
-INSERT INTO `{prefix}_textlink` (`id`, `text`, `url`, `publish_start`, `publish_end`, `logo`, `width`, `height`, `type`, `name`, `published`, `link_order`, `last_preview`, `description`, `template`, `target`) VALUES ('1','Goragod.com','http://www.goragod.com/','0','0','','0','0','list','list','1','0','0','','','');
