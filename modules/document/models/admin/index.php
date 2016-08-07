@@ -24,7 +24,7 @@ class Model extends \Kotchasan\Model
    * อ่านข้อมูลโมดูล
    *
    * @param int $module_id
-   * @return object|null ข้อมูลโมดูล (Object) หรือ null หากไม่พบบ
+   * @return object|null ข้อมูลโมดูล (Object) หรือ null หากไม่พบ
    */
   public static function module($module_id)
   {
