@@ -38,7 +38,10 @@ class Controller extends \Kotchasan\Controller
     // ตรวจสอบการ login
     Login::create();
     // กำหนด skin ให้กับ template
-    Template::init($request->get('skin', self::$cfg->skin)->toString());
+    self::$cfg->skin = $request->get('skin', self::$request->session('skin', self::$cfg->skin)->toString())->toString();
+    self::$cfg->skin = is_file(ROOT_PATH.'skin/'.self::$cfg->skin.'/style.css') ? self::$cfg->skin : 'bighead';
+    $_SESSION['skin'] = self::$cfg->skin;
+    Template::init(self::$cfg->skin);
     // ตรวจสอบหน้าที่จะแสดง
     if (!empty(self::$cfg->maintenance_mode) && !Login::isAdmin()) {
       Gcms::$view = new \Index\Maintenance\View;

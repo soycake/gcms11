@@ -11,10 +11,10 @@ function initDownloadList(id) {
         if (confirm(ds.confirm)) {
           req.send(WEB_URL + 'index.php/download/model/download/action', 'action=downloading&id=' + this.id);
           ds = req.responseText.toJSON();
-          if (ds.downloads) {
+          if (ds.downloads && $E('downloads_' + ds.id)) {
             $E('downloads_' + ds.id).innerHTML = ds.downloads;
           }
-          if (ds.id) {
+          if (ds.href) {
             this.href = ds.href;
             return true;
           }

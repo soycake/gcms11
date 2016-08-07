@@ -23,12 +23,14 @@ class View extends \Kotchasan\KBase
    */
   public function index()
   {
+    // session
+    self::$request->initSession();
     // โหลด css หลัก
     $data = preg_replace('/url\(([\'"])?fonts\//isu', "url(\\1".WEB_URL.'skin/fonts/', file_get_contents(ROOT_PATH.'skin/fonts.css'));
     $data .= file_get_contents(ROOT_PATH.'skin/gcss.css');
     $data .= file_get_contents(ROOT_PATH.'skin/gcms.css');
     // frontend template
-    $skin = 'skin/'.self::$cfg->skin;
+    $skin = 'skin/'.(empty($_SESSION['skin']) ? self::$cfg->skin : $_SESSION['skin']);
     $data2 = file_get_contents(TEMPLATE_ROOT.$skin.'/style.css');
     $data2 = preg_replace('/url\(([\'"])?(img|fonts)\//isu', "url(\\1".WEB_URL.$skin.'/\\2/', $data2);
     // css ของโมดูล
