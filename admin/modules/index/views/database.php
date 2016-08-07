@@ -54,8 +54,12 @@ class View extends \Kotchasan\View
     $content[] = '<div class=item>';
     $content[] = '<table class="responsive database fullwidth"><tbody id=language_tbl>';
     $content[] = '<tr><td class=tablet></td><td colspan=3 class=left><a href="javascript:setSelect(\'language_tbl\',true)">{LNG_Select all}</a>&nbsp;|&nbsp;<a href="javascript:setSelect(\'language_tbl\',false)">{LNG_Clear selectd}</a></td></tr>';
+    $prefix = $model->getSetting('prefix');
+    if ($prefix != '') {
+      $prefix .= '_';
+    }
     foreach ($model->db()->customQuery('SHOW TABLE STATUS', true) as $table) {
-      if (preg_match('/^'.$model->getSetting('prefix').'_(.*?)$/', $table['Name'], $match)) {
+      if (preg_match('/^'.$prefix.'(.*?)$/', $table['Name'], $match)) {
         $tr = '<tr>';
         $tr .= '<th>'.$table['Name'].'</th>';
         $tr .= '<td><label class=nowrap><input type=checkbox name='.$table['Name'].'[] value=sturcture checked>&nbsp;'.$structure.'</label></td>';
