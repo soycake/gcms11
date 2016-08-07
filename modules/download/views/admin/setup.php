@@ -9,7 +9,6 @@
 namespace Download\Admin\Setup;
 
 use \Kotchasan\DataTable;
-use \Kotchasan\Language;
 use \Kotchasan\Date;
 use \Kotchasan\Text;
 
@@ -41,8 +40,8 @@ class View extends \Kotchasan\View
       'perPage' => self::$request->cookie('download_perPage', 30)->toInt(),
       /* ฟิลด์ที่กำหนด (หากแตกต่างจาก Model) */
       'fields' => array(
-        'id',
         'name',
+        'id',
         'ext',
         'detail',
         'size',
@@ -57,7 +56,7 @@ class View extends \Kotchasan\View
       /* ฟังก์ชั่นจัดรูปแบบการแสดงผลแถวของตาราง */
       'onRow' => array($this, 'onRow'),
       /* คอลัมน์ที่ไม่ต้องแสดงผล */
-      'hideColumns' => array('ext', 'id', 'file'),
+      'hideColumns' => array('ext', 'file'),
       /* ตั้งค่าการกระทำของของตัวเลือกต่างๆ ด้านล่างตาราง ซึ่งจะใช้ร่วมกับการขีดถูกเลือกแถว */
       'action' => 'index.php/download/model/admin/setup/action?mid='.$index->module_id,
       'actionCallback' => 'indexActionCallback',
@@ -78,6 +77,9 @@ class View extends \Kotchasan\View
       'headers' => array(
         'name' => array(
           'text' => '{LNG_File Name}'
+        ),
+        'id' => array(
+          'text' => '{LNG_Widget}'
         ),
         'detail' => array(
           'text' => '{LNG_Description}',
@@ -135,6 +137,7 @@ class View extends \Kotchasan\View
    */
   public function onRow($item)
   {
+    $item['id'] = '<em>{WIDGET_DOWNLOAD_'.$item['id'].'}</em>';
     $item['name'] = "<a href='".WEB_URL."$item[file]' target=_blank>$item[name].$item[ext]</a>";
     $item['size'] = Text::formatFileSize($item['size']);
     $item['last_update'] = Date::format($item['last_update'], 'd M Y H:i');

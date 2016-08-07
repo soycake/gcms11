@@ -2793,7 +2793,7 @@ tr.bg2, .tr.bg2 {
   background-color: #F9F9F9;
   background-color: rgba(0,0,0,0.01);
 }
-tr.highlight, tr.select {
+tr:hover, tr.highlight, tr.select {
   background-color: rgba(0,0,0,0.02);
 }
 .border.horiz-table > thead > tr > td,
